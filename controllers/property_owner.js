@@ -1,14 +1,12 @@
-const db = require("../config/database");
+const PropertyOwnerModel = require("../models/property_owner");
 
-exports.getPropertyOwner = (req, res) => {
-  let sql = "SELECT * FROM property_owner";
-  db.query(sql, (err, result) => {
+exports.getPropertyList = (req, res) => {
+  PropertyOwnerModel.getAllPropertyOwner((err, propertyOwner) => {
     if (err) {
       return res.status(400).json({
-        error: "Not Able to fetch!",
+        error: "No Property Owner List is found!",
       });
     }
-    console.log(result);
-    res.json(result);
+    res.json(propertyOwner);
   });
 };
