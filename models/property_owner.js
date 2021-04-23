@@ -42,14 +42,12 @@ var PropertyOwner = (propertyOwner) => {
 
 //Get All Property owner
 PropertyOwner.getAllPropertyOwner = (result) => {
-    dbConn.query('SELECT * FROM property_owner', (err, res) => {
-        if(err) {
-            console.log("Error while fetching property_owner!");
-            result(null, err);
-        }
-        console.log("Great Success while fetch property_owner!");
-        result(null, res);
-    })
-}
+  dbConn.query("SELECT * FROM property_owner", (err, res) => {
+    if (err) {
+      result(null, err);
+    }
+    result(null, res);
+  });
+};
 
 module.exports = PropertyOwner;

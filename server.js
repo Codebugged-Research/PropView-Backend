@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 const propertyOwnerRoutes = require("./routes/property_owner");
+const userRoutes = require("./routes/user");
 
 //Middlewares
 app.use(express.json());
@@ -15,6 +16,7 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use("/api", propertyOwnerRoutes);
+app.use("/api", userRoutes);
 
 //Start a server
 const httpServer = http.createServer(app);

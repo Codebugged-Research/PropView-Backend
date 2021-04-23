@@ -1,6 +1,5 @@
 // Enter array of variables or column name
-var input = [
-];
+var input = [];
 
 //enter object name below
 var objectId = "Object_Id";
