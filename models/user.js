@@ -32,12 +32,21 @@ var User = (user) => {
 
 //Get All Property owner
 User.getAllUsers = (result) => {
-    dbConn.query('SELECT * FROM tbl_users', (err, res) => {
-        if(err) {
-            result(null, err);
-        }
-        result(null, res);
-    })
-}
+  dbConn.query("SELECT * FROM tbl_users", (err, res) => {
+    if (err) {
+      result(null, err);
+    }
+    result(null, res);
+  });
+};
+
+User.findEmail = (email, result) => {
+  dbConn.query("SELECT * FROM tbl_users WHERE official_email=?", email, (err, res) => {
+    if (err) {
+      result(null, err);
+    }
+    result(null, res);
+  });
+};
 
 module.exports = User;
