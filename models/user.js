@@ -1,6 +1,6 @@
 var dbConn = require("../config/database");
 
-var User = (user) => {
+var User = function(user) {
   this.user_id = user.user_id;
   this.parent_id = user.parent_id;
   this.name = user.name;
@@ -41,12 +41,78 @@ User.getAllUsers = (result) => {
 };
 
 User.findEmail = (email, result) => {
-  dbConn.query("SELECT * FROM tbl_users WHERE official_email=?", email, (err, res) => {
+  dbConn.query(
+    "SELECT * FROM tbl_users WHERE official_email=?",
+    email,
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      result(null, res);
+    }
+  );
+};
+
+User.findUserById = (id, result) => {
+  dbConn.query("SELECT * FROM tbl_users WHERE user_id=?", id, (err, res) => {
     if (err) {
       result(null, err);
     }
     result(null, res);
   });
+};
+
+User.findByIdAndUpdate = (id, userReqData, result) => {
+  dbConn.query(
+    "UPDATE tbl_users SET name=?,designation=?,official_email=?,personal_email=?,official_number=?,personal_number=?,local_address=?,permanent_address=?,state=?,city=?,cid,sid=?,ccid=?,ref_name1=?,ref_email1=?,ref_mobile1=?,ref_address1=?,ref_name2=?,ref_email2=?,ref_mobile2=?,ref_address2=?,user_type=?,status=?,added_on=? WHERE user_id=?",
+    [
+      userReqData.name,
+      userReqData.designation,
+      userReqData.official_email,
+      userReqData.personal_email,
+      userReqData.official_number,
+      userReqData.personal_number,
+      userReqData.password,
+      userReqData.local_address,
+      userReqData.permanent_address,
+      userReqData.state,
+      userReqData.city,
+      userReqData.cid,
+      userReqData.sid,
+      userReqData.ccid,
+      userReqData.ref_name1,
+      userReqData.ref_email1,
+      userReqData.ref_mobile1,
+      userReqData.ref_address1,
+      userReqData.ref_name2,
+      userReqData.ref_email2,
+      userReqData.ref_mobile2,
+      userReqData.ref_address2,
+      userReqData.user_type,
+      userReqData.status,
+      userReqData.added_on,
+      id
+    ],
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      result(null, res);
+    }
+  );
+};
+
+User.findUserByUserType = (userType, result) => {
+  dbConn.query(
+    "SELECT * FROM tbl_users WHERE user_type=?",
+    userType,
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      result(null, res);
+    }
+  );
 };
 
 module.exports = User;
