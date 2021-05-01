@@ -2,7 +2,7 @@ var dbConn = require("../config/database");
 
 var Task = function (task) {
   this.task_id = task.task_id;
-  this.category_id = task.category_id;
+  this.category = task.category;
   this.task_name = task.task_name;
   this.task_desc = task.task_desc;
   this.start_date = task.start_date;
@@ -53,9 +53,9 @@ Task.saveTask = (taskReqData, result) => {
 
 Task.findByIdAndUpdate = (task_id, taskReqData, result) => {
   dbConn.query(
-    "UPDATE app_task SET category_id=?, task_name=?, task_desc=?,  start_date=?, start_time=?, assigned_to=?, transferred_to=?,property_ref=?,end_date=?,end_time=?, task_status=?,created_at=?, updated_at=? WHERE task_id=?",
+    "UPDATE app_task SET category=?, task_name=?, task_desc=?,  start_date=?, start_time=?, assigned_to=?, transferred_to=?,property_ref=?,end_date=?,end_time=?, task_status=?,created_at=?, updated_at=? WHERE task_id=?",
     [
-      taskReqData.category_id,
+      taskReqData.category,
       taskReqData.task_name,
       taskReqData.task_desc,
       taskReqData.start_date,
@@ -79,7 +79,7 @@ Task.findByIdAndUpdate = (task_id, taskReqData, result) => {
   );
 };
 
-Task.findByIdAndDelete = (task_category_id, result) => {
+Task.findByIdAndDelete = (task_id, result) => {
   dbConn.query("DELETE app_task WHERE task_id=?", task_id, (err, res) => {
     if (err) {
       result(null, err);
