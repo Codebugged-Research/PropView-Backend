@@ -21,7 +21,7 @@ var Task = function (task) {
 //* Get Task  by task_id
 Task.findTaskById = (task_id, result) => {
   dbConn.query(
-    "SELECT * FROM app_task WHERE task_id=?",
+    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN property_owner ON property_owner.owner_id = app_task.property_ref WHERE task_id=?",
     task_id,
     (err, res) => {
       if (err) {
