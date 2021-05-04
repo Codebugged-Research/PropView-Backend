@@ -1,6 +1,6 @@
 var dbConn = require("../config/database");
 
-var User = function(user) {
+var User = function (user) {
   this.user_id = user.user_id;
   this.parent_id = user.parent_id;
   this.name = user.name;
@@ -41,16 +41,16 @@ User.getAllUsers = (result) => {
 };
 
 User.findEmail = (email, result) => {
-  dbConn.query(
-    "SELECT * FROM tbl_users WHERE official_email=?",
-    email,
-    (err, res) => {
-      if (err) {
-        result(null, err);
+    dbConn.query(
+      "SELECT * FROM tbl_users WHERE official_email=?",
+      email,
+      (err, res) => {
+        if (err) {
+          result(null, err);
+        }
+        result(null, res);
       }
-      result(null, res);
-    }
-  );
+    );
 };
 
 User.findUserById = (id, result) => {
@@ -91,7 +91,7 @@ User.findByIdAndUpdate = (id, userReqData, result) => {
       userReqData.user_type,
       userReqData.status,
       userReqData.added_on,
-      id
+      id,
     ],
     (err, res) => {
       if (err) {
