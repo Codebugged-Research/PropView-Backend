@@ -22,7 +22,8 @@
     "express-validator": "^6.10.0",
     "http": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "node-mysql-nesting": "^0.0.3"
   },
   "devDependencies": {
     "morgan": "^1.10.0",
