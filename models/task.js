@@ -20,14 +20,33 @@ var Task = function (task) {
 
 //* Get Task  by task_id
 Task.findTaskById = (task_id, result) => {
+  var nestingOptions = [
+    {
+      tableName: "app_task",
+      pkey: "task_id",
+      fkeys: [
+        { table: "tbl_users", col: "assigned_to" },
+        { table: "property_owner", col: "property_ref" },
+      ],
+    },
+    { tableName: "tbl_users", pkey: "user_id" },
+    { tableName: "property_owner", pkey: "owner_id" },
+  ];
+
   dbConn.query(
-    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN property_owner ON property_owner.owner_id = app_task.property_ref WHERE task_id=?",
+    {
+      sql:
+        "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN property_owner ON property_owner.owner_id = app_task.property_ref WHERE task_id=?",
+      nestTables: true,
+    },
     task_id,
     (err, res) => {
       if (err) {
         result(null, err);
+      } else {
+        var nestedRows = func.convertToNested(res, nestingOptions);
+        result(null, nestedRows);
       }
-      result(null, res);
     }
   );
 };
@@ -35,24 +54,24 @@ Task.findTaskById = (task_id, result) => {
 //* Get All Task  by task_id
 Task.findTask = (result) => {
   var sql =
-      "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN property_owner ON property_owner.owner_id = app_task.property_ref";
-    var options = { sql: sql, nestTables: true };
-    var nestingOptions = [
-      {
-        tableName: "app_task",
-        pkey: "task_id",
-        fkeys: [
-          { table: "tbl_users", col: "assigned_to" },
-          { table: "property_owner", col: "property_ref" },
-        ],
-      },
-      { tableName: "tbl_users", pkey: "user_id" },
-      { tableName: "property_owner", pkey: "owner_id" },
-    ];
-  dbConn.query(options, (err, res) => {
+    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN property_owner ON property_owner.owner_id = app_task.property_ref";
+  var options = { sql: sql, nestTables: true };
+  var nestingOptions = [
+    {
+      tableName: "app_task",
+      pkey: "task_id",
+      fkeys: [
+        { table: "tbl_users", col: "assigned_to" },
+        { table: "property_owner", col: "property_ref" },
+      ],
+    },
+    { tableName: "tbl_users", pkey: "user_id" },
+    { tableName: "property_owner", pkey: "owner_id" },
+  ];
+  dbConn.query(options, task_id, (err, res) => {
     if (err) {
       result(null, err);
-    }else{
+    } else {
       var nestedRows = func.convertToNested(res, nestingOptions);
       result(null, nestedRows);
     }
