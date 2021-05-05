@@ -12,7 +12,7 @@ exports.createPropertyOwner = (req, res) => {
       }
       return res.json({
         success: "true",
-        data: propertyOwner,
+        data: { propertyOwner },
       });
     }
   );
@@ -25,7 +25,12 @@ exports.getPropertyList = (req, res) => {
         error: "No Property Owner List is found!",
       });
     }
-    res.json(propertyOwner);
+    res.json({
+      count: propertyOwner.length,
+      data: {
+        propertyOwner,
+      },
+    });
   });
 };
 
@@ -38,7 +43,12 @@ exports.getPropertyByOwnerId = (req, res) => {
           error: "No Property Owner List is found!",
         });
       }
-      res.json(propertyOwner[0]);
+      res.json({
+        count: propertyOwner.length,
+        data: {
+          propertyOwner,
+        },
+      });
     }
   );
 };
