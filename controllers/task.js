@@ -22,7 +22,10 @@ exports.getAllTask = (req, res) => {
         error: "No Task List is found!",
       });
     }
-    res.json(task);
+    res.json({
+      count: task.length,
+      data: { task },
+    });
   });
 };
 
@@ -44,7 +47,10 @@ exports.getAllTaskByUser = (req, res) => {
         error: "No Task List is found!",
       });
     }
-    res.json(task);
+    res.json({
+      count: task.length,
+      data: { task },
+    });
   });
 };
 
