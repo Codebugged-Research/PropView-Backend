@@ -19,7 +19,7 @@ exports.getAllTask = (req, res) => {
   TaskModel.findTask((err, task) => {
     if (err) {
       return res.status(400).json({
-        error: "No Task Category List is found!",
+        error: "No Task List is found!",
       });
     }
     res.json(task);
@@ -30,10 +30,21 @@ exports.getTask = (req, res) => {
   TaskModel.findTaskById(req.params.task_id, (err, task) => {
     if (err) {
       return res.status(400).json({
-        error: "No Task Category List is found!",
+        error: "No Task List is found!",
       });
     }
     res.json(task[0]);
+  });
+};
+
+exports.getAllTaskByUser = (req, res) => {
+  TaskModel.findTaskByUser(req.params.assigned_to, (err, task) => {
+    if (err) {
+      return res.status(400).json({
+        error: "No Task List is found!",
+      });
+    }
+    res.json(task);
   });
 };
 

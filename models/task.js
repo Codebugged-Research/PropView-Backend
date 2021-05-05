@@ -18,6 +18,16 @@ var Task = function (task) {
   this.updated_at = task.updated_at;
 };
 
+//* Create Task
+Task.saveTask = (taskReqData, result) => {
+  dbConn.query("INSERT INTO app_task SET ?", taskReqData, (err, res) => {
+    if (err) {
+      result(null, err);
+    }
+    result(null, res);
+  });
+};
+
 //* Get Task  by task_id
 Task.findTaskById = (task_id, result) => {
   var nestingOptions = [
@@ -51,7 +61,7 @@ Task.findTaskById = (task_id, result) => {
   );
 };
 
-//* Get All Task  by task_id
+//* Get All Task
 Task.findTask = (result) => {
   var sql =
     "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN property_owner ON property_owner.owner_id = app_task.property_ref";
@@ -68,7 +78,7 @@ Task.findTask = (result) => {
     { tableName: "tbl_users", pkey: "user_id" },
     { tableName: "property_owner", pkey: "owner_id" },
   ];
-  dbConn.query(options, task_id, (err, res) => {
+  dbConn.query(options, (err, res) => {
     if (err) {
       result(null, err);
     } else {
@@ -78,16 +88,34 @@ Task.findTask = (result) => {
   });
 };
 
-//* Create Task
-Task.saveTask = (taskReqData, result) => {
-  dbConn.query("INSERT INTO app_task SET ?", taskReqData, (err, res) => {
+//* Get Task by assigned_to
+Task.findTaskByUser = (assigned_to, result) => {
+  var sql =
+    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN property_owner ON property_owner.owner_id = app_task.property_ref WHERE assigned_to=?";
+  var options = { sql: sql, nestTables: true, };
+  var nestingOptions = [
+    {
+      tableName: "app_task",
+      pkey: "task_id",
+      fkeys: [
+        { table: "tbl_users", col: "assigned_to" },
+        { table: "property_owner", col: "property_ref" },
+      ],
+    },
+    { tableName: "tbl_users", pkey: "user_id" },
+    { tableName: "property_owner", pkey: "owner_id" },
+  ];
+  dbConn.query(options, assigned_to, (err, res) => {
     if (err) {
       result(null, err);
+    } else {
+      var nestedRows = func.convertToNested(res, nestingOptions);
+      result(null, nestedRows);
     }
-    result(null, res);
   });
 };
 
+//* Update Task by task_id
 Task.findByIdAndUpdate = (task_id, taskReqData, result) => {
   dbConn.query(
     "UPDATE app_task SET category=?, task_name=?, task_desc=?,  start_date=?, start_time=?, assigned_to=?, transferred_to=?,property_ref=?,end_date=?,end_time=?, task_status=?,created_at=?, updated_at=? WHERE task_id=?",
@@ -116,6 +144,7 @@ Task.findByIdAndUpdate = (task_id, taskReqData, result) => {
   );
 };
 
+//* Delete Task by task_id
 Task.findByIdAndDelete = (task_id, result) => {
   dbConn.query("DELETE app_task WHERE task_id=?", task_id, (err, res) => {
     if (err) {
