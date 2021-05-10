@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
-const morgan = require("morgan");
+require("./config/firebase");
 const http = require("http");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -13,6 +13,7 @@ const userRoutes = require("./routes/user");
 const propertyOwnerRoutes = require("./routes/property_owner");
 const taskCategoryRoutes = require("./routes/task_category");
 const taskRoutes = require("./routes/task");
+const notificationRoutes = require("./routes/notification");
 
 //Middlewares
 app.use(express.json());
@@ -24,6 +25,7 @@ app.use("/api", userRoutes);
 app.use("/api", propertyOwnerRoutes);
 app.use("/api", taskCategoryRoutes);
 app.use("/api", taskRoutes);
+app.use("/api", notificationRoutes);
 
 //Start a server
 const httpServer = http.createServer(app);
