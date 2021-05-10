@@ -1,6 +1,8 @@
 var dbConn = require("../config/database");
 var func = require("node-mysql-nesting");
 
+// Approved/NotApproved/Completed
+
 var Task = function (task) {
   this.task_id = task.task_id;
   this.category = task.category;
@@ -8,7 +10,6 @@ var Task = function (task) {
   this.task_desc = task.task_desc;
   this.start_dateTime = task.start_dateTime;
   this.assigned_to = task.assigned_to;
-  this.transferred_to = task.transferred_to;
   this.property_ref = task.property_ref;
   this.end_dateTime = task.end_dateTime;
   this.task_status = task.task_status;
@@ -123,7 +124,6 @@ Task.findByIdAndUpdate = (task_id, taskReqData, result) => {
       taskReqData.task_desc,
       taskReqData.start_dateTime,
       taskReqData.assigned_to,
-      taskReqData.transferred_to,
       taskReqData.property_ref,
       taskReqData.end_dateTime,
       taskReqData.task_status,
