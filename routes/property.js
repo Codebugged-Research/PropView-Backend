@@ -8,7 +8,7 @@ router.post("/property/create", Property.createProperty);
 //Get Property by PropertyId
 router.get("property/:property_id", Property.getPropertyByPropertyId);
 //Get Property by OwnerId
-router.get("property/:owner_id", Property.getPropertyByOwnerId);
+router.get("property/owner/:owner_id", Property.getPropertyByOwnerId);
 //Get All Properties
 router.get("properties/", Property.getProperties);
 //Update Properties
