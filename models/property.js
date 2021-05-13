@@ -245,3 +245,5 @@ Property.findByIdAndDelete = (propertyId, result) => {
     }
   );
 };
+
+module.exports = Property;
