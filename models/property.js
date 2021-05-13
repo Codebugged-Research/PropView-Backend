@@ -221,7 +221,7 @@ Property.findByIdAndUpdate = (propertyId, propertyReqData, result) => {
       propertyReqData.builtup_area,
       propertyReqData.builtup_area_prefix,
       propertyReqData.lockin,
-      propertyId
+      propertyId,
     ],
     (err, res) => {
       if (err) {
