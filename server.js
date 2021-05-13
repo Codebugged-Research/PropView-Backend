@@ -10,6 +10,7 @@ const cors = require("cors");
 
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
+const propertyRoutes = require("./routes/property");
 const propertyOwnerRoutes = require("./routes/property_owner");
 const taskCategoryRoutes = require("./routes/task_category");
 const taskRoutes = require("./routes/task");
@@ -22,6 +23,7 @@ app.use(cors());
 
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
+app.use("/api", propertyRoutes);
 app.use("/api", propertyOwnerRoutes);
 app.use("/api", taskCategoryRoutes);
 app.use("/api", taskRoutes);

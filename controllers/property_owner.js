@@ -43,7 +43,7 @@ exports.getPropertyByOwnerId = (req, res) => {
           error: "No Property Owner List is found!",
         });
       }
-      res.json({
+      return res.json({
         count: propertyOwner.length,
         data: {
           propertyOwner,
