@@ -9,7 +9,7 @@ exports.oneUser = (req, res) => {
   };
   var options = {
     priority: "high",
-    timeToLive: 60 * 60 * 4,
+    timeToLive: 60 * 60 * 24,
   };
   admin
     .messaging()
@@ -34,7 +34,7 @@ exports.allUser = (req, res) => {
     },
   };
 
-  var topic = "quiz";
+  var topic = "propview";
 
   admin
     .messaging()
