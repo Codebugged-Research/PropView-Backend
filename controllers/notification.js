@@ -6,6 +6,7 @@ exports.oneUser = (req, res) => {
       title: req.body.title,
       body: req.body.message,
     },
+    data: req.body.data
   };
   var options = {
     priority: "high",
