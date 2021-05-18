@@ -123,7 +123,7 @@ Task.findTaskByUser = (assigned_to, result) => {
 //* Update Task by task_id
 Task.findByIdAndUpdate = (task_id, taskReqData, result) => {
   dbConn.query(
-    "UPDATE app_task SET category=?, task_name=?, task_desc=?,  start_dateTime=?, assigned_to=?, transferred_to=?,property_ref=?,end_dateTime=?,task_status=?,created_at=?, updated_at=? WHERE task_id=?",
+    "UPDATE app_task SET category=?, task_name=?, task_desc=?,  start_dateTime=?, assigned_to=?, property_ref=?,end_dateTime=?,task_status=?,created_at=?, updated_at=? WHERE task_id=?",
     [
       taskReqData.category,
       taskReqData.task_name,
