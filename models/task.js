@@ -36,16 +36,17 @@ Task.findTaskById = (task_id, result) => {
       fkeys: [
         { table: "tbl_users", col: "assigned_to" },
         { table: "tableproperty", col: "property_ref" },
+        { table: "property_owner", col: "property_owner_ref" },
       ],
     },
     { tableName: "tbl_users", pkey: "user_id" },
     { tableName: "tableproperty", pkey: "property_id" },
+    { tableName: "property_owner", pkey: "owner_id" },
   ];
 
   dbConn.query(
     {
-      sql:
-        "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref WHERE task_id=?",
+      sql: "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref WHERE task_id=?",
       nestTables: true,
     },
     task_id,
@@ -63,7 +64,7 @@ Task.findTaskById = (task_id, result) => {
 //* Get All Task
 Task.findTask = (result) => {
   var sql =
-    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref";
+    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref";
   var options = { sql: sql, nestTables: true };
   var nestingOptions = [
     {
@@ -72,10 +73,13 @@ Task.findTask = (result) => {
       fkeys: [
         { table: "tbl_users", col: "assigned_to" },
         { table: "tableproperty", col: "property_ref" },
+        { table: "property_owner", col: "property_owner_ref" },
+
       ],
     },
     { tableName: "tbl_users", pkey: "user_id" },
     { tableName: "tableproperty", pkey: "property_id" },
+    { tableName: "property_owner", pkey: "owner_id" },
   ];
   dbConn.query(options, (err, res) => {
     if (err) {
@@ -90,8 +94,8 @@ Task.findTask = (result) => {
 //* Get Task by assigned_to
 Task.findTaskByUser = (assigned_to, result) => {
   var sql =
-    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref WHERE assigned_to=?";
-  var options = { sql: sql, nestTables: true, };
+    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref WHERE assigned_to=?";
+  var options = { sql: sql, nestTables: true };
   var nestingOptions = [
     {
       tableName: "app_task",
@@ -99,10 +103,12 @@ Task.findTaskByUser = (assigned_to, result) => {
       fkeys: [
         { table: "tbl_users", col: "assigned_to" },
         { table: "tableproperty", col: "property_ref" },
+        { table: "property_owner", col: "property_owner_ref" },
       ],
     },
     { tableName: "tbl_users", pkey: "user_id" },
     { tableName: "tableproperty", pkey: "property_id" },
+    { tableName: "property_owner", pkey: "owner_id" },
   ];
   dbConn.query(options, assigned_to, (err, res) => {
     if (err) {
