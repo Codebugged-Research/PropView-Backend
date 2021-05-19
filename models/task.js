@@ -11,6 +11,7 @@ var Task = function (task) {
   this.start_dateTime = task.start_dateTime;
   this.assigned_to = task.assigned_to;
   this.property_ref = task.property_ref;
+  this.property_owner_ref = task.property_owner_ref;
   this.end_dateTime = task.end_dateTime;
   this.task_status = task.task_status;
   this.created_at = task.created_at;
