@@ -11,6 +11,7 @@ router.get("/property/:property_id", Property.getPropertyByPropertyId);
 router.get("/property/owner/:owner_id", Property.getPropertyByOwnerId);
 //Get All Properties
 router.get("/properties/", Property.getProperties);
+
 //Update Properties
 router.put("/property/update/:property_id", Property.updateProperty);
 //Delete Properties

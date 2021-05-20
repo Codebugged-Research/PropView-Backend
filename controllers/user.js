@@ -22,6 +22,17 @@ exports.getUserById = (req, res) => {
   });
 };
 
+exports.getDeviceTokenbyUserId = (req, res) => {
+  UserModel.findDeviceTokenByUserId(req.params.user_id, (err, user) => {
+    if (err) {
+      return res.status(400).json({
+        error: "No Users is found with this ID!",
+      });
+    }
+    res.json(user[0]);
+  });
+};
+
 exports.updateUserById = (req, res) => {
   const userReqData = new UserModel(req.body);
   UserModel.findByIdAndUpdate(req.params.id, userReqData, (err, user) => {
@@ -44,5 +55,5 @@ exports.getUserByUserType = (req, res) => {
       });
     }
     res.json(user);
-  })
-}
+  });
+};

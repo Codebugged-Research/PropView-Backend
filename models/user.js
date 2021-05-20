@@ -41,16 +41,16 @@ User.getAllUsers = (result) => {
 };
 
 User.findEmail = (email, result) => {
-    dbConn.query(
-      "SELECT * FROM tbl_users WHERE official_email=?",
-      email,
-      (err, res) => {
-        if (err) {
-          result(null, err);
-        }
-        result(null, res);
+  dbConn.query(
+    "SELECT * FROM tbl_users WHERE official_email=?",
+    email,
+    (err, res) => {
+      if (err) {
+        result(null, err);
       }
-    );
+      result(null, res);
+    }
+  );
 };
 
 User.findUserById = (id, result) => {
@@ -60,6 +60,19 @@ User.findUserById = (id, result) => {
     }
     result(null, res);
   });
+};
+
+User.findDeviceTokenByUserId = (id, result) => {
+  dbConn.query(
+    "SELECT device_token FROM tbl_users WHERE user_id=?",
+    id,
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      result(null, res);
+    }
+  );
 };
 
 User.findByIdAndUpdate = (id, userReqData, result) => {
