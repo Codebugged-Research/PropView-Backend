@@ -77,7 +77,7 @@ exports.getProperties = (req, res) => {
           error: "No Properties found",
         });
       }
-      res.json({
+      return res.json({
         count: property.length,
         data: {
           property,
@@ -90,6 +90,30 @@ exports.getProperties = (req, res) => {
     });
   }
 };
+
+//Get All User Property
+exports.getAllUserProperty = (req, res) => {
+  try {
+    Property.findAllUserProperty(req.params.user_id, (err, property) => {
+      if (err) {
+        return res.status(400).json({
+          error: "No Properties found",
+        });
+      }
+      return res.json({
+        count: property.length,
+        data: {
+          property,
+        },
+      });
+    });
+  } catch (e) {
+    return res.status(400).json({
+      error: "Something went wrong!",
+    });
+  }
+};
+
 //Update Properties
 exports.updateProperty = (req, res) => {
   const propertyReqData = Property(req.body);

@@ -31,7 +31,7 @@ exports.allUser = (req, res) => {
   var payload = {
     notification: {
       title: "Update !",
-      body: `"${req.body.quizname}" has been added.`,
+      body: `"${req.body.message}" has been added.`,
     },
   };
 

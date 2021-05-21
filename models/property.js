@@ -135,6 +135,19 @@ Property.findAllProperty = (result) => {
   });
 };
 
+Property.findAllUserProperty = (userId, result) => {
+  dbConn(
+    "SELECT * FROM tableproperty WHERE FIND_IN_SET(property_id, (SELECT property_id from tbl_user_to_property where user_id=?))",
+    userId,
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      result(null, res);
+    }
+  );
+};
+
 //Update Properties
 Property.findByIdAndUpdate = (propertyId, propertyReqData, result) => {
   dbConn.query(
