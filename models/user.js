@@ -28,6 +28,7 @@ var User = function (user) {
   this.user_type = user.user_type;
   this.status = user.status;
   this.added_on = user.added_on;
+  this.device_token = user.device_token;
 };
 
 //Get All Property owner
@@ -77,7 +78,7 @@ User.findDeviceTokenByUserId = (id, result) => {
 
 User.findByIdAndUpdate = (id, userReqData, result) => {
   dbConn.query(
-    "UPDATE tbl_users SET name=?,designation=?,official_email=?,personal_email=?,official_number=?,personal_number=?,local_address=?,permanent_address=?,state=?,city=?,cid,sid=?,ccid=?,ref_name1=?,ref_email1=?,ref_mobile1=?,ref_address1=?,ref_name2=?,ref_email2=?,ref_mobile2=?,ref_address2=?,user_type=?,status=?,added_on=? WHERE user_id=?",
+    "UPDATE tbl_users SET name=?,designation=?,official_email=?,personal_email=?,official_number=?,personal_number=?,local_address=?,permanent_address=?,state=?,city=?,cid,sid=?,ccid=?,ref_name1=?,ref_email1=?,ref_mobile1=?,ref_address1=?,ref_name2=?,ref_email2=?,ref_mobile2=?,ref_address2=?,user_type=?,status=?,added_on=?,device_token=? WHERE user_id=?",
     [
       userReqData.name,
       userReqData.designation,
@@ -104,6 +105,7 @@ User.findByIdAndUpdate = (id, userReqData, result) => {
       userReqData.user_type,
       userReqData.status,
       userReqData.added_on,
+      userReqData.device_token,
       id,
     ],
     (err, res) => {
