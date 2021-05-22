@@ -86,7 +86,6 @@ User.findByIdAndUpdate = (id, userReqData, result) => {
       userReqData.personal_email,
       userReqData.official_number,
       userReqData.personal_number,
-      userReqData.password,
       userReqData.local_address,
       userReqData.permanent_address,
       userReqData.state,
