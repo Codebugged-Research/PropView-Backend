@@ -4,8 +4,10 @@
   "description": "Backend for PropView",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "production": "pm2 start server.js",
+    "restart": "pm2 restart server.js",
+    "stop": "pm2 stop server.js"
   },
   "keywords": [
     "Sambit"
@@ -24,7 +26,9 @@
     "http": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
-    "node-mysql-nesting": "^0.0.3"
+    "node-mysql-nesting": "^0.0.3",
+    "redis": "^3.1.2",
+    "redis-json": "^6.0.0"
   },
   "devDependencies": {
     "morgan": "^1.10.0",

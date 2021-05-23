@@ -1,5 +1,14 @@
 # PropView-Backend
 
+## How to Start/Restart/Stop Server
+
+### In Localhost
+> npm run dev
+
+### In Server
+> npm run production
+> npm run restart
+> npm run stop
 
 # Mysql constructor generator 
 -> open the cg.js file iside the config folder .<br>

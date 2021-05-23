@@ -116,6 +116,19 @@ User.findByIdAndUpdate = (id, userReqData, result) => {
   );
 };
 
+User.updateDeviceToken = (id, device_token, result) => {
+  dbConn.query(
+    "UPDATE tbl_users SET device_token=? WHERE tbl_users.user_id=?",
+    [device_token, id],
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      result(null, res);
+    }
+  );
+};
+
 User.findUserByUserType = (userType, result) => {
   dbConn.query(
     "SELECT * FROM tbl_users WHERE user_type=?",

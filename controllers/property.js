@@ -1,4 +1,6 @@
 const Property = require("../models/property");
+const redis = require("redis");
+const client = redis.createClient(process.env.REDIS_PORT);
 
 //Create Property
 exports.createProperty = (req, res) => {
@@ -68,6 +70,7 @@ exports.getPropertyByOwnerId = (req, res) => {
     });
   }
 };
+
 //Get All Properties
 exports.getProperties = (req, res) => {
   try {
@@ -77,6 +80,7 @@ exports.getProperties = (req, res) => {
           error: "No Properties found",
         });
       }
+      client.setex("propertyData", 3600, JSON.stringify(property));
       return res.json({
         count: property.length,
         data: {
