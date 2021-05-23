@@ -32,8 +32,11 @@ app.use("/api", taskRoutes);
 app.use("/api", notificationRoutes);
 
 //Start a server
+
+const PORT = process.env.PORT;
+
 const httpServer = http.createServer(app);
-httpServer.listen(process.env.PORT, () => {
+httpServer.listen(PORT, () => {
   console.log(`HTTP Server running on port ${PORT}`);
 });
 
