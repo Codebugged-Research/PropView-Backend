@@ -33,8 +33,8 @@ app.use("/api", notificationRoutes);
 
 //Start a server
 const httpServer = http.createServer(app);
-httpServer.listen(80, () => {
-  console.log("HTTP Server running on port 80");
+httpServer.listen(process.env.PORT, () => {
+  console.log(`HTTP Server running on port ${PORT}`);
 });
 
 app.get("/", (req, res) => {
