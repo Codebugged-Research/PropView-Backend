@@ -1,7 +1,5 @@
 const express = require("express");
 var router = express();
-const redis = require("redis");
-const client = redis.createClient(process.env.REDIS_PORT);
 
 const Property = require("../controllers/property");
 
