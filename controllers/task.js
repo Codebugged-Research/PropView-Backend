@@ -54,6 +54,20 @@ exports.getAllTaskByUser = (req, res) => {
   });
 };
 
+exports.getAllTaskByManger = (req, res) => {
+  TaskModel.findEmployeeTaskByManager(req.params.id, (err, task) => {
+    if (err) {
+      return res.status(400).json({
+        error: "No Task List is found!",
+      });
+    }
+    res.json({
+      count: task.length,
+      data: { task },
+    });
+  });
+};
+
 exports.updateTaskById = (req, res) => {
   const taskReqData = new TaskModel(req.body);
   TaskModel.findByIdAndUpdate(req.params.task_id, taskReqData, (err, task) => {
