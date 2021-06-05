@@ -26,4 +26,7 @@ router.put("/property/update/:property_id", Property.updateProperty);
 //Delete Properties
 router.delete("/property/delete/:property_id", Property.deleteProperty);
 
+//get Society name by id
+router.get("/property/society/:id", Property.getSociety);
+
 module.exports = router;

@@ -1,7 +1,7 @@
 const Property = require("../models/property");
 const redis = require("redis");
 const client = redis.createClient(process.env.REDIS_PORT);
-
+var dbConn = require("../config/database");
 //Create Property
 exports.createProperty = (req, res) => {
   const propertyReqData = Property(req.body);
@@ -164,3 +164,19 @@ exports.deleteProperty = (req, res) => {
     });
   }
 };
+
+exports.getSociety = (req,res)=>{
+  // SELECT socname from tbl_society where socid = 119
+  dbConn.query(
+    "SELECT socname from tbl_society where socid = ?",
+    req.params.id,
+    (err, result) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Something went wrong!",
+        });
+      }
+      res.json(result);
+    }
+  );
+}
