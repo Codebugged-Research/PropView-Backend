@@ -15,7 +15,7 @@ router.get("/property/:property_id", Property.getPropertyByPropertyId);
 router.get("/property/owner/:owner_id", Property.getPropertyByOwnerId);
 
 //Get All User Property
-router.get("/properties/owner/:user_id", Property.getAllUserProperty);
+router.get("/properties/user/:user_id", Property.getAllUserProperty);
 
 //Get All Property
 router.get("/properties/", propertyCache, Property.getProperties);
