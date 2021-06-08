@@ -97,9 +97,10 @@ exports.getProperties = (req, res) => {
 
 //Get All User Property
 exports.getAllUserProperty = (req, res) => {
-  try {
+  // try {
     Property.findAllUserProperty(req.params.user_id, (err, property) => {
       if (err) {
+        console.log(err)
         return res.status(400).json({
           error: "No Properties found",
         });
@@ -111,11 +112,11 @@ exports.getAllUserProperty = (req, res) => {
         },
       });
     });
-  } catch (e) {
-    return res.status(400).json({
-      error: "Something went wrong!",
-    });
-  }
+  // } catch (e) {
+  //   return res.status(400).json({
+  //     error: "Something went wrong!",
+  //   });
+  // }
 };
 
 //Update Properties

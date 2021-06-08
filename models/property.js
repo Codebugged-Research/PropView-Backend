@@ -220,7 +220,7 @@ Property.findAllUserProperty = (userId, result) => {
     { tableName: "tbl_locality", pkey: "locid" },
     { tableName: "tbl_society", pkey: "socid" },
   ];
-  dbConn(
+  dbConn.query(
     {
       sql: "SELECT * FROM tableproperty JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid WHERE FIND_IN_SET(property_id, (SELECT property_id from tbl_user_to_property where user_id=?))",
       nestTables: true,
