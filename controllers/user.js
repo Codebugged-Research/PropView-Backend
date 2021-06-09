@@ -83,3 +83,14 @@ exports.getUserByUserType = (req, res) => {
     res.json(user);
   });
 };
+
+exports.getUsersByMangerID = (req, res) => {
+  UserModel.findUsersByManger(req.params.id, (err, users) => {
+    if (err) {
+      return res.status(400).json({
+        error: "No Users is found with this ID!",
+      });
+    }
+    res.json(users);
+  });
+};

@@ -142,4 +142,17 @@ User.findUserByUserType = (userType, result) => {
   );
 };
 
+User.findUsersByManger = (id, result) => {
+  dbConn.query(
+    "SELECT * FROM tbl_users WHERE parent_id=?",
+    id,
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      result(null, res);
+    }
+  );
+};
+
 module.exports = User;
