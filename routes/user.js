@@ -9,7 +9,7 @@ router.get("/user/:user_id", User.getUserById);
 // Get User by user_type
 router.post("/user/usertype", User.getUserByUserType);
 // Get User by user_type
-router.post("/user/manager/:id", User.getUsersByMangerID);
+router.get("/user/manager/:id", User.getUsersByMangerID);
 
 //Get Device Token By User id
 router.get("/user/deviceToken/:user_id", User.getDeviceTokenbyUserId);
