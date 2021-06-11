@@ -94,3 +94,17 @@ exports.getUsersByMangerID = (req, res) => {
     res.json(users);
   });
 };
+
+// exports.updateUserPassword = (req, res) => {
+//   const { newPassword, currentPassword } = req.body;
+//   UserModel.findUserById(req.params.user_id, (err, user) => {
+//     if (err) {
+//       return res.status(400).json({
+//         error: "No Users is found with this ID!",
+//       });
+//     }
+//     if(user[0].password === currentPassword) {
+
+//     } else {}
+//   });
+// };
