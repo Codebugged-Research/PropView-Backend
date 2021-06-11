@@ -181,3 +181,20 @@ exports.getSociety = (req,res)=>{
     }
   );
 }
+
+exports.getCountry= (req,res)=>{
+  // SELECT socname from tbl_society where socid = 119
+  dbConn.query(
+    "SELECT cname from tbl_country where cid = ?",
+    req.params.id,
+    (err, result) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Something went wrong!",
+        });
+      }
+      res.json(result);
+    }
+  );
+}
+

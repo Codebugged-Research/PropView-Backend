@@ -28,5 +28,7 @@ router.delete("/property/delete/:property_id", Property.deleteProperty);
 
 //get Society name by id
 router.get("/property/society/:id", Property.getSociety);
+//get Society name by id
+router.get("/property/country/:id", Property.getCountry);
 
 module.exports = router;
