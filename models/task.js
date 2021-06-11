@@ -65,7 +65,7 @@ Task.findTaskById = (task_id, result) => {
 //* Get All Task
 Task.findTask = (result) => {
   var sql =
-    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref";
+    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref ORDER BY created_at DESC";
   var options = { sql: sql, nestTables: true };
   var nestingOptions = [
     {
@@ -75,7 +75,6 @@ Task.findTask = (result) => {
         { table: "tbl_users", col: "assigned_to" },
         { table: "tableproperty", col: "property_ref" },
         { table: "property_owner", col: "property_owner_ref" },
-
       ],
     },
     { tableName: "tbl_users", pkey: "user_id" },
@@ -95,7 +94,7 @@ Task.findTask = (result) => {
 //* Get Task by assigned_to
 Task.findTaskByUser = (assigned_to, result) => {
   var sql =
-    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref WHERE assigned_to=?";
+    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref ORDER BY created_at DESC WHERE assigned_to=?";
   var options = { sql: sql, nestTables: true };
   var nestingOptions = [
     {
@@ -124,7 +123,7 @@ Task.findTaskByUser = (assigned_to, result) => {
 //* find task by manger id
 Task.findEmployeeTaskByManager = (id, result) => {
   var sql =
-  "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref WHERE app_task.assigned_to IN (SELECT user_id FROM tbl_users WHERE parent_id = ?)";
+    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref ORDER BY created_at DESC WHERE app_task.assigned_to IN (SELECT user_id FROM tbl_users WHERE parent_id = ?)";
   var options = { sql: sql, nestTables: true };
   var nestingOptions = [
     {
