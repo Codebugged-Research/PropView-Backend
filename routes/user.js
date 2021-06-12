@@ -21,8 +21,6 @@ router.put("/user/update/:user_id", User.updateUserById);
 //Update Device Token
 router.put("/user/update/deviceToken/:user_id", User.updateUserDeviceToken);
 
-//Update Password
-router.put("/user/update/password/:user_id", User.updateUserPassword);
 
 //Get All Users
 router.get("/users", User.getUserList);

@@ -7,6 +7,7 @@ router.post("/task/create", Task.createTask);
 router.get("/task/:task_id", Task.getTask);
 router.get("/tasks", Task.getAllTask);
 router.get("/task/user/:assigned_to", Task.getAllTaskByUser);
+router.get("/task/pending/:assigned_to", Task.getPendingTaskByUserId);
 router.get("/task/manager/:id", Task.getAllTaskByManger);
 router.put("/task/update/:task_id", Task.updateTaskById);
 router.delete("/task/delete/:task_id", Task.deleteTaskById);

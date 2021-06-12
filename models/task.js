@@ -62,6 +62,36 @@ Task.findTaskById = (task_id, result) => {
   );
 };
 
+//* Get Task  by assigned_to - Pending
+Task.findPendingTaskByUser = (assigned_to, result) => {
+  var sql =
+    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref WHERE assigned_to=? AND task_status='Pending' ORDER BY created_at DESC";
+  var options = { sql: sql, nestTables: true };
+  var nestingOptions = [
+    {
+      tableName: "app_task",
+      pkey: "task_id",
+      fkeys: [
+        { table: "tbl_users", col: "assigned_to" },
+        { table: "tableproperty", col: "property_ref" },
+        { table: "property_owner", col: "property_owner_ref" },
+      ],
+    },
+    { tableName: "tbl_users", pkey: "user_id" },
+    { tableName: "tableproperty", pkey: "property_id" },
+    { tableName: "property_owner", pkey: "owner_id" },
+  ];
+  dbConn.query(options, assigned_to, (err, res) => {
+    if (err) {
+      console.log(err);
+      result(null, err);
+    } else {
+      var nestedRows = func.convertToNested(res, nestingOptions);
+      result(null, nestedRows);
+    }
+  });
+};
+
 //* Get All Task
 Task.findTask = (result) => {
   var sql =
@@ -94,7 +124,7 @@ Task.findTask = (result) => {
 //* Get Task by assigned_to
 Task.findTaskByUser = (assigned_to, result) => {
   var sql =
-    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref ORDER BY created_at DESC WHERE assigned_to=?";
+    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref WHERE assigned_to=? ORDER BY created_at DESC";
   var options = { sql: sql, nestTables: true };
   var nestingOptions = [
     {

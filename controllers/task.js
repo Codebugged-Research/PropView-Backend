@@ -68,6 +68,20 @@ exports.getAllTaskByManger = (req, res) => {
   });
 };
 
+exports.getPendingTaskByUserId = (req, res) => {
+  TaskModel.findPendingTaskByUser(req.params.assigned_to, (err, task) => {
+    if (err) {
+      return res.status(400).json({
+        error: "No Task List is found!",
+      });
+    }
+    res.json({
+      count: task.length,
+      data: { task },
+    });
+  });
+};
+
 exports.updateTaskById = (req, res) => {
   const taskReqData = new TaskModel(req.body);
   TaskModel.findByIdAndUpdate(req.params.task_id, taskReqData, (err, task) => {
