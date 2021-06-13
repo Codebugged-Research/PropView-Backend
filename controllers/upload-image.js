@@ -22,7 +22,6 @@ exports.uploadImage = (req, res) => {
       bucket: "propview/User",
       acl: "public-read",
       key: function (request, file, cb) {
-        console.log(file);
         cb(null, file.originalname);
       },
     }),
