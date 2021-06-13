@@ -34,7 +34,5 @@ exports.uploadImage = (req, res) => {
       });
     }
     res.json({ message: "success" });
-
-    response.redirect("/success");
   });
 };
