@@ -16,6 +16,7 @@ const userPropertyRoutes = require("./routes/user_property");
 const taskCategoryRoutes = require("./routes/task_category");
 const taskRoutes = require("./routes/task");
 const notificationRoutes = require("./routes/notification");
+const uploadImageRoutes = require("./routes/upload-image");
 
 //Middlewares
 app.use(express.json());
@@ -30,6 +31,7 @@ app.use("/api", userPropertyRoutes);
 app.use("/api", taskCategoryRoutes);
 app.use("/api", taskRoutes);
 app.use("/api", notificationRoutes);
+app.use("/api", uploadImageRoutes);
 
 //Start a server
 

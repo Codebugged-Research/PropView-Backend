@@ -15,6 +15,7 @@
   "author": "Sayan Nath",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.927.0",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
@@ -27,7 +28,8 @@
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "node-mysql-nesting": "^0.0.3",
-    "redis": "^3.1.2"
+    "redis": "^3.1.2",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "morgan": "^1.10.0",
