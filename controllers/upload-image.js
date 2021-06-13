@@ -11,7 +11,7 @@ const {
 
 exports.uploadImage = (req, res) => {
   const spacesEndpoint = new aws.Endpoint(BUCKET_ENDPOINT);
-  const s3 = new AWS.S3({
+  const s3 = new aws.S3({
     endpoint: spacesEndpoint,
     accessKeyId: BUCKET_ACCESS_KEY,
     secretAccessKey: BUCKET_SECRET_KEY,
