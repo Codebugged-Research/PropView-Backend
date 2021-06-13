@@ -1,50 +1,40 @@
 const AWS = require("aws-sdk");
 const uuid = require("uuid");
+const multer = require("multer");
+const multerS3 = require("multer-s3");
 
 const {
-  BUCKET_NAME,
   BUCKET_ENDPOINT,
   BUCKET_ACCESS_KEY,
   BUCKET_SECRET_KEY,
 } = require("../config/config");
 
 exports.uploadImage = (req, res) => {
+  const spacesEndpoint = new aws.Endpoint(BUCKET_ENDPOINT);
   const s3 = new AWS.S3({
-    endpoint: BUCKET_ENDPOINT,
+    endpoint: spacesEndpoint,
     accessKeyId: BUCKET_ACCESS_KEY,
     secretAccessKey: BUCKET_SECRET_KEY,
   });
-
-  let fileType = req.body.fileType;
-  if (fileType != ".jpg" && fileType != ".png" && fileType != ".jpeg") {
-    return res
-      .status(403)
-      .json({ success: false, message: "Image format invalid" });
-  }
-
-  fileType = fileType.substring(1, fileType.length);
-
-  const fileName = uuid.v4();
-
-  const s3Params = {
-    Bucket: BUCKET_NAME,
-    Key: fileName + "." + fileType,
-    Expires: 60 * 60,
-    ContentType: "image/" + fileType,
-    ACL: "public-read",
-  };
-
-  s3.getSignedUrl("putObject", s3Params, (err, data) => {
-    if (err) {
-      console.log(err);
-      return res.end();
+  const upload = multer({
+    storage: multerS3({
+      s3: s3,
+      bucket: "propview/User",
+      acl: "public-read",
+      key: function (request, file, cb) {
+        console.log(file);
+        cb(null, file.originalname);
+      },
+    }),
+  }).array("upload", 1);
+  upload(req, res, function (error) {
+    if (error) {
+      return res.status(400).json({
+        error: error,
+      });
     }
-    const returnData = {
-      success: true,
-      uploadUrl: data,
-      downloadUrl:
-        `https://${BUCKET_NAME}.sgp1.digitaloceanspaces.com/User/${fileName}` + "." + fileType,
-    };
-    return res.status(201).json(returnData);
+    res.json({ message: "success" });
+
+    response.redirect("/success");
   });
 };
