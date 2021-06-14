@@ -12,6 +12,7 @@ var Task = function (task) {
   this.assigned_to = task.assigned_to;
   this.property_ref = task.property_ref;
   this.property_owner_ref = task.property_owner_ref;
+  this.property_name = task.property_name;
   this.end_dateTime = task.end_dateTime;
   this.task_status = task.task_status;
   this.created_at = task.created_at;
@@ -182,7 +183,7 @@ Task.findEmployeeTaskByManager = (id, result) => {
 //* Update Task by task_id
 Task.findByIdAndUpdate = (task_id, taskReqData, result) => {
   dbConn.query(
-    "UPDATE app_task SET category=?, task_name=?, task_desc=?,  start_dateTime=?, assigned_to=?, property_ref=?,end_dateTime=?,task_status=?,created_at=?, updated_at=? WHERE task_id=?",
+    "UPDATE app_task SET category=?, task_name=?, task_desc=?,  start_dateTime=?, assigned_to=?, property_ref=?,property_name=?, end_dateTime=?,task_status=?,created_at=?, updated_at=? WHERE task_id=?",
     [
       taskReqData.category,
       taskReqData.task_name,
@@ -190,6 +191,7 @@ Task.findByIdAndUpdate = (task_id, taskReqData, result) => {
       taskReqData.start_dateTime,
       taskReqData.assigned_to,
       taskReqData.property_ref,
+      taskReqData.property_name,
       taskReqData.end_dateTime,
       taskReqData.task_status,
       taskReqData.created_at,

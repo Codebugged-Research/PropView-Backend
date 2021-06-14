@@ -17,6 +17,7 @@ const taskCategoryRoutes = require("./routes/task_category");
 const taskRoutes = require("./routes/task");
 const notificationRoutes = require("./routes/notification");
 const uploadImageRoutes = require("./routes/upload-image");
+const attendanceRoutes = require("./routes/attendance");
 
 //Middlewares
 app.use(express.json());
@@ -32,6 +33,7 @@ app.use("/api", taskCategoryRoutes);
 app.use("/api", taskRoutes);
 app.use("/api", notificationRoutes);
 app.use("/api", uploadImageRoutes);
+app.use("/api", attendanceRoutes);
 
 //Start a server
 
