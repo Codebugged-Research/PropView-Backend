@@ -1,4 +1,5 @@
 var dbConn = require("../config/database");
+var func = require("node-mysql-nesting");
 
 var Attendance = function (attendance) {
   this.attendance_id = attendance.attendance_id;
