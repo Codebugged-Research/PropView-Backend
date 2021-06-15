@@ -105,6 +105,33 @@ Attendance.findAttendanceByUserId = (user_id, result) => {
   );
 };
 
+//* Get Attendance by user_id and date
+Attendance.findAttendanceByUserIdAndDate = (user_id, date, result) => {
+  var nestingOptions = [
+    {
+      tableName: "app_attendance",
+      pkey: "attendance_id",
+      fkeys: [{ table: "tbl_users", col: "user_id" }],
+    },
+    { tableName: "tbl_users", pkey: "user_id" },
+  ];
+  dbConn.query(
+    {
+      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.user_id=? AND app_attendance.date=?",
+      nestTables: true,
+    },
+    user_id,
+    date,
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      var nestedRows = func.convertToNested(res, nestingOptions);
+      result(null, nestedRows);
+    }
+  );
+};
+
 //* Get Attendance by date
 Attendance.findAttendanceByDate = (date, result) => {
   var nestingOptions = [
@@ -120,6 +147,59 @@ Attendance.findAttendanceByDate = (date, result) => {
       sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.date=?",
       nestTables: true,
     },
+    date,
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      var nestedRows = func.convertToNested(res, nestingOptions);
+      result(null, nestedRows);
+    }
+  );
+};
+
+//* Get Attendance by parent_id
+Attendance.findAttendanceByParentId = (parent_id, result) => {
+  var nestingOptions = [
+    {
+      tableName: "app_attendance",
+      pkey: "attendance_id",
+      fkeys: [{ table: "tbl_users", col: "user_id" }],
+    },
+    { tableName: "tbl_users", pkey: "user_id" },
+  ];
+  dbConn.query(
+    {
+      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.parent_id=?",
+      nestTables: true,
+    },
+    parent_id,
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      var nestedRows = func.convertToNested(res, nestingOptions);
+      result(null, nestedRows);
+    }
+  );
+};
+
+//* Get Attendance by parent_id and date
+Attendance.findAttendanceByParentIdAndDate = (parent_id, date, result) => {
+  var nestingOptions = [
+    {
+      tableName: "app_attendance",
+      pkey: "attendance_id",
+      fkeys: [{ table: "tbl_users", col: "user_id" }],
+    },
+    { tableName: "tbl_users", pkey: "user_id" },
+  ];
+  dbConn.query(
+    {
+      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.parent_id=? AND app_attendance.date=?",
+      nestTables: true,
+    },
+    parent_id,
     date,
     (err, res) => {
       if (err) {

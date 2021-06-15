@@ -53,6 +53,26 @@ exports.getAttendanceByUserId = (req, res) => {
   );
 };
 
+exports.getAttendanceByUserIdAndDate = (req, res) => {
+  AttendanceModel.findAttendanceByUserIdAndDate(
+    req.params.user_id,
+    req.params.date,
+    (err, attendance) => {
+      if (err) {
+        return res.status(400).json({
+          error: "No Attendance List is found!",
+        });
+      }
+      return res.json({
+        count: attendance.length,
+        data: {
+          attendance,
+        },
+      });
+    }
+  );
+};
+
 exports.getAttendanceByDate = (req, res) => {
   AttendanceModel.findAttendanceByDate(req.params.date, (err, attendance) => {
     if (err) {
@@ -85,6 +105,45 @@ exports.getAllAttendance = (req, res) => {
   });
 };
 
+exports.getAttendanceByParentId = (req, res) => {
+  AttendanceModel.findAttendanceByParentId(
+    req.params.parent_id,
+    (err, attendance) => {
+      if (err) {
+        return res.status(400).json({
+          error: "No Attendance List is found!",
+        });
+      }
+      return res.json({
+        count: attendance.length,
+        data: {
+          attendance,
+        },
+      });
+    }
+  );
+};
+
+exports.getAttendanceByParentIdAndDate = (req, res) => {
+  AttendanceModel.findAttendanceByParentIdAndDate(
+    req.params.parent_id,
+    req.params.date,
+    (err, attendance) => {
+      if (err) {
+        return res.status(400).json({
+          error: "No Attendance List is found!",
+        });
+      }
+      return res.json({
+        count: attendance.length,
+        data: {
+          attendance,
+        },
+      });
+    }
+  );
+};
+
 exports.updateAttendance = (req, res) => {
   const attendanceReqData = new AttendanceModel(req.body);
   AttendanceModel.findByIdAndUpdate(
@@ -102,5 +161,3 @@ exports.updateAttendance = (req, res) => {
     }
   );
 };
-
-
