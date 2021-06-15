@@ -120,8 +120,7 @@ Attendance.findAttendanceByUserIdAndDate = (user_id, date, result) => {
       sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.user_id=? AND app_attendance.date=?",
       nestTables: true,
     },
-    user_id,
-    date,
+    [user_id, date],
     (err, res) => {
       if (err) {
         result(null, err);
@@ -199,8 +198,7 @@ Attendance.findAttendanceByParentIdAndDate = (parent_id, date, result) => {
       sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.parent_id=? AND app_attendance.date=?",
       nestTables: true,
     },
-    parent_id,
-    date,
+    [parent_id, date],
     (err, res) => {
       if (err) {
         result(null, err);
