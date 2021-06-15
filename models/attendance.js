@@ -9,7 +9,7 @@ var Attendance = function (attendance) {
   this.meter_in = attendance.meter_in;
   this.meter_out = attendance.meter_out;
   this.work_hour = attendance.work_hour;
-  this.date = this.date;
+  this.date = attendance.date;
 };
 
 //* Create Attendance
