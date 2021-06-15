@@ -6,6 +6,9 @@ const Attendance = require("../controllers/attendance");
 //Create Attandance
 router.post("/attendance/create", Attendance.createAttendance);
 
+//gat all Attandance
+router.get("/attendance/", Attendance.getAllAttendance);
+
 //Get Attendance by attendance id
 router.get("/attendance/:attendance_id", Attendance.getAttendanceById);
 

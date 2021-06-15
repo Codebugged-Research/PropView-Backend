@@ -39,7 +39,7 @@ Attendance.findAttendanceById = (attendance_id, result) => {
 
   dbConn.query(
     {
-      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE attendance_id=?",
+      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.attendance_id=?",
       nestTables: true,
     },
     attendance_id,
@@ -90,7 +90,7 @@ Attendance.findAttendanceByUserId = (user_id, result) => {
   ];
   dbConn.query(
     {
-      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE user_id=?",
+      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.user_id=?",
       nestTables: true,
     },
     user_id,
@@ -116,7 +116,7 @@ Attendance.findAttendanceByDate = (date, result) => {
   ];
   dbConn.query(
     {
-      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE date=?",
+      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.date=?",
       nestTables: true,
     },
     date,
@@ -133,7 +133,7 @@ Attendance.findAttendanceByDate = (date, result) => {
 //* Update Attandance
 Attendance.findByIdAndUpdate = (attendance_id, attendanceReqData, result) => {
   dbConn.query(
-    "UPDATE app_attendance SET attendance_id=?, user_id=?, parent_id=?, punch_in=?, punch_out=?, meter_in=?, meter_out=?, work_hour=?, date=? WHERE attendance_id=?",
+    "UPDATE app_attendance SET attendance_id=?, user_id=?, parent_id=?, punch_in=?, punch_out=?, meter_in=?, meter_out=?, work_hour=?, date=? WHERE app_attendance.attendance_id=?",
     [
       attendanceReqData.attendance_id,
       attendanceReqData.user_id,

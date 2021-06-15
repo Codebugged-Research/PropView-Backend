@@ -69,6 +69,22 @@ exports.getAttendanceByDate = (req, res) => {
   });
 };
 
+exports.getAllAttendance = (req, res) => {
+  AttendanceModel.findAllAttendance((err, attendance) => {
+    if (err) {
+      return res.status(400).json({
+        error: "No Attendance List is found!",
+      });
+    }
+    return res.json({
+      count: attendance.length,
+      data: {
+        attendance,
+      },
+    });
+  });
+};
+
 exports.updateAttendance = (req, res) => {
   const attendanceReqData = new AttendanceModel(req.body);
   AttendanceModel.findByIdAndUpdate(
@@ -86,3 +102,5 @@ exports.updateAttendance = (req, res) => {
     }
   );
 };
+
+
