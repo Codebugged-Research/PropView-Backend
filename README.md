@@ -7,12 +7,16 @@
 
 ### In Development Server
 > npm run dev-start
+ 
 > npm run dev-restart
+
 > npm run dev-stop
 
 ### In Production Server
 > npm run prod-start
+
 > npm run prod-restart
+
 > npm run prod-stop
 
 # Mysql constructor generator 
