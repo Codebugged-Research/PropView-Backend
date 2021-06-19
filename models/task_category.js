@@ -21,7 +21,7 @@ TaskCategory.findTaskCategoryById = (task_category_id, result) => {
   );
 };
 
-//* Get All Task Category by task_id
+//* Get All Task Category 
 TaskCategory.findTaskCategory = (result) => {
   dbConn.query("SELECT * FROM app_task_category", (err, res) => {
     if (err) {

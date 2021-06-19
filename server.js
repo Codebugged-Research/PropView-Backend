@@ -18,6 +18,8 @@ const taskRoutes = require("./routes/task");
 const notificationRoutes = require("./routes/notification");
 const uploadImageRoutes = require("./routes/upload-image");
 const attendanceRoutes = require("./routes/attendance");
+const inspectionTypeRoutes = require("./routes/inspection_type");
+const issueRoutes = require("./routes/issue");
 
 //Middlewares
 app.use(express.json());
@@ -34,9 +36,10 @@ app.use("/api", taskRoutes);
 app.use("/api", notificationRoutes);
 app.use("/api", uploadImageRoutes);
 app.use("/api", attendanceRoutes);
+app.use("/api", inspectionTypeRoutes);
+app.use("/api", issueRoutes);
 
 //Start a server
-
 const PORT = process.env.PORT;
 
 const httpServer = http.createServer(app);
