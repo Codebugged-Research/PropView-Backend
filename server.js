@@ -20,6 +20,7 @@ const uploadImageRoutes = require("./routes/upload-image");
 const attendanceRoutes = require("./routes/attendance");
 const inspectionTypeRoutes = require("./routes/inspection_type");
 const issueRoutes = require("./routes/issue");
+const propertyRoomRoutes = require("./routes/property_room");
 
 //Middlewares
 app.use(express.json());
@@ -38,6 +39,7 @@ app.use("/api", uploadImageRoutes);
 app.use("/api", attendanceRoutes);
 app.use("/api", inspectionTypeRoutes);
 app.use("/api", issueRoutes);
+app.use("/api", propertyRoomRoutes);
 
 //Start a server
 const PORT = process.env.PORT;
