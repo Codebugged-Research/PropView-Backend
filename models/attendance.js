@@ -66,7 +66,7 @@ Attendance.findAllAttendance = (result) => {
   ];
   dbConn.query(
     {
-      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id",
+      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id ",
       nestTables: true,
     },
     (err, res) => {
@@ -91,7 +91,7 @@ Attendance.findAttendanceByUserId = (user_id, result) => {
   ];
   dbConn.query(
     {
-      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.user_id=?",
+      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.user_id=? ORDER BY punch_in DESC",
       nestTables: true,
     },
     user_id,
