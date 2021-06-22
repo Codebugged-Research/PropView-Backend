@@ -33,7 +33,7 @@ var User = function (user) {
 
 //Get All Property owner
 User.getAllUsers = (result) => {
-  dbConn.query("SELECT * FROM tbl_users", (err, res) => {
+  dbConn.query("SELECT * FROM tbl_users ORDER BY name ASC", (err, res) => {
     if (err) {
       result(null, err);
     }
@@ -145,7 +145,7 @@ User.findUserByUserType = (userType, result) => {
 
 User.findUsersByManger = (id, result) => {
   dbConn.query(
-    "SELECT * FROM tbl_users WHERE parent_id=?",
+    "SELECT * FROM tbl_users WHERE parent_id=? ORDER BY name ASC",
     id,
     (err, res) => {
       if (err) {
