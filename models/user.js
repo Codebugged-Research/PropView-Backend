@@ -31,9 +31,9 @@ var User = function (user) {
   this.device_token = user.device_token;
 };
 
-//Get All Property owner
+//Get All Users
 User.getAllUsers = (result) => {
-  dbConn.query("SELECT * FROM tbl_users ORDER BY name ASC", (err, res) => {
+  dbConn.query("SELECT * FROM tbl_users WHERE status=1 ORDER BY name ASC", (err, res) => {
     if (err) {
       result(null, err);
     }
@@ -145,7 +145,7 @@ User.findUserByUserType = (userType, result) => {
 
 User.findUsersByManger = (id, result) => {
   dbConn.query(
-    "SELECT * FROM tbl_users WHERE parent_id=? ORDER BY name ASC",
+    "SELECT * FROM tbl_users WHERE parent_id=? AND status=1 ORDER BY name ASC",
     id,
     (err, res) => {
       if (err) {
