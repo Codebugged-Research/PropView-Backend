@@ -95,6 +95,33 @@ exports.getProperties = (req, res) => {
   }
 };
 
+//Get All Properties - Limit
+exports.getPropertiesLimit = (req, res) => {
+  try {
+    Property.findAllPropertyLimit(
+      req.body.offset,
+      req.body.limit,
+      (err, property) => {
+        if (err) {
+          return res.status(400).json({
+            error: "No Properties found",
+          });
+        }
+        return res.json({
+          count: property.length,
+          data: {
+            property,
+          },
+        });
+      }
+    );
+  } catch (error) {
+    return res.status(400).json({
+      error: "Something went wrong!",
+    });
+  }
+};
+
 //Get All User Property
 exports.getAllUserProperty = (req, res) => {
   try {
@@ -113,6 +140,36 @@ exports.getAllUserProperty = (req, res) => {
         },
       });
     });
+  } catch (e) {
+    return res.status(400).json({
+      error: "Something went wrong!",
+    });
+  }
+};
+
+//Get All User Property - Limit
+exports.getAllUserPropertyLimit = (req, res) => {
+  try {
+    Property.findAllUserPropertyLimit(
+      req.params.user_id,
+      req.body.offset,
+      req.body.limit,
+      (err, property) => {
+        if (err) {
+          console.log(err);
+          return res.status(400).json({
+            error: "No Properties found",
+          });
+        }
+        client.setex(req.params.user_id, 3600, JSON.stringify(property));
+        return res.json({
+          count: property.length,
+          data: {
+            property,
+          },
+        });
+      }
+    );
   } catch (e) {
     return res.status(400).json({
       error: "Something went wrong!",

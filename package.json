@@ -4,7 +4,7 @@
   "description": "Backend for PropView",
   "main": "server.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon server.js",
+    "dev": "NODE_ENV=production nodemon server.js",
     "dev-start": "NODE_ENV=development pm2 start server.js",
     "dev-restart": "NODE_ENV=development pm2 restart server.js",
     "dev-stop": "NODE_ENV=development pm2 stop server.js",

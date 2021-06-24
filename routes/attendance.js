@@ -7,7 +7,7 @@ const Attendance = require("../controllers/attendance");
 router.post("/attendance/create", Attendance.createAttendance);
 
 //gat all Attandance
-router.get("/attendance/", Attendance.getAllAttendance);
+router.post("/attendance/", Attendance.getAllAttendance);
 
 //Get Attendance by attendance id
 router.get("/attendance/:attendance_id", Attendance.getAttendanceById);
@@ -34,6 +34,6 @@ router.get(
 router.get("/attendance/date/:date", Attendance.getAttendanceByDate);
 
 //Update Attendance
-router.put("/attendance/update/attendance_id", Attendance.updateAttendance);
+router.put("/attendance/update/:attendance_id", Attendance.updateAttendance);
 
 module.exports = router;

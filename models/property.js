@@ -201,6 +201,41 @@ Property.findAllProperty = (result) => {
   );
 };
 
+//Get All Properties - limit
+Property.findAllPropertyLimit = (offset, limit, result) => {
+  var nestingOptions = [
+    {
+      tableName: "tableproperty",
+      pkey: "property_id",
+      fkeys: [
+        { table: "tbl_country", col: "cid" },
+        { table: "tbl_state", col: "sid" },
+        { table: "tbl_city", col: "ccid" },
+        { table: "tbl_locality", col: "locid" },
+        { table: "tbl_society", col: "socid" },
+      ],
+    },
+    { tableName: "tbl_country", pkey: "cid" },
+    { tableName: "tbl_state", pkey: "sid" },
+    { tableName: "tbl_city", pkey: "ccid" },
+    { tableName: "tbl_locality", pkey: "locid" },
+    { tableName: "tbl_society", pkey: "socid" },
+  ];
+  dbConn.query(
+    {
+      sql: "SELECT * FROM tableproperty JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid LIMIT ?,?",
+      nestTables: true,
+    },
+    [offset, limit],
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      result(null, res);
+    }
+  );
+};
+
 Property.findAllUserProperty = (userId, result) => {
   var nestingOptions = [
     {
@@ -228,6 +263,42 @@ Property.findAllUserProperty = (userId, result) => {
       nestTables: true,
     },
     userId,
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      result(null, res);
+    }
+  );
+};
+
+Property.findAllUserPropertyLimit = (userId, offset, limit, result) => {
+  var nestingOptions = [
+    {
+      tableName: "tableproperty",
+      pkey: "property_id",
+      fkeys: [
+        { table: "tbl_country", col: "cid" },
+        { table: "tbl_state", col: "sid" },
+        { table: "tbl_city", col: "ccid" },
+        { table: "tbl_locality", col: "locid" },
+        { table: "tbl_society", col: "socid" },
+        { table: "property_owner", col: "owner_id" },
+      ],
+    },
+    { tableName: "tbl_country", pkey: "cid" },
+    { tableName: "tbl_state", pkey: "sid" },
+    { tableName: "tbl_city", pkey: "ccid" },
+    { tableName: "tbl_locality", pkey: "locid" },
+    { tableName: "tbl_society", pkey: "socid" },
+    { tableName: "property_owner", pkey: "owner_id" },
+  ];
+  dbConn.query(
+    {
+      sql: "SELECT * FROM tableproperty JOIN property_owner ON tableproperty.owner_id = property_owner.owner_id JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid WHERE FIND_IN_SET(property_id, (SELECT property_id from tbl_user_to_property where user_id=?)) LIMIT ?,?",
+      nestTables: true,
+    },
+    [userId, offset, limit],
     (err, res) => {
       if (err) {
         result(null, err);

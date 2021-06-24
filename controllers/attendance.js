@@ -90,19 +90,23 @@ exports.getAttendanceByDate = (req, res) => {
 };
 
 exports.getAllAttendance = (req, res) => {
-  AttendanceModel.findAllAttendance((err, attendance) => {
-    if (err) {
-      return res.status(400).json({
-        error: "No Attendance List is found!",
+  AttendanceModel.findAllAttendance(
+    req.body.offset,
+    req.body.limit,
+    (err, attendance) => {
+      if (err) {
+        return res.status(400).json({
+          error: "No Attendance List is found!",
+        });
+      }
+      return res.json({
+        count: attendance.length,
+        data: {
+          attendance,
+        },
       });
     }
-    return res.json({
-      count: attendance.length,
-      data: {
-        attendance,
-      },
-    });
-  });
+  );
 };
 
 exports.getAttendanceByParentId = (req, res) => {

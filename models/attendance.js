@@ -40,7 +40,7 @@ Attendance.findAttendanceById = (attendance_id, result) => {
 
   dbConn.query(
     {
-      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.attendance_id=?",
+      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.attendance_id=? ",
       nestTables: true,
     },
     attendance_id,
@@ -55,7 +55,7 @@ Attendance.findAttendanceById = (attendance_id, result) => {
 };
 
 //* Get all Attendance Details
-Attendance.findAllAttendance = (result) => {
+Attendance.findAllAttendance = (offset, limit, result) => {
   var nestingOptions = [
     {
       tableName: "app_attendance",
@@ -66,9 +66,10 @@ Attendance.findAllAttendance = (result) => {
   ];
   dbConn.query(
     {
-      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id ORDER BY punch_in DESC ",
+      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id ORDER BY punch_in DESC LIMIT ?,? ",
       nestTables: true,
     },
+    [offset, limit],
     (err, res) => {
       if (err) {
         result(null, err);
