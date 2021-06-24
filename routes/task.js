@@ -2,11 +2,11 @@ const express = require("express");
 var router = express();
 
 const Task = require("../controllers/task");
-const { taskCache } = require("../middlewares/task");
+
 
 router.post("/task/create", Task.createTask);
 router.get("/task/:task_id", Task.getTask);
-router.get("/tasks", taskCache, Task.getAllTask);
+router.get("/tasks", Task.getAllTask);
 router.get("/task/user/:assigned_to", Task.getAllTaskByUser);
 router.get("/task/pending/:assigned_to", Task.getPendingTaskByUserId);
 router.get("/task/manager/:id", Task.getAllTaskByManger);

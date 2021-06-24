@@ -24,8 +24,7 @@ exports.getAllTask = (req, res) => {
         error: "No Task List is found!",
       });
     }
-    client.setex("taskData", 1800, JSON.stringify(task));
-    res.json({
+    return res.json({
       count: task.length,
       data: { task },
     });
