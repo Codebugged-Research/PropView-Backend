@@ -8,7 +8,7 @@
     "dev-start": "NODE_ENV=development pm2 start server.js",
     "dev-restart": "NODE_ENV=development pm2 restart server.js",
     "dev-stop": "NODE_ENV=development pm2 stop server.js",
-    "prod-start": "NODE_ENV=production pm2 start server.js",
+    "prod-start": "pm2 start server.js",
     "prod-restart": "NODE_ENV=production pm2 restart server.js",
     "prod-stop": "NODE_ENV=production pm2 stop server.js"
   },
