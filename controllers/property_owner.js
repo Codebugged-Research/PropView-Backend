@@ -1,4 +1,6 @@
 const PropertyOwnerModel = require("../models/property_owner");
+const redis = require("redis");
+const client = redis.createClient(process.env.REDIS_PORT);
 
 exports.createPropertyOwner = (req, res) => {
   const propertyOwnerReqData = new PropertyOwnerModel(req.body);
@@ -25,7 +27,8 @@ exports.getPropertyList = (req, res) => {
         error: "No Property Owner List is found!",
       });
     }
-    res.json({
+    client.setex("propertyOwnerData", 3600, JSON.stringify(propertyOwner));
+    return res.json({
       count: propertyOwner.length,
       data: {
         propertyOwner,

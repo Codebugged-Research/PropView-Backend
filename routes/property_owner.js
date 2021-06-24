@@ -2,17 +2,21 @@ var express = require("express");
 var router = express.Router();
 
 const PropertyOwner = require("../controllers/property_owner");
+const { propertyOwnerCache } = require("../middlewares/property_owner");
 
 //* Create Property Owner
-router.post('/propertyOwner/create', PropertyOwner.createPropertyOwner);
+router.post("/propertyOwner/create", PropertyOwner.createPropertyOwner);
 
 //* Get Property by Owner Id
 router.get("/propertyOwner/:owner_id", PropertyOwner.getPropertyByOwnerId);
 
 //* Get All Property List
-router.get("/propertyOwner", PropertyOwner.getPropertyList);
+router.get("/propertyOwner", propertyOwnerCache, PropertyOwner.getPropertyList);
 
 //* Update Property by owner_id
-router.put("/propertyOwner/update/:owner_id", PropertyOwner.updatePropertyOwner);
+router.put(
+  "/propertyOwner/update/:owner_id",
+  PropertyOwner.updatePropertyOwner
+);
 
 module.exports = router;

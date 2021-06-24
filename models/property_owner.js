@@ -1,6 +1,6 @@
 var dbConn = require("../config/database");
 
-var PropertyOwner = function(propertyOwner) {
+var PropertyOwner = function (propertyOwner) {
   this.owner_id = propertyOwner.owner_id;
   this.salutation = propertyOwner.salutation;
   this.owner_name = propertyOwner.owner_name;

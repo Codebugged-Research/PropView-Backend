@@ -100,11 +100,12 @@ exports.getAllUserProperty = (req, res) => {
   try {
     Property.findAllUserProperty(req.params.user_id, (err, property) => {
       if (err) {
-        console.log(err)
+        console.log(err);
         return res.status(400).json({
           error: "No Properties found",
         });
       }
+      client.setex(req.params.user_id, 3600, JSON.stringify(property));
       return res.json({
         count: property.length,
         data: {
@@ -166,7 +167,7 @@ exports.deleteProperty = (req, res) => {
   }
 };
 
-exports.getSociety = (req,res)=>{
+exports.getSociety = (req, res) => {
   // SELECT socname from tbl_society where socid = 119
   dbConn.query(
     "SELECT socname from tbl_society where socid = ?",
@@ -180,9 +181,9 @@ exports.getSociety = (req,res)=>{
       res.json(result);
     }
   );
-}
+};
 
-exports.getCountry= (req,res)=>{
+exports.getCountry = (req, res) => {
   // SELECT socname from tbl_society where socid = 119
   dbConn.query(
     "SELECT cname from tbl_country where cid = ?",
@@ -196,5 +197,4 @@ exports.getCountry= (req,res)=>{
       res.json(result);
     }
   );
-}
-
+};

@@ -1,4 +1,6 @@
 const TaskModel = require("../models/task");
+const redis = require("redis");
+const client = redis.createClient(process.env.REDIS_PORT);
 
 exports.createTask = (req, res) => {
   const taskReqData = new TaskModel(req.body);
@@ -22,6 +24,7 @@ exports.getAllTask = (req, res) => {
         error: "No Task List is found!",
       });
     }
+    client.setex("taskData", 1800, JSON.stringify(task));
     res.json({
       count: task.length,
       data: { task },

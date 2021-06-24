@@ -3,7 +3,7 @@ var router = express();
 
 const Property = require("../controllers/property");
 
-const {propertyCache} = require("../middlewares/property");
+const { propertyCache, propertyUserCache } = require("../middlewares/property");
 
 //Create Property
 router.post("/property/create", Property.createProperty);
@@ -15,7 +15,11 @@ router.get("/property/:property_id", Property.getPropertyByPropertyId);
 router.get("/property/owner/:owner_id", Property.getPropertyByOwnerId);
 
 //Get All User Property
-router.get("/properties/user/:user_id", Property.getAllUserProperty);
+router.get(
+  "/properties/user/:user_id",
+  propertyUserCache,
+  Property.getAllUserProperty
+);
 
 //Get All Property
 router.get("/properties/", propertyCache, Property.getProperties);
@@ -28,6 +32,7 @@ router.delete("/property/delete/:property_id", Property.deleteProperty);
 
 //get Society name by id
 router.get("/property/society/:id", Property.getSociety);
+
 //get Society name by id
 router.get("/property/country/:id", Property.getCountry);
 

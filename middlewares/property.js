@@ -22,4 +22,25 @@ module.exports = {
       }
     });
   },
+
+  propertyUserCache: function (req, res, next) {
+    client.get(req.params.user_id, (err, data) => {
+      if (err) {
+        res.status(400).json({
+          error: err,
+        });
+      }
+      if (data !== null) {
+        data = JSON.parse(data);
+        res.json({
+          count: data.length,
+          data: {
+            data,
+          },
+        });
+      } else {
+        next();
+      }
+    });
+  },
 };
