@@ -13,9 +13,7 @@ module.exports = {
         data = JSON.parse(data);
         res.json({
           count: data.length,
-          data: {
-            data,
-          },
+          data,
         });
       } else {
         next();
@@ -34,9 +32,7 @@ module.exports = {
         data = JSON.parse(data);
         res.json({
           count: data.length,
-          data: {
-            data,
-          },
+          data
         });
       } else {
         next();
