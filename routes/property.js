@@ -15,9 +15,13 @@ router.get("/property/:property_id", Property.getPropertyByPropertyId);
 router.get("/property/owner/:owner_id", Property.getPropertyByOwnerId);
 
 //Get All User Property Limit
+// router.get(
+//   "/properties/user/:user_id",
+//   propertyUserCache,
+//   Property.getAllUserProperty
+// );
 router.get(
   "/properties/user/:user_id",
-  propertyUserCache,
   Property.getAllUserProperty
 );
 router.get(
@@ -27,7 +31,8 @@ router.get(
 );
 
 //Get All Property
-router.get("/properties/", propertyCache, Property.getProperties);
+// router.get("/properties/", propertyCache, Property.getProperties);
+router.get("/properties/", Property.getProperties);
 router.post("/properties/limit", Property.getPropertiesLimit);
 
 //Update Properties
