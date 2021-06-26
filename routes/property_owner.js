@@ -11,7 +11,7 @@ router.post("/propertyOwner/create", PropertyOwner.createPropertyOwner);
 router.get("/propertyOwner/:owner_id", PropertyOwner.getPropertyByOwnerId);
 
 //* Get All Property List
-router.get("/propertyOwner", propertyOwnerCache, PropertyOwner.getPropertyList);
+router.get("/propertyOwner", PropertyOwner.getPropertyList);
 
 //* Update Property by owner_id
 router.put(
