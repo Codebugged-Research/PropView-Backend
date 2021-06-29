@@ -24,9 +24,8 @@ router.get(
   "/properties/user/:user_id",
   Property.getAllUserProperty
 );
-router.get(
+router.post(
   "/properties/user/limit/:user_id",
-  propertyUserCache,
   Property.getAllUserPropertyLimit
 );
 
