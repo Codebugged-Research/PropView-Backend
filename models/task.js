@@ -152,9 +152,9 @@ Task.findTaskByUser = (assigned_to, result) => {
 };
 
 //* find task by manger id
-Task.findEmployeeTaskByManager = (id, result) => {
+Task.findEmployeeTaskByManager = (id1,id2,id3,id4, result) => {
   var sql =
-    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref WHERE app_task.assigned_to IN (SELECT user_id FROM tbl_users WHERE parent_id = ? OR parent_id like '%,?' OR parent_id like '%,?,%' OR parent_id like '?,%') ORDER BY created_at DESC";
+    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref WHERE app_task.assigned_to IN (SELECT user_id FROM tbl_users WHERE parent_id = ? OR parent_id like ? OR parent_id like ? OR parent_id like ?) ORDER BY created_at DESC";
   var options = { sql: sql, nestTables: true };
   var nestingOptions = [
     {
@@ -170,7 +170,7 @@ Task.findEmployeeTaskByManager = (id, result) => {
     { tableName: "tableproperty", pkey: "property_id" },
     { tableName: "property_owner", pkey: "owner_id" },
   ];
-  dbConn.query(options, [id,id,id,id], (err, res) => {
+  dbConn.query(options, [id1,id2,id3,id4], (err, res) => {
     if (err) {
       result(null, err);
     } else {

@@ -57,7 +57,7 @@ exports.getAllTaskByUser = (req, res) => {
 };
 
 exports.getAllTaskByManger = (req, res) => {
-  TaskModel.findEmployeeTaskByManager(req.params.id, (err, task) => {
+  TaskModel.findEmployeeTaskByManager(req.body.id1,req.body.id2,req.body.id3,req.body.id4, (err, task) => {
     if (err) {
       return res.status(400).json({
         error: "No Task List is found!",
