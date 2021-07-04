@@ -3,8 +3,6 @@ var router = express();
 
 const Property = require("../controllers/property");
 
-const { propertyCache, propertyUserCache } = require("../middlewares/property");
-
 //Create Property
 router.post("/property/create", Property.createProperty);
 
@@ -30,8 +28,8 @@ router.post(
 );
 
 //Get All Property
-// router.get("/properties/", propertyCache, Property.getProperties);
 router.get("/properties/", Property.getProperties);
+
 router.post("/properties/limit", Property.getPropertiesLimit);
 
 //Update Properties

@@ -1,6 +1,4 @@
 const Property = require("../models/property");
-const redis = require("redis");
-const client = redis.createClient(process.env.REDIS_PORT);
 var dbConn = require("../config/database");
 //Create Property
 exports.createProperty = (req, res) => {
@@ -80,7 +78,7 @@ exports.getProperties = (req, res) => {
           error: "No Properties found",
         });
       }
-      client.setex("propertyData", 3600, JSON.stringify(property));
+      
       return res.json({
         count: property.length,
         data: {
@@ -132,7 +130,7 @@ exports.getAllUserProperty = (req, res) => {
           error: "No Properties found",
         });
       }
-      client.setex(req.params.user_id, 3600, JSON.stringify(property));
+    
       return res.json({
         count: property.length,
         data: {
@@ -161,7 +159,6 @@ exports.getAllUserPropertyLimit = (req, res) => {
             error: "No Properties found",
           });
         }
-        client.setex(req.params.user_id, 3600, JSON.stringify(property));
         return res.json({
           count: property.length,
           data: {
