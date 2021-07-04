@@ -45,6 +45,9 @@ app.use("/api", inspectionTypeRoutes);
 app.use("/api", issueRoutes);
 app.use("/api", propertyRoomRoutes);
 
+//Cron Job
+require("./cron/attendance");
+
 //Start a server
 const PORT = process.env.PORT;
 
