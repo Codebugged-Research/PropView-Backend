@@ -7,9 +7,12 @@ cron.schedule("0 0/30 * * * *", () => {
     AttendanceModel.findAttendancesForCheck((err, attendances) => {
       attendances.map((attendance) => {
         const currentTime = Date.now();
-        //TODO: Current Time
-        if (attendance.punch_out === "--/--/-- -- : --" && currentTime === "") {
-          const currentTime = Date.now();
+        const currentDate = new Date(currentTime);
+        const punchInDate = new Date(attendance.punch_in);
+        if (
+          attendance.punch_out === "--/--/-- -- : --" &&
+          currentDate.getDate() != punchInDate.getDate()
+        ) {
           attendance.meter_out = attendance.meter_in;
           attendance.punch_out = currentTime;
           AttendanceModel.findByIdAndUpdate(
