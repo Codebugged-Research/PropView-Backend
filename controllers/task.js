@@ -1,6 +1,4 @@
 const TaskModel = require("../models/task");
-const redis = require("redis");
-const client = redis.createClient(process.env.REDIS_PORT);
 
 exports.createTask = (req, res) => {
   const taskReqData = new TaskModel(req.body);
