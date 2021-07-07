@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 
 const PropertyOwner = require("../controllers/property_owner");
-const { propertyOwnerCache } = require("../middlewares/property_owner");
 
 //* Create Property Owner
 router.post("/propertyOwner/create", PropertyOwner.createPropertyOwner);
