@@ -14,7 +14,7 @@ cron.schedule("0 0/30 * * * *", () => {
           currentDate.getDate() != punchInDate.getDate()
         ) {
           attendance.meter_out = attendance.meter_in;
-          attendance.punch_out = currentTime;
+          attendance.punch_out = currentDate;
           AttendanceModel.findByIdAndUpdate(
             attendance.attendance_id,
             attendance,
