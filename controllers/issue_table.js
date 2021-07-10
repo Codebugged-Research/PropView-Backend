@@ -6,6 +6,7 @@ exports.createIssueTable = (req, res) => {
   try {
     IssueTableModel.saveIssueTable(issueTableReqData, (err, issueTable) => {
       if (err) {
+        console.log(err);
         return res.status(400).json({
           success: false,
         });
@@ -16,6 +17,7 @@ exports.createIssueTable = (req, res) => {
       });
     });
   } catch (err) {
+    console.log(err);
     return res.status(500).json({
       success: false,
     });
@@ -27,6 +29,7 @@ exports.getIssueTableById = (req, res) => {
   try {
     IssueTableModel.getIssueTableById(req.params.issue_table_id, (err, issueTable) => {
       if (err) {
+        console.log(err);
         return res.status(400).json({
           success: false,
         });
@@ -37,6 +40,7 @@ exports.getIssueTableById = (req, res) => {
       });
     });
   } catch (err) {
+    console.log(err);
     return res.status(500).json({
       success: false,
     });
