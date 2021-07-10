@@ -45,7 +45,7 @@ exports.getIssues = (req, res) => {
 
 exports.updateIssue = (req, res) => {
   const issueReqData = new IssueModel(req.body);
-  IssueModel.findByIdAndUpdate(req.params.issue_id, (err, issue) => {
+  IssueModel.findByIdAndUpdate(req.params.issue_id, issueReqData, (err, issue) => {
     if (err) {
       return res.status(400).json({
         success: false,

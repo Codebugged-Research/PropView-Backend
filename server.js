@@ -18,9 +18,11 @@ const taskRoutes = require("./routes/task");
 const notificationRoutes = require("./routes/notification");
 const uploadImageRoutes = require("./routes/upload-image");
 const attendanceRoutes = require("./routes/attendance");
-const inspectionTypeRoutes = require("./routes/inspection_type");
-const issueRoutes = require("./routes/issue");
 const propertyRoomRoutes = require("./routes/property_room");
+const inspectionTypeRoutes = require("./routes/inspection_type");
+const inspectionRoutes = require("./routes/inspection");
+const issueRoutes = require("./routes/issue");
+const issueTableRoutes = require("./routes/issue_table")
 
 //Middlewares
 app.use(express.json());
@@ -41,9 +43,11 @@ app.use("/api", taskRoutes);
 app.use("/api", notificationRoutes);
 app.use("/api", uploadImageRoutes);
 app.use("/api", attendanceRoutes);
-app.use("/api", inspectionTypeRoutes);
-app.use("/api", issueRoutes);
 app.use("/api", propertyRoomRoutes);
+app.use("/api", inspectionTypeRoutes);
+app.use("/api", inspectionRoutes);
+app.use("/api", issueRoutes);
+app.use("/api", issueTableRoutes);
 
 //Cron Job
 require("./cron/attendance");
