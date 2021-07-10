@@ -1,8 +1,8 @@
 var dbConn = require("../config/database");
 
 var Issue = function (issue) {
-  this.issue_id = inspectionType.issue_id;
-  this.issue_name = inspectionType.issue_name;
+  this.issue_id = issue.issue_id;
+  this.issue_name = issue.issue_name;
   this.status = issue.status;
   this.remarks = issue.remarks;
   this.photo = issue.photo; //List
