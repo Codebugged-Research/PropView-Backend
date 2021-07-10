@@ -6,8 +6,8 @@ var Issue = function (issue) {
   this.status = issue.status;
   this.remarks = issue.remarks;
   this.photo = issue.photo; //List
-  this.createdAt = inspectionType.createdAt;
-  this.updatedAt = inspectionType.updatedAt;
+  this.createdAt = issue.createdAt;
+  this.updatedAt = issue.updatedAt;
 };
 
 //Create issue
