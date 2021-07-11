@@ -25,7 +25,7 @@ exports.getPropertyRoom = (req, res) => {
         error: "No property room is found!",
       });
     }
-    res.json({
+    return res.json({
       count: propertyRoom.length,
       data: {
         propertyRoom,
