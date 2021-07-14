@@ -13,10 +13,7 @@ exports.createSubRoomToProperty = (req, res) => {
               "An error occurred while creating the subroom to property.",
           });
         } else {
-          res.json({
-            success: true,
-            data: { subRoom },
-          });
+          res.json(subRoom);
         }
       }
     );
@@ -37,10 +34,7 @@ exports.getAllSubRooms = (req, res) => {
           message: "An error occurred while getting all subrooms.",
         });
       } else {
-        res.json({
-          success: true,
-          data: { subRoom },
-        });
+        res.json(subRoom);
       }
     });
   } catch (err) {
@@ -62,10 +56,7 @@ exports.getAllSubRoomByPropertyId = (req, res) => {
             message: "An error occurred while getting all subrooms.",
           });
         } else {
-          res.json({
-            success: true,
-            data: { subRoom },
-          });
+          res.json(subRoom);
         }
       }
     );
@@ -92,7 +83,6 @@ exports.updateSubRoom = (req, res) => {
         } else {
           res.json({
             success: true,
-            data: { subRoom },
           });
         }
       }
@@ -118,7 +108,6 @@ exports.deleteSubRoom = (req, res) => {
         } else {
           res.json({
             success: true,
-            data: { subRoom },
           });
         }
       }

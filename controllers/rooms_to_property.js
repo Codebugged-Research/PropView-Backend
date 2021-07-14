@@ -12,10 +12,7 @@ exports.createRoomsToProperty = (req, res) => {
             message: "Error while saving rooms to property",
           });
         } else {
-          res.json({
-            success: true,
-            data: { roomsToProperty },
-          });
+          return res.json(roomsToPropertyModel);
         }
       }
     );
@@ -36,12 +33,7 @@ exports.getRoomsToProperty = (req, res) => {
           error: "No property room is found!",
         });
       }
-      return res.json({
-        success: true,
-        data: {
-          roomsToPropertyModel,
-        },
-      });
+      return res.json(roomsToPropertyModel);
     });
   } catch (err) {
     res.status(500).json({
@@ -62,12 +54,7 @@ exports.getRoomsToPropertyByPropertyId = (req, res) => {
             error: "No property room is found!",
           });
         }
-        return res.json({
-          success: true,
-          data: {
-            roomsToPropertyModel,
-          },
-        });
+        return res.json(roomsToPropertyModel);
       }
     );
   } catch (err) {
@@ -93,7 +80,6 @@ exports.updateRoomsToProperty = (req, res) => {
         } else {
           res.json({
             success: true,
-            data: { roomsToProperty },
           });
         }
       }
@@ -119,7 +105,6 @@ exports.deleteRoomsToProperty = (req, res) => {
         } else {
           res.json({
             success: true,
-            data: { roomsToProperty },
           });
         }
       }
