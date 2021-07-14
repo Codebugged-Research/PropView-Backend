@@ -31,7 +31,8 @@
     "mysql": "^2.18.1",
     "node-cron": "^3.0.0",
     "node-mysql-nesting": "^0.0.3",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "morgan": "^1.10.0",
