@@ -11,6 +11,9 @@ var Attendance = function (attendance) {
   this.meter_out = attendance.meter_out;
   this.work_hour = attendance.work_hour;
   this.date = attendance.date;
+  this.name = attendance.name;
+  this.email = attendance.email;
+  this.diff_km = attendance.diff_km;
 };
 
 //* Create Attendance
@@ -213,7 +216,7 @@ Attendance.findAttendanceByParentIdAndDate = (parent_id, date, result) => {
 //* Update Attandance
 Attendance.findByIdAndUpdate = (attendance_id, attendanceReqData, result) => {
   dbConn.query(
-    "UPDATE app_attendance SET attendance_id=?, user_id=?, parent_id=?, punch_in=?, punch_out=?, meter_in=?, meter_out=?, work_hour=?, date=? WHERE app_attendance.attendance_id=?",
+    "UPDATE app_attendance SET attendance_id=?, user_id=?, parent_id=?, punch_in=?, punch_out=?, meter_in=?, meter_out=?, work_hour=?, date=?, name=?, email=?, diff_km=? WHERE app_attendance.attendance_id=?",
     [
       attendanceReqData.attendance_id,
       attendanceReqData.user_id,
@@ -224,6 +227,9 @@ Attendance.findByIdAndUpdate = (attendance_id, attendanceReqData, result) => {
       attendanceReqData.meter_out,
       attendanceReqData.work_hour,
       attendanceReqData.date,
+      attendanceReqData.name,
+      attendanceReqData.email,
+      attendanceReqData.diff_km,
       attendance_id,
     ],
     (err, res) => {
