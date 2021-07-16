@@ -1,6 +1,6 @@
 const cron = require("node-cron");
 const AttendanceModel = require("../models/attendance");
-const logger = require("./logger");
+const logger = require("../logger");
 
 cron.schedule("0 0/15 * * * *", () => {
   logger.info("Start");
