@@ -1,8 +1,9 @@
 const cron = require("node-cron");
 const AttendanceModel = require("../models/attendance");
+const logger = require("./logger");
 
-cron.schedule("0 0/30 * * * *", () => {
-  console.log("Start");
+cron.schedule("0 0/15 * * * *", () => {
+  logger.info("Start");
   try {
     AttendanceModel.findAttendancesForCheck((err, attendances) => {
       attendances.map((attendance) => {
@@ -15,19 +16,30 @@ cron.schedule("0 0/30 * * * *", () => {
         ) {
           attendance.meter_out = attendance.meter_in;
           attendance.punch_out = currentDate;
+          attendance.work_hour = currentDate.getTime() - punchInDate.getTime();
+          attendance.diff_km = attendance.meter_out - attendance.meter_in;
           AttendanceModel.findByIdAndUpdate(
             attendance.attendance_id,
             attendance,
             (err, att) => {
-              console.log("Done");
+              logger.warn(err);
             }
           );
         } else {
-          console.log("Else part!");
+          const punchOutDate = new Date(attendance.punch_out);
+          attendance.work_hour = punchOutDate.getTime() - punchInDate.getTime();
+          attendance.diff_km = attendance.meter_out - attendance.meter_in;
+          AttendanceModel.findByIdAndUpdate(
+            attendance.attendance_id,
+            attendance,
+            (err, att) => {
+              logger.warn(err);
+            }
+          );
         }
       });
     });
   } catch (error) {
-    console.log(error);
+    logger.info(error);
   }
 });
