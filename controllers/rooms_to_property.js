@@ -3,7 +3,7 @@ const RoomsToPropertyModel = require("../models/rooms_to_property");
 exports.createRoomsToProperty = (req, res) => {
   const roomsToPropertyReqData = new RoomsToPropertyModel(req.body);
   try {
-    RoomsToPropertyModel.save(
+    RoomsToPropertyModel.saveRoomsToProperty(
       roomsToPropertyReqData,
       (err, roomsToProperty) => {
         if (err) {
