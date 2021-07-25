@@ -19,7 +19,7 @@ exports.createRoomsToProperty = (req, res) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      message: "Error while saving rooms to property",
+      message: "Error while saving rooms to property" + err,
     });
   }
 };
