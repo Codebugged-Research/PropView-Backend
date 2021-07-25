@@ -12,7 +12,7 @@ exports.createRoomsToProperty = (req, res) => {
             message: "Error while saving rooms to property",
           });
         } else {
-          return res.json(roomsToPropertyModel);
+          return res.json(roomsToProperty);
         }
       }
     );
