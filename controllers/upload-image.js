@@ -46,7 +46,7 @@ exports.uploadPropertyImage = (req, res) => {
   const upload = multer({
     storage: multerS3({
       s3: s3,
-      bucket: "propview/Property/",
+      bucket: "propview/Property",
       acl: "public-read",
       key: function (request, file, cb) {
         cb(null, file.originalname);
