@@ -18,9 +18,9 @@ var City = (city) => {
 City.findAllCities = (result) => {
   dbConn.query("SELECT * FROM tbl_city", (err, res) => {
     if (err) {
-      result(err);
+      result(null, err);
     }
-    result(res);
+    result(null, res);
   });
 };
 

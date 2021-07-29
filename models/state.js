@@ -13,9 +13,9 @@ var State = (state) => {
 State.findAllStates = (result) => {
   dbConn.query("SELECT * FROM tbl_state", (err, res) => {
     if (err) {
-      result(err);
+      result(null, err);
     }
-    result(res);
+    result(null, res);
   });
 };
 
