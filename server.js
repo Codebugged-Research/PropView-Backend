@@ -12,6 +12,8 @@ const cors = require("cors");
 
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
+const cityRoutes = require("./routes/city");
+const stateRoutes = require("./routes/state");
 const propertyRoutes = require("./routes/property");
 const propertyOwnerRoutes = require("./routes/property_owner");
 const userPropertyRoutes = require("./routes/user_property");
@@ -42,6 +44,8 @@ app.get("/version", (req, res) => {
 
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
+app.use("/api", stateRoutes);
+app.use("/api", cityRoutes);
 app.use("/api", propertyRoutes);
 app.use("/api", propertyOwnerRoutes);
 app.use("/api", userPropertyRoutes);
