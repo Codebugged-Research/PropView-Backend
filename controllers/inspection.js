@@ -25,7 +25,7 @@ exports.createInspection = (req, res) => {
 
 exports.getInspectionById = (req, res) => {
   try {
-    InspectionModel.getInspectionById(
+    InspectionModel.findInspectionById(
       req.params.inspection_id,
       (err, inspection) => {
         if (err) {
