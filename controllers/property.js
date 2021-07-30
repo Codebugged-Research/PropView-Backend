@@ -78,7 +78,7 @@ exports.getProperties = (req, res) => {
           error: "No Properties found",
         });
       }
-      
+
       return res.json({
         count: property.length,
         data: {
@@ -130,7 +130,7 @@ exports.getAllUserProperty = (req, res) => {
           error: "No Properties found",
         });
       }
-    
+
       return res.json({
         count: property.length,
         data: {
@@ -201,6 +201,62 @@ exports.updateProperty = (req, res) => {
     });
   }
 };
+
+//For Tenent
+exports.updatePropertyForTenant = (req, res) => {
+  try {
+    Property.findPropertyByPropertyId(
+      req.params.property_id,
+      (err, property) => {
+        if (err) {
+          return res.status(400).json({
+            error: "No Property found with owner_id",
+          });
+        } else {
+          property = property[0]["tableproperty"];
+          if (property.tenant_id === " " || property.tenant_id === "") {
+            property.tenant_id = `${req.tenantId}`;
+            Property.findByIdAndUpdate(
+              req.params.property_id,
+              property,
+              (err, propertyData) => {
+                if (err) {
+                  console.log(err);
+                  return res.status(400).json({
+                    success: "false",
+                  });
+                }
+                return res.status(200).json({
+                  success: "true",
+                });
+              }
+            );
+          } else {
+            property.tenant_id = property.tenant_id + "," + req.tenantId;
+            Property.findByIdAndUpdate(
+              req.params.property_id,
+              property,
+              (err, propertyData) => {
+                if (err) {
+                  console.log(err);
+                  return res.status(400).json({
+                    success: "false",
+                  });
+                }
+                return res.status(200).json({
+                  success: "true",
+                });
+              }
+            );
+          }
+        }
+      }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 //Delete Properties
 exports.deleteProperty = (req, res) => {
   try {

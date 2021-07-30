@@ -1,15 +1,18 @@
 const TenantModel = require("../models/tenant");
 
 exports.createTenant = (req, res) => {
-  const tenenatReqData = new TenantModel(req.body);
+  const tenantReqData = new TenantModel(req.body);
+  console.log(tenantReqData);
   try {
-    TenantModel.saveTenant(tenenatReqData, (err, tenant) => {
+    TenantModel.saveTenant(tenantReqData, (err, tenant) => {
       if (err) {
+        console.log(err);
         return res.status(400).json({ error: err });
       }
-      return res.status(200).json({ success: true });
+      return res.status(200).json(tenant.insertId);
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: err });
   }
 };

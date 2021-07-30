@@ -1,6 +1,6 @@
 var dbConn = require("../config/database");
 
-var City = (city) => {
+var City = function (city) {
   this.ccid = city.ccid;
   this.cid = city.cid;
   this.sid = city.sid;

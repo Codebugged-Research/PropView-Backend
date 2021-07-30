@@ -1,6 +1,6 @@
 const dbConn = require("../config/database");
 
-var TenantFamily = (tenantFamily) => {
+var TenantFamily = function (tenantFamily) {
   this.family_id = tenantFamily.family_id;
   this.tenant_id = tenantFamily.tenant_id;
   this.name = tenantFamily.name;

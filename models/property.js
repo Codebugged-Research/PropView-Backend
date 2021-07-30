@@ -1,6 +1,6 @@
 var dbConn = require("../config/database");
 
-var Property = (property) => {
+var Property = function (property) {
   this.property_id = property.property_id;
   this.property_for = property.property_for;
   this.property_kind = property.property_kind;

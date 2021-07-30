@@ -1,6 +1,6 @@
 var dbConn = require("../config/database");
 
-var Tenant = (tenant) => {
+var Tenant = function (tenant) {
   this.tenant_id = tenant.tenant_id;
   this.name = tenant.name;
   this.password = tenant.password;
@@ -21,8 +21,8 @@ var Tenant = (tenant) => {
   this.caddress = tenant.caddress;
   this.designation = tenant.designation;
   this.totalmembers = tenant.totalmembers;
-  this.planlord = tenant.planlord;
-  this.planlord_number = tenant.planlord_number;
+  this.plandlord = tenant.plandlord;
+  this.plandlord_number = tenant.plandlord_number;
   this.spouse_name = tenant.spouse_name;
   this.spouse_email = tenant.spouse_email;
   this.spouse_mobile = tenant.spouse_mobile;
@@ -34,6 +34,7 @@ var Tenant = (tenant) => {
 Tenant.saveTenant = (tenantReqData, result) => {
   dbConn.query("INSERT INTO tbl_tenant SET ?", tenantReqData, (err, res) => {
     if (err) {
+      console.log(tenantReqData);
       result(null, err);
     }
     result(null, res);
@@ -68,7 +69,7 @@ Tenant.findTenantById = (tenant_id, result) => {
 //Update Tenant
 Tenant.findByIdAndUpdate = (tenant_id, tenantReqData, result) => {
   dbConn.query(
-    "UPDATE tbl_tenant SET tenant_id=?, name=?, password=?, pemail=?, semail=?, pmobile=?, smobile=?, hphone=?, ophone=?, isFamily=?, paddress=?, city=?, state=?, pan=?, aadhar=?, citizenship=?, company=?, caddress=?, designation=?, totalmembers=?, planlord=?, planlord_number=?, spouse_name=?, spouse_email=?, spouse_number=?, status=?, billing=? WHERE tenant_id=?",
+    "UPDATE tbl_tenant SET tenant_id=?, name=?, password=?, pemail=?, semail=?, pmobile=?, smobile=?, hphone=?, ophone=?, isFamily=?, paddress=?, city=?, state=?, pan=?, aadhar=?, citizenship=?, company=?, caddress=?, designation=?, totalmembers=?, plandlord=?, plandlord_number=?, spouse_name=?, spouse_email=?, spouse_number=?, status=?, billing=? WHERE tenant_id=?",
     [
       tenantReqData.tenant_id,
       tenantReqData.name,
@@ -90,8 +91,8 @@ Tenant.findByIdAndUpdate = (tenant_id, tenantReqData, result) => {
       tenantReqData.caddress,
       tenantReqData.designation,
       tenantReqData.totalmembers,
-      tenantReqData.planlord,
-      tenantReqData.planlord_number,
+      tenantReqData.plandlord,
+      tenantReqData.plandlord_number,
       tenantReqData.spouse_name,
       tenantReqData.spouse_email,
       tenantReqData.spouse_mobile,
