@@ -32,6 +32,8 @@ const roomsPropertyRoutes = require("./routes/rooms_to_property");
 const subRoomPropertyRoutes = require("./routes/subrooms_to_property");
 const tenantRoutes = require("./routes/tenant");
 const tenantFamilyRoutes = require("./routes/tenant_family");
+const regularInspectionRoutes = require("./routes/regular_inspection");
+const regularInspectionRowRoutes = require("./routes/regular_inspection_row");
 
 //Middlewares
 app.use(express.json());
@@ -64,6 +66,8 @@ app.use("/api", roomsPropertyRoutes);
 app.use("/api", subRoomPropertyRoutes);
 app.use("/api", tenantRoutes);
 app.use("/api", tenantFamilyRoutes);
+app.use("/api", regularInspectionRoutes);
+app.use("/api", regularInspectionRowRoutes);
 
 //Cron Job
 require("./cron/attendance");

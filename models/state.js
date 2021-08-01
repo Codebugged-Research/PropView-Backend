@@ -19,4 +19,13 @@ State.findAllStates = (result) => {
   });
 };
 
+State.findStateById = (id, result) => {
+  dbConn.query("SELECT * FROM tbl_state WHERE sid = ?", id, (err, res) => {
+    if (err) {
+      result(null, err);
+    }
+    result(null, res);
+  });
+};
+
 module.exports = State;
