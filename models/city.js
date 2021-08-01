@@ -25,7 +25,7 @@ City.findAllCities = (result) => {
 };
 
 City.findCityById = (id, result) => {
-  dbConn.query("SELECT * FROM tbl_city WHERE ccid=?", (err, res) => {
+  dbConn.query("SELECT * FROM tbl_city WHERE ccid=?",id, (err, res) => {
     if (err) {
       result(null, err);
     }
