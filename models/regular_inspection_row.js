@@ -7,6 +7,7 @@ var RegularInspectionRow = function (regularInspectionRow) {
   this.seepage_check = regularInspectionRow.seepage_check;
   this.general_cleanliness = regularInspectionRow.general_cleanliness;
   this.other_issue = regularInspectionRow.other_issue;
+  this.issub = regularInspectionRow.issub;
   this.roomsubroom_id = regularInspectionRow.roomsubroom_id;
   this.roomsubroom_name = regularInspectionRow.roomsubroom_name;
   this.created_at = regularInspectionRow.created_at;
