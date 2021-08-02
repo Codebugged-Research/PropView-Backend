@@ -16,18 +16,7 @@ cron.schedule("0 0/15 * * * *", () => {
         ) {
           attendance.meter_out = attendance.meter_in;
           attendance.punch_out = currentDate;
-          attendance.work_hour = currentDate.getTime() - punchInDate.getTime();
-          attendance.diff_km = attendance.meter_out - attendance.meter_in;
-          AttendanceModel.findByIdAndUpdate(
-            attendance.attendance_id,
-            attendance,
-            (err, att) => {
-              logger.warn(err);
-            }
-          );
-        } else {
-          const punchOutDate = new Date(attendance.punch_out);
-          attendance.work_hour = punchOutDate.getTime() - punchInDate.getTime();
+          attendance.work_hour = parseInt((currentDate.getTime() - punchInDate.getTime())/3600000, 10);
           attendance.diff_km = attendance.meter_out - attendance.meter_in;
           AttendanceModel.findByIdAndUpdate(
             attendance.attendance_id,
