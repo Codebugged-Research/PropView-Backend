@@ -1,4 +1,4 @@
-const dbConn = require("../config/database");
+var dbConn = require("../config/database");
 
 var BillType = function (billType) {
   this.bill_type_id = billType.bill_type_id;
@@ -9,7 +9,7 @@ var BillType = function (billType) {
 BillType.findAll = (result) => {
   dbConn.query("SELECT * FROM tbl_bill_types", (err, res) => {
     if (err) {
-      console.log(null, err);
+      result(null, err);
     } else {
       result(null, res);
     }
@@ -22,7 +22,7 @@ BillType.findBillTypeById = (bill_type_id, result) => {
     bill_type_id,
     (err, res) => {
       if (err) {
-        console.log(null, err);
+        result(null, err);
       } else {
         result(null, res);
       }

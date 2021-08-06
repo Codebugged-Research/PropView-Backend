@@ -4,9 +4,9 @@ exports.getAllBillType = (req, res) => {
   try {
     BillTypeModel.findAll((err, billTypes) => {
       if (err) {
-        res.status(400).json(err);
+        return res.status(400).json(err);
       } else {
-        res.status(200).json(billTypes);
+        return res.status(200).json(billTypes);
       }
     });
   } catch (err) {
