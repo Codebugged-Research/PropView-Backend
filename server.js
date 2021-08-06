@@ -42,7 +42,7 @@ app.use(cookieParser());
 app.use(cors());
 
 app.get("/version", (req, res) => {
-  res.json("1.0.8+9");
+  res.json("1.0.9+10");
 });
 
 app.use("/api", authRoutes);
