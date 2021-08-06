@@ -16,7 +16,32 @@ BillProperty.findByPropertyId = function (propertyId, result) {
   dbConn.query(
     "SELECT * FROM tbl_bills_to_property WHERE property_id = ?",
     propertyId,
-     (err, res) => {
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+BillProperty.findByIdAndUpdate = function (id, billPropertyReqData, result) {
+  dbConn.query(
+    "UPDATE tbl_bills_to_property SET id=?, property_id=?, bill_type_id=?, authority_name=?, bill_id=?, amount=?, last_update=?, added_by=?, dated_added=? WHERE id=?",
+    [
+      billPropertyReqData.id,
+      billPropertyReqData.property_id,
+      billPropertyReqData.bill_type_id,
+      billPropertyReqData.authority_name,
+      billPropertyReqData.bill_id,
+      billPropertyReqData.amount,
+      billPropertyReqData.last_update,
+      billPropertyReqData.added_by,
+      billPropertyReqData.dated_added,
+      id,
+    ],
+    (err, res) => {
       if (err) {
         result(null, err);
       } else {

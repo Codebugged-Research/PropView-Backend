@@ -18,3 +18,28 @@ exports.getBillPropertyByPropertyId = (req, res) => {
     });
   }
 };
+
+exports.updateBillProperty = (req, res) => {
+  try {
+    const billPropertyReqData = new BillPropertyModel(req.body);
+    BillPropertyModel.findByIdAndUpdate(
+      req.params.bill_property_id,
+      billPropertyReqData,
+      (err, billProperty) => {
+        if (err) {
+          return res.status(400).json({
+            success: false,
+          });
+        } else {
+          return res.status(200).json({
+            success: true,
+          });
+        }
+      }
+    );
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+    });
+  }
+};

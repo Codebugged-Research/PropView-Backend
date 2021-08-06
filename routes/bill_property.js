@@ -8,4 +8,9 @@ router.get(
   BillPropertyControllers.getBillPropertyByPropertyId
 );
 
+router.get(
+  "/bill/property/update/:bill_property_id",
+  BillPropertyControllers.updateBillProperty
+);
+
 module.exports = router;
