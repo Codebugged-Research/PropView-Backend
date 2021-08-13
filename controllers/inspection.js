@@ -1,8 +1,7 @@
 const InspectionModel = require("../models/inspection");
 
 exports.createInspection = (req, res) => {
-  try {
-    const inspectionReqData = new InspectionModel(req.body);
+  const inspectionReqData = new InspectionModel(req.body);
     InspectionModel.saveInspection(inspectionReqData, (err, inspection) => {
       if (err) {
         res.status(400).json({
@@ -16,11 +15,6 @@ exports.createInspection = (req, res) => {
         });
       }
     });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-    });
-  }
 };
 
 exports.getInspectionById = (req, res) => {
