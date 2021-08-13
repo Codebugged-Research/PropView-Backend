@@ -16,6 +16,7 @@ Inspection.saveInspection = (inspectionReqData, result) => {
     "INSERT INTO app_inspection SET ?",
     inspectionReqData,
     (err, res) => {
+      console.log(err);
       if (err) {
         result(null, err);
       }
