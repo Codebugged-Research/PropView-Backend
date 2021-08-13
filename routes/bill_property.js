@@ -8,7 +8,7 @@ router.get(
   BillPropertyControllers.getBillPropertyByPropertyId
 );
 
-router.get(
+router.put(
   "/bill/property/update/:bill_property_id",
   BillPropertyControllers.updateBillProperty
 );
