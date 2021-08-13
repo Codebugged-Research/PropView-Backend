@@ -29,7 +29,6 @@ BillProperty.findByPropertyId = function (propertyId, result) {
 BillProperty.findByIdAndUpdate = function (id, billPropertyReqData, result) {
   dbConn.query(
     "UPDATE tbl_bills_to_property SET id=?, property_id=?, bill_type_id=?, authority_name=?, bill_id=?, amount=?, last_update=?, added_by=?, dated_added=? WHERE id=?",    
-    id,
     [
       billPropertyReqData.id,
       billPropertyReqData.property_id,
@@ -40,9 +39,8 @@ BillProperty.findByIdAndUpdate = function (id, billPropertyReqData, result) {
       billPropertyReqData.last_update,
       billPropertyReqData.added_by,
       billPropertyReqData.dated_added,
-      id,
+      billPropertyReqData.id,
     ],
-    id,
     (err, res) => {
       if (err) {
         result(null, err);

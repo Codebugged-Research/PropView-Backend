@@ -27,6 +27,7 @@ exports.updateBillProperty = (req, res) => {
       billPropertyReqData,
       (err, billProperty) => {
         if (err) {
+          console.log(err);
           return res.status(400).json({
             success: false,
           });
