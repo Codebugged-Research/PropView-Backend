@@ -5,19 +5,19 @@ exports.createInspection = (req, res) => {
     const inspectionReqData = new InspectionModel(req.body);
     InspectionModel.saveInspection(inspectionReqData, (err, inspection) => {
       if (err) {
-        return res.status(400).json({
+        res.status(400).json({
           success: false,
           message: "Error while creating inspection",
         });
       } else {
-        return res.status(200).json({
+        res.json({
           success: true,
           data: { inspection },
         });
       }
     });
   } catch (err) {
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
     });
   }
