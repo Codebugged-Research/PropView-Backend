@@ -9,7 +9,7 @@ const BillProperty = function (billproperty) {
   this.amount = billproperty.amount;
   this.last_update = billproperty.last_update;
   this.added_by = billproperty.added_by;
-  this.dated_added = billproperty.dated_added;
+  this.date_added = billproperty.date_added;
 };
 
 BillProperty.findByPropertyId = function (propertyId, result) {
@@ -26,9 +26,9 @@ BillProperty.findByPropertyId = function (propertyId, result) {
   );
 };
 
-BillProperty.findByIdAndUpdate = function (id, billPropertyReqData, result) {
+BillProperty.findByIdAndUpdate = function (bill_property_id, billPropertyReqData, result) {
   dbConn.query(
-    "UPDATE tbl_bills_to_property SET id=?, property_id=?, bill_type_id=?, authority_name=?, bill_id=?, amount=?, last_update=?, added_by=?, dated_added=? WHERE id=?",    
+    "UPDATE tbl_bills_to_property SET id=?, property_id=?, bill_type_id=?, authority_name=?, bill_id=?, amount=?, last_update=?, added_by=?, date_added=? WHERE id=?",    
     [
       billPropertyReqData.id,
       billPropertyReqData.property_id,
@@ -38,8 +38,8 @@ BillProperty.findByIdAndUpdate = function (id, billPropertyReqData, result) {
       billPropertyReqData.amount,
       billPropertyReqData.last_update,
       billPropertyReqData.added_by,
-      billPropertyReqData.dated_added,
-      billPropertyReqData.id,
+      billPropertyReqData.date_added,
+      bill_property_id
     ],
     (err, res) => {
       if (err) {
