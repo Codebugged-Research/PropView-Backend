@@ -2,7 +2,6 @@ var dbConn = require("../config/database");
 
 var RegularInspectionRow = function (regularInspectionRow) {
   this.id = regularInspectionRow.id;
-  this.bill_dues = regularInspectionRow.bill_dues;
   this.termite_check = regularInspectionRow.termite_check;
   this.seepage_check = regularInspectionRow.seepage_check;
   this.general_cleanliness = regularInspectionRow.general_cleanliness;
