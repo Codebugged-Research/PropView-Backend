@@ -37,7 +37,7 @@ exports.getRegularInspectionByInspectionId = (req, res) => {
 
 exports.getRegularInspectionByPropertyId = (req, res) => {
   try {
-    RegularInspectionModel.findByInspectionId(
+    RegularInspectionModel.findByPropertyId(
       req.params.property_id,
       (err, regularInspection) => {
         if (err) {
