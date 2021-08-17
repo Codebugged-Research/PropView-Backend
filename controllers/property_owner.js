@@ -70,3 +70,20 @@ exports.updatePropertyOwner = (req, res) => {
     }
   );
 };
+
+exports.searchPropertyOwner = (req, res) => {
+  PropertyOwnerModel.searchPropertyOwner(
+    req.body.query,
+    (err, propertyOwner) => {
+      if (err) {
+        return res.status(400).json({
+          error: "No Property Owner List is found!",
+        });
+      }
+      return res.json({
+        count: propertyOwner.length,
+        propertyOwner,
+      });
+    }
+  );
+};
