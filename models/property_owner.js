@@ -78,6 +78,20 @@ PropertyOwner.savePropertyOwner = (propertyOwnerReqData, result) => {
   );
 };
 
+
+PropertyOwner.searchPropertyOwner = (query, result) => {
+  dbConn.query(
+    "SELECT * FROM property_owner WHERE owner_name like ?",
+    query,
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      result(null, res);
+    }
+  );
+}
+
 //* Update Property Owner
 PropertyOwner.findByOwnerIdAndUpdate = (
   ownerId,

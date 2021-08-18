@@ -18,4 +18,9 @@ router.put(
   PropertyOwner.updatePropertyOwner
 );
 
+router.post(
+  "/propertyOwner/search",
+  PropertyOwner.searchPropertyOwner
+);
+
 module.exports = router;

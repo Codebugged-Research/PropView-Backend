@@ -12,7 +12,7 @@
     "prod-restart": "NODE_ENV=production pm2 restart server.js",
     "prod-stop": "NODE_ENV=production pm2 stop server.js"
   },
-  "author": "Sayan Nath",
+  "author": "Sayan Nath, Sambit",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.927.0",
