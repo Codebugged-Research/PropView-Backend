@@ -37,7 +37,7 @@ RegularInspection.findByInspectionId = (inspectionId, result) => {
 
 RegularInspection.findByPropertyId = (propertyId, result) => {
   dbConn.query(
-    "SELECT * FROM app_regular_inspection WHERE property_id=?",
+    "SELECT * FROM app_regular_inspection WHERE property_id=? ORDER BY created_at DESC",
     propertyId,
     (err, res) => {
       if (err) {
