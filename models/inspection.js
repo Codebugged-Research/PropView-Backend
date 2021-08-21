@@ -39,7 +39,7 @@ Inspection.findInspectionById = (inspection_id, result) => {
 };
 
 Inspection.findAllInspection = (result) => {
-  dbConn.query("SELECT * FROM app_inspection ORDER BY created_at DESC", (err, res) => {
+  dbConn.query("SELECT * FROM app_inspection ORDER BY createdAt DESC", (err, res) => {
     if (err) {
       result(null, err);
     }
@@ -49,7 +49,7 @@ Inspection.findAllInspection = (result) => {
 
 Inspection.findInspectionByPropertyId = (property_id, result) => {
   dbConn.query(
-    "SELECT * FROM app_inspection WHERE property_id=? ORDER BY created_at DESC",
+    "SELECT * FROM app_inspection WHERE property_id=? ORDER BY createdAt DESC",
     property_id,
     (err, res) => {
       if (err) {
