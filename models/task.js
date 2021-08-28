@@ -247,3 +247,60 @@ Task.findByIdAndDelete = (task_id, result) => {
 };
 
 module.exports = Task;
+
+//* Get Self Pending Task
+Task.findSelfTask = (assigned_to, task_type, result) => {
+  var sql =
+    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref WHERE assigned_to=? AND task_status=? ORDER BY created_at DESC LIMIT 300";
+  var options = { sql: sql, nestTables: true };
+  var nestingOptions = [
+    {
+      tableName: "app_task",
+      pkey: "task_id",
+      fkeys: [
+        { table: "tbl_users", col: "assigned_to" },
+        { table: "tableproperty", col: "property_ref" },
+        { table: "property_owner", col: "property_owner_ref" },
+      ],
+    },
+    { tableName: "tbl_users", pkey: "user_id" },
+    { tableName: "tableproperty", pkey: "property_id" },
+    { tableName: "property_owner", pkey: "owner_id" },
+  ];
+  dbConn.query(options, [assigned_to, task_type], (err, res) => {
+    if (err) {
+      result(null, err);
+    } else {
+      var nestedRows = func.convertToNested(res, nestingOptions);
+      result(null, nestedRows);
+    }
+  });
+};
+
+Task.findTeamTask = (id1, id2, id3, id4, task_type, result) => {
+  var sql =
+    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref WHERE app_task.assigned_to AND app_task.task_status=? IN (SELECT user_id FROM tbl_users WHERE parent_id = ? OR parent_id like ? OR parent_id like ? OR parent_id like ?) ORDER BY created_at DESC LIMIT 300";
+  var options = { sql: sql, nestTables: true };
+  var nestingOptions = [
+    {
+      tableName: "app_task",
+      pkey: "task_id",
+      fkeys: [
+        { table: "tbl_users", col: "assigned_to" },
+        { table: "tableproperty", col: "property_ref" },
+        { table: "property_owner", col: "property_owner_ref" },
+      ],
+    },
+    { tableName: "tbl_users", pkey: "user_id" },
+    { tableName: "tableproperty", pkey: "property_id" },
+    { tableName: "property_owner", pkey: "owner_id" },
+  ];
+  dbConn.query(options, [id1, id2, id3, id4, task_type], (err, res) => {
+    if (err) {
+      result(null, err);
+    } else {
+      var nestedRows = func.convertToNested(res, nestingOptions);
+      result(null, nestedRows);
+    }
+  });
+};

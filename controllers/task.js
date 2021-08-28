@@ -69,17 +69,23 @@ exports.getAllTaskWithoutUser = (req, res) => {
 };
 
 exports.getAllTaskByManger = (req, res) => {
-  TaskModel.findEmployeeTaskByManager(req.body.id1,req.body.id2,req.body.id3,req.body.id4, (err, task) => {
-    if (err) {
-      return res.status(400).json({
-        error: "No Task List is found!",
+  TaskModel.findEmployeeTaskByManager(
+    req.body.id1,
+    req.body.id2,
+    req.body.id3,
+    req.body.id4,
+    (err, task) => {
+      if (err) {
+        return res.status(400).json({
+          error: "No Task List is found!",
+        });
+      }
+      res.json({
+        count: task.length,
+        data: { task },
       });
     }
-    res.json({
-      count: task.length,
-      data: { task },
-    });
-  });
+  );
 };
 
 exports.getPendingTaskByUserId = (req, res) => {
@@ -121,4 +127,43 @@ exports.deleteTaskById = (req, res) => {
       success: "true",
     });
   });
+};
+
+exports.getSelfTask = (req, res) => {
+  TaskModel.findSelfTask(
+    req.body.assigned_to,
+    req.body.task_type,
+    (err, task) => {
+      if (err) {
+        return res.status(400).json({
+          error: "No Task List is found!",
+        });
+      }
+      res.json({
+        count: task.length,
+        data: { task },
+      });
+    }
+  );
+};
+
+exports.getTeamTask = (req, res) => {
+  TaskModel.findTeamTask(
+    req.body.id1,
+    req.body.id2,
+    req.body.id3,
+    req.body.id4,
+    req.body.task_type,
+    (err, task) => {
+      if (err) {
+        return res.status(400).json({
+          error: "No Task List is found!",
+        });
+      }
+      res.json({
+        count: task.length,
+        data: { task },
+      });
+    }
+  );
 };
