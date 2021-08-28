@@ -43,8 +43,8 @@ User.getAllUsers = (result) => {
 
 User.findEmail = (email, result) => {
   dbConn.query(
-    "SELECT * FROM tbl_users WHERE official_email=?",
-    email,
+    "SELECT * FROM tbl_users WHERE official_email=? OR official_number=?",
+    [email, email],
     (err, res) => {
       if (err) {
         result(null, err);
