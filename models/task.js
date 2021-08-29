@@ -96,7 +96,7 @@ Task.findPendingTaskByUser = (assigned_to, result) => {
 //* Get All Task
 Task.findTask = (result) => {
   var sql =
-    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref ORDER BY created_at DESC LIMIT 1000";
+    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref ORDER BY created_at DESC LIMIT 500";
   var options = { sql: sql, nestTables: true };
   var nestingOptions = [
     {
