@@ -17,15 +17,15 @@ exports.signin = (req, res) => {
       });
     } else {
       try {
-        if (password === user[0].password) {
+        if (password === user[user.length-1].password) {
           const token = jwt.sign(
             {
-              user_id: user[0].user_id,
+              user_id: user[user.length-1].user_id,
             },
             process.env.SECRET
           );
 
-          return res.json({ token, user: user[0] });
+          return res.json({ token, user: user[user.length-1] });
         } else {
           return res.status(401).json({
             error: "Email and Password do not match",
