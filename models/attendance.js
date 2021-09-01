@@ -1,5 +1,8 @@
 var dbConn = require("../config/database");
 var func = require("node-mysql-nesting");
+const fastcsv = require("fast-csv");
+const fs = require("fs");
+const ws = fs.createWriteStream("attendance.csv");
 
 var Attendance = function (attendance) {
   this.attendance_id = attendance.attendance_id;
@@ -260,6 +263,38 @@ Attendance.findAttendancesForCheck = (result) => {
         result(null, err);
       }
       var nestedRows = func.convertToNested(res, nestingOptions);
+      result(null, nestedRows);
+    }
+  );
+};
+
+Attendance.exportCSV = (result) => {
+  var nestingOptions = [
+    {
+      tableName: "app_attendance",
+      pkey: "attendance_id",
+      fkeys: [{ table: "tbl_users", col: "user_id" }],
+    },
+    { tableName: "tbl_users", pkey: "user_id" },
+  ];
+  dbConn.query(
+    {
+      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id ORDER BY punch_in DESC",
+      nestTables: true,
+    },
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      var nestedRows = func.convertToNested(res, nestingOptions);
+      const jsonData = JSON.parse(JSON.stringify(nestedRows));
+
+      fastcsv
+        .write(jsonData, { headers: true })
+        .on("finish", function () {
+          console.log("Write to attendance.csv successfully!");
+        })
+        .pipe(ws);
       result(null, nestedRows);
     }
   );
