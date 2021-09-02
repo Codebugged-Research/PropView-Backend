@@ -5,13 +5,6 @@
 ### In Localhost
 > npm run dev
 
-### In Development Server
-> npm run dev-start
- 
-> npm run dev-restart
-
-> npm run dev-stop
-
 ### In Production Server
 > npm run prod-start
 
