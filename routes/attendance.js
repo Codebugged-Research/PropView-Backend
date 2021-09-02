@@ -40,6 +40,6 @@ router.get("/attendance/date/:date", Attendance.getAttendanceByDate);
 router.put("/attendance/update/:attendance_id", Attendance.updateAttendance);
 
 //Export Attendance
-router.get("/attendance/export", Attendance.exportAttendance);
+router.post("/attendance/export", Attendance.exportAttendance);
 
 module.exports = router;
