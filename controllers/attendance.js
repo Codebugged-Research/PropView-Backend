@@ -165,3 +165,16 @@ exports.updateAttendance = (req, res) => {
     }
   );
 };
+
+exports.exportAttendance = (req, res) => {
+  AttendanceModel.exportCSV((err, attendance) => {
+    if (err) {
+      return res.status(400).json({
+        error: "No Attendance List is found!",
+      });
+    }
+    return res.json({
+      "message": "CSV created successfully!"
+    });
+  });
+};

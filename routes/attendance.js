@@ -22,7 +22,10 @@ router.get(
 );
 
 //Get Attendance with parent_id
-router.get("/attendance/manager/:parent_id", Attendance.getAttendanceByParentId);
+router.get(
+  "/attendance/manager/:parent_id",
+  Attendance.getAttendanceByParentId
+);
 
 //Get Attendance with parent_id and date
 router.get(
@@ -35,5 +38,8 @@ router.get("/attendance/date/:date", Attendance.getAttendanceByDate);
 
 //Update Attendance
 router.put("/attendance/update/:attendance_id", Attendance.updateAttendance);
+
+//Export Attendance
+router.get("/attendance/export", Attendance.exportAttendance);
 
 module.exports = router;
