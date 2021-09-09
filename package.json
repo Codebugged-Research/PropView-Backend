@@ -29,6 +29,8 @@
     "mysql": "^2.18.1",
     "node-cron": "^3.0.0",
     "node-mysql-nesting": "^0.0.3",
+    "nodemailer": "^6.6.3",
+    "nodemailer-smtp-transport": "^2.7.4",
     "uuid": "^3.3.2",
     "winston": "^3.3.3"
   },

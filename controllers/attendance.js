@@ -1,5 +1,19 @@
 const AttendanceModel = require("../models/attendance");
 
+const nodemailer = require('nodemailer');
+const smtpTransport = require('nodemailer-smtp-transport');
+
+const transporter = nodemailer.createTransport(
+  smtpTransport({
+    service: 'yandex',
+    host: 'smtp.yandex.com',
+    auth: {
+      user: 'propview.app@yandex.com',
+      pass: 'hjwzvdzgzqnjymtu',
+    },
+  })
+);
+
 exports.createAttendance = (req, res) => {
   const attendanceReqData = new AttendanceModel(req.body);
   AttendanceModel.saveAttendance(attendanceReqData, (err, attendance) => {
@@ -168,13 +182,25 @@ exports.updateAttendance = (req, res) => {
 
 exports.exportAttendance = (req, res) => {
   AttendanceModel.exportCSV((err, attendance) => {
-    if (err) {
-      return res.status(400).json({
-        error: "No Attendance List is found!",
+    const mailOptions = {
+      from: 'propview.app@yandex.com',
+      to: 'majhisambit2@gmail.com',
+      subject: 'Attendance Report',
+      text: 'Find the attached document.',
+      attachments: [
+        {
+          path: './attendance.csv'
+        },
+      ]
+    };
+
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) return res.status(400).json({
+        "success": false,
       });
-    }
-    return res.json({
-      "message": "CSV created successfully!"
+      else {
+        res.json({ "success": true });
+      }
     });
   });
 };

@@ -2,7 +2,7 @@ var dbConn = require("../config/database");
 var func = require("node-mysql-nesting");
 const fastcsv = require("fast-csv");
 const fs = require("fs");
-const ws = fs.createWriteStream("attendance.csv");
+const ws = fs.createWriteStream("./attendance.csv");
 
 var Attendance = function (attendance) {
   this.attendance_id = attendance.attendance_id;
