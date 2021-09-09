@@ -76,6 +76,10 @@ app.use("/api", billPropertyRoutes);
 //Cron Job
 require("./cron/attendance");
 
+app.get("/attendance.csv", (req,res) => {
+  res.sendFile("./attendance.csv", {root: __dirname});
+})
+
 //Start a server
 const PORT = process.env.PORT;
 

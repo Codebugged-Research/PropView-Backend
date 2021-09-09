@@ -281,7 +281,7 @@ Attendance.exportCSV = (result) => {
       .write(jsonData, { headers: true })
       .on("finish", function () {
         console.log("Write to attendance.csv successfully!");
-        result(null, res);
+        result(null, jsonData);
       })
       .pipe(ws);
   });
