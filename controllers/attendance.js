@@ -19,7 +19,7 @@ exports.createAttendance = (req, res) => {
   AttendanceModel.saveAttendance(attendanceReqData, (err, attendance) => {
     if (err) {
       return res.status(400).json({
-        success: "false",
+        success: err,
       });
     }
     return res.json({
@@ -193,10 +193,9 @@ exports.exportAttendance = (req, res) => {
         },
       ]
     };
-
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) return res.status(400).json({
-        "success": false,
+        "success": err,
       });
       else {
         res.json({ "success": true });
