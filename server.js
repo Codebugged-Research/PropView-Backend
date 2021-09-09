@@ -76,7 +76,7 @@ app.use("/api", billPropertyRoutes);
 //Cron Job
 require("./cron/attendance");
 
-app.get("/attendance.csv", (req,res) => {
+app.get("/attendance", (req,res) => {
   res.sendFile("./attendance.csv", {root: __dirname});
 })
 
