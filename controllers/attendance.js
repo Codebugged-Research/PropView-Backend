@@ -1,4 +1,5 @@
 const AttendanceModel = require("../models/attendance");
+const path = require("path");
 
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
@@ -182,24 +183,43 @@ exports.updateAttendance = (req, res) => {
 
 exports.exportAttendance = (req, res) => {
   AttendanceModel.exportCSV((err, attendance) => {
-    const mailOptions = {
-      from: 'propview.app@yandex.com',
-      to: 'majhisambit2@gmail.com',
-      subject: 'Attendance Report',
-      text: 'Find the attached document.',
-      attachments: [
-        {
-          path: './attendance.csv'
-        },
-      ]
-    };
-    transporter.sendMail(mailOptions, (err, info) => {
+    // const mailOptions = {
+    //   from: 'propview.app@yandex.com',
+    //   to: 'majhisambit2@gmail.com',
+    //   subject: 'Attendance Report',
+    //   text: 'Find the attached document.',
+    //   attachments: [
+    //     {
+    //       path: './attendance.csv'
+    //     },
+    //   ]
+    // };
+    // transporter.sendMail(mailOptions, (err, info) => {
+    //   if (err) return res.status(400).json({
+    //     "success": err,
+    //   });
+    //   else {
+    //     res.json({ "success": true });
+    //   }
+    // });
+    if (err) {
       if (err) return res.status(400).json({
-        "success": err,
+        "err": err,
       });
-      else {
-        res.json({ "success": true });
-      }
-    });
+    } else {
+      var options = {
+        root: path.join(__dirname)
+      };
+      var fileName = 'attendance.csv';
+      res.sendFile(fileName, options, function (err) {
+        if (err) {
+          res.status(400).json({
+            "err": err,
+          });
+        } else {
+          console.log('Sent:', fileName);
+        }
+      });
+    }
   });
 };
