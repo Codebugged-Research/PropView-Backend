@@ -207,11 +207,11 @@ exports.exportAttendance = (req, res) => {
         "err": err,
       });
     } else {
-      var options = {
-        root: path.join(__dirname)
-      };
-      var fileName = 'attendance.csv';
-      res.sendFile(fileName, options, function (err) {
+      var fileName = path.join(__dirname,'/attendance.csv');
+      res.setHeader('Content-Disposition', 'attachment; filename=' + "attendance.csv");
+      res.setHeader('Content-Transfer-Encoding', 'binary');
+      res.setHeader('Content-Type', 'application/octet-stream')
+      res.sendFile(fileName, function (err) {
         if (err) {
           res.status(400).json({
             "err": err,
