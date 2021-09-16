@@ -279,7 +279,7 @@ Task.findSelfTask = (assigned_to, task_type, result) => {
 
 Task.findTeamTask = (id1, id2, id3, id4, task_type, result) => {
   var sql =
-    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref WHERE app_task.assigned_to AND app_task.task_status=? IN (SELECT user_id FROM tbl_users WHERE parent_id = ? OR parent_id like ? OR parent_id like ? OR parent_id like ?) ORDER BY created_at DESC LIMIT 300";
+    "SELECT * FROM app_task JOIN tbl_users ON app_task.assigned_to = tbl_users.user_id JOIN tableproperty ON tableproperty.property_id = app_task.property_ref JOIN property_owner ON property_owner.owner_id = app_task.property_owner_ref WHERE app_task.assigned_to IN (SELECT user_id FROM tbl_users WHERE parent_id = ? OR parent_id like ? OR parent_id like ? OR parent_id like ?) AND app_task.task_status=? ORDER BY created_at DESC LIMIT 300";
   var options = { sql: sql, nestTables: true };
   var nestingOptions = [
     {
