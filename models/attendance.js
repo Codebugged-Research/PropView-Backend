@@ -178,7 +178,7 @@ Attendance.findAttendanceByParentId = (parent_id, result) => {
   ];
   dbConn.query(
     {
-      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.parent_id=? ORDER BY punch_in",
+      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.parent_id=? ORDER BY attendance_id",
       nestTables: true,
     },
     parent_id,
