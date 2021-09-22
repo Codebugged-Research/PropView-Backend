@@ -158,7 +158,7 @@ User.findUserByUserType = (userType, result) => {
 
 User.findUsersByManger = (id1, id2, id3, id4, result) => {
   dbConn.query(
-    "SELECT * FROM tbl_users WHERE WHERE parent_id = ? OR parent_id like ? OR parent_id like ? OR parent_id like ? AND status=1 ORDER BY name ASC",
+    "SELECT * FROM tbl_users WHERE parent_id = ? OR parent_id like ? OR parent_id like ? OR parent_id like ? AND status=1 ORDER BY name ASC",
     [id1, id2, id3, id4],
     (err, res) => {
       if (err) {
