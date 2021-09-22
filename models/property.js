@@ -120,7 +120,7 @@ Property.findPropertyByPropertyId = (propertyId, result) => {
   ];
   dbConn.query(
     {
-      sql: "SELECT * from tableproperty JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid  WHERE status=1 AND property_id=?",
+      sql: "SELECT * from tableproperty JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid  WHERE tableproperty.status=1 AND property_id=?",
       nestTables: true,
     },
     propertyId,
@@ -154,7 +154,7 @@ Property.findPropertyByOwnerId = (ownerId, result) => {
   ];
   dbConn.query(
     {
-      sql: "SELECT * from tableproperty JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid WHERE status=1 AND owner_id=?",
+      sql: "SELECT * from tableproperty JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid WHERE tableproperty.status=1 AND owner_id=?",
       nestTables: true,
     },
     ownerId,
@@ -189,7 +189,7 @@ Property.findAllProperty = (result) => {
   ];
   dbConn.query(
     {
-      sql: "SELECT * FROM tableproperty JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid WHERE status=1",
+      sql: "SELECT * FROM tableproperty JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid WHERE tableproperty.status=1",
       nestTables: true,
     },
     (err, res) => {
@@ -225,7 +225,7 @@ Property.findAllPropertyLimit = (offset, limit, result) => {
   ];
   dbConn.query(
     {
-      sql: "SELECT * FROM tableproperty JOIN property_owner ON tableproperty.owner_id = property_owner.owner_id JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid WHERE status=1 LIMIT ?,?",
+      sql: "SELECT * FROM tableproperty JOIN property_owner ON tableproperty.owner_id = property_owner.owner_id JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid WHERE tableproperty.status=1 LIMIT ?,?",
       nestTables: true,
     },
     [offset, limit],
@@ -261,7 +261,7 @@ Property.findAllUserProperty = (userId, result) => {
   ];
   dbConn.query(
     {
-      sql: "SELECT * FROM tableproperty JOIN property_owner ON tableproperty.owner_id = property_owner.owner_id JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid WHERE status=1 AND FIND_IN_SET(property_id, (SELECT property_id from tbl_user_to_property where user_id=?))",
+      sql: "SELECT * FROM tableproperty JOIN property_owner ON tableproperty.owner_id = property_owner.owner_id JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid WHERE tableproperty.status=1 AND FIND_IN_SET(property_id, (SELECT property_id from tbl_user_to_property where user_id=?))",
       nestTables: true,
     },
     userId,
