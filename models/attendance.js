@@ -17,6 +17,8 @@ var Attendance = function (attendance) {
   this.name = attendance.name;
   this.email = attendance.email;
   this.diff_km = attendance.diff_km;
+  this.geo_in = attendance.geo_in;
+  this.geo_out = attendance.geo_out;
 };
 
 //* Create Attendance
@@ -219,7 +221,7 @@ Attendance.findAttendanceByParentIdAndDate = (parent_id, date, result) => {
 //* Update Attandance
 Attendance.findByIdAndUpdate = (attendance_id, attendanceReqData, result) => {
   dbConn.query(
-    "UPDATE app_attendance SET attendance_id=?, user_id=?, parent_id=?, punch_in=?, punch_out=?, meter_in=?, meter_out=?, work_hour=?, date=?, name=?, email=?, diff_km=? WHERE app_attendance.attendance_id=?",
+    "UPDATE app_attendance SET attendance_id=?, user_id=?, parent_id=?, punch_in=?, punch_out=?, meter_in=?, meter_out=?, work_hour=?, date=?, name=?, email=?, diff_km=?, geo_in=?, geo_out=? WHERE app_attendance.attendance_id=?",
     [
       attendanceReqData.attendance_id,
       attendanceReqData.user_id,
@@ -233,6 +235,8 @@ Attendance.findByIdAndUpdate = (attendance_id, attendanceReqData, result) => {
       attendanceReqData.name,
       attendanceReqData.email,
       attendanceReqData.diff_km,
+      attendanceReqData.geo_in,
+      attendanceReqData.geo_out,
       attendance_id,
     ],
     (err, res) => {
@@ -271,20 +275,28 @@ Attendance.findAttendancesForCheck = (result) => {
 Attendance.exportCSV = (result) => {
   const currentTime = Date.now();
   const currentDate = new Date(currentTime);
-  var date = "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getFullYear()
-  dbConn.query({ sql: "SELECT * FROM app_attendance WHERE date LIKE '%?'", date, nestTables: false, }, (err, res) => {
-    if (err) {
-      result(null, err);
+  var date =
+    "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getFullYear();
+  dbConn.query(
+    {
+      sql: "SELECT * FROM app_attendance WHERE date LIKE '%?'",
+      date,
+      nestTables: false,
+    },
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      const jsonData = JSON.parse(JSON.stringify(res));
+      fastcsv
+        .write(jsonData, { headers: true })
+        .on("finish", function () {
+          console.log("Write to attendance.csv successfully!");
+          result(null, jsonData);
+        })
+        .pipe(ws);
     }
-    const jsonData = JSON.parse(JSON.stringify(res));
-    fastcsv
-      .write(jsonData, { headers: true })
-      .on("finish", function () {
-        console.log("Write to attendance.csv successfully!");
-        result(null, jsonData);
-      })
-      .pipe(ws);
-  });
+  );
 };
 
 module.exports = Attendance;
