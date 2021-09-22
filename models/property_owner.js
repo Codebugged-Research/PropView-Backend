@@ -56,7 +56,7 @@ PropertyOwner.findPropertyByOwnerId = (ownerId, result) => {
 
 //* Get All Property owner
 PropertyOwner.getAllPropertyOwner = (result) => {
-  dbConn.query("SELECT * FROM property_owner", (err, res) => {
+  dbConn.query("SELECT * FROM property_owner WHERE status=1", (err, res) => {
     if (err) {
       result(null, err);
     }
@@ -81,7 +81,7 @@ PropertyOwner.savePropertyOwner = (propertyOwnerReqData, result) => {
 
 PropertyOwner.searchPropertyOwner = (query, result) => {
   dbConn.query(
-    "SELECT * FROM property_owner WHERE owner_name like ?",
+    "SELECT * FROM property_owner WHERE status=1 AND owner_name like ?",
     query,
     (err, res) => {
       if (err) {
@@ -99,7 +99,7 @@ PropertyOwner.findByOwnerIdAndUpdate = (
   result
 ) => {
   dbConn.query(
-    "UPDATE property_owner SET owner_id=?,salutation=?,owner_name=?,owner_number=?,whatsapp_number=?,owner_email=?,owner_address=?,owner_password=?,owner_name1=?,owner_email1=?,owner_number1=?,country=?,account_name=?,bank_name=?,account_number=?,bank_ifsc=?,account_type=?,pan_number=?,pan_number1=?,aadhaar=?,aadhaar1=?,instruction=?,ref_name=?,ref_email=?,ref_number=?,ref_relation=?,ref_address=?,poa_name=?,poa_number=?,poa_email=?,poa_relation=?,poa_address=?,for_ref=?,addedon=?,status=?,sendmail=?,newsletter=? WHERE owner_id=?",
+    "UPDATE property_owner SET owner_id=?,salutation=?,owner_name=?,owner_number=?,whatsapp_number=?,owner_email=?,owner_address=?,owner_password=?,owner_name1=?,owner_email1=?,owner_number1=?,country=?,account_name=?,bank_name=?,account_number=?,bank_ifsc=?,account_type=?,pan_number=?,pan_number1=?,aadhaar=?,aadhaar1=?,instruction=?,ref_name=?,ref_email=?,ref_number=?,ref_relation=?,ref_address=?,poa_name=?,poa_number=?,poa_email=?,poa_relation=?,poa_address=?,for_ref=?,addedon=?,status=?,sendmail=?,newsletter=? WHERE status=1 AND owner_id=?",
     [
       propertyOwnerReqData.owner_id,
       propertyOwnerReqData.salutation,
