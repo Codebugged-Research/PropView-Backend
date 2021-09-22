@@ -85,12 +85,15 @@ exports.getUserByUserType = (req, res) => {
 };
 
 exports.getUsersByMangerID = (req, res) => {
-  UserModel.findUsersByManger(req.params.id, (err, users) => {
-    if (err) {
-      return res.status(400).json({
-        error: "No Users is found with this ID!",
-      });
-    }
-    res.json(users);
-  });
+  UserModel.findUsersByManger(req.body.id1,
+    req.body.id2,
+    req.body.id3,
+    req.body.id4, (err, users) => {
+      if (err) {
+        return res.status(400).json({
+          error: "No Users is found with this ID!",
+        });
+      }
+      res.json(users);
+    });
 };
