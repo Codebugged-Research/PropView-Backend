@@ -114,7 +114,7 @@ PropertyOwner.searchProperty = (query, result) => {
   ];
   dbConn.query(
     {
-      sql: "SELECT * from tableproperty JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid WHERE tableproperty.status=1 AND tableproperty.socid IN (SELECT socid FROM tbl_society WHERE status=1 AND socname like ?)",
+      sql: "SELECT * from tableproperty JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN property_owner ON tableproperty.owner_id = property_owner.owner_id JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid WHERE tableproperty.status=1 AND tableproperty.socid IN (SELECT socid FROM tbl_society WHERE status=1 AND socname like ?)",
       nestTables: true,
     }, 
     query,
