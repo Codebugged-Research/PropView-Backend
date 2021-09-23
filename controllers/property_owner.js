@@ -87,3 +87,20 @@ exports.searchPropertyOwner = (req, res) => {
     }
   );
 };
+
+exports.searchProperty = (req, res) => {
+  PropertyOwnerModel.searchProperty(
+    req.body.query,
+    (err, propertyOwner) => {
+      if (err) {
+        return res.status(400).json({
+          error: "No Properties List is found!",
+        });
+      }
+      return res.json({
+        count: propertyOwner.length,
+        propertyOwner,
+      });
+    }
+  );
+};

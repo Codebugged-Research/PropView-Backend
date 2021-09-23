@@ -1,3 +1,4 @@
+const { query } = require("../config/database");
 var dbConn = require("../config/database");
 
 var PropertyOwner = function (propertyOwner) {
@@ -82,6 +83,40 @@ PropertyOwner.savePropertyOwner = (propertyOwnerReqData, result) => {
 PropertyOwner.searchPropertyOwner = (query, result) => {
   dbConn.query(
     "SELECT * FROM property_owner WHERE status=1 AND owner_name like ?",
+    query,
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      result(null, res);
+    }
+  );
+}
+
+PropertyOwner.searchProperty = (query, result) => {
+  var nestingOptions = [
+    {
+      tableName: "tableproperty",
+      pkey: "property_id",
+      fkeys: [
+        { table: "tbl_country", col: "cid" },
+        { table: "tbl_state", col: "sid" },
+        { table: "tbl_city", col: "ccid" },
+        { table: "tbl_locality", col: "locid" },
+        { table: "tbl_society", col: "socid" },
+      ],
+    },
+    { tableName: "tbl_country", pkey: "cid" },
+    { tableName: "tbl_state", pkey: "sid" },
+    { tableName: "tbl_city", pkey: "ccid" },
+    { tableName: "tbl_locality", pkey: "locid" },
+    { tableName: "tbl_society", pkey: "socid" },
+  ];
+  dbConn.query(
+    {
+      sql: "SELECT * from tableproperty JOIN tbl_country ON tableproperty.cid = tbl_country.cid JOIN tbl_state ON tableproperty.sid = tbl_state.sid JOIN tbl_city ON tableproperty.ccid = tbl_city.ccid  JOIN tbl_locality ON tableproperty.locid = tbl_locality.locid JOIN tbl_society ON tableproperty.socid = tbl_society.socid WHERE tableproperty.status=1 AND tableproperty.socid IN (SELECT socid FROM tbl_society WHERE status=1 AND socname like ?)",
+      nestTables: true,
+    }, 
     query,
     (err, res) => {
       if (err) {

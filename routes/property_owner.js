@@ -23,4 +23,10 @@ router.post(
   PropertyOwner.searchPropertyOwner
 );
 
+
+router.post(
+  "/property/search",
+  PropertyOwner.searchPropertyOwner
+);
+
 module.exports = router;
