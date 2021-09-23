@@ -118,6 +118,7 @@ PropertyOwner.searchProperty = (query, result) => {
       nestTables: true,
     }, 
     query,
+    nestingOptions,
     (err, res) => {
       if (err) {
         result(null, err);
