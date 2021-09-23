@@ -81,7 +81,7 @@ PropertyOwner.savePropertyOwner = (propertyOwnerReqData, result) => {
 
 PropertyOwner.searchPropertyOwner = (query, result) => {
   dbConn.query(
-    "SELECT * FROM property_owner WHERE status=1 AND owner_name like ?",
+    "SELECT * FROM property_owner WHERE status=1 AND owner_name like ? COLLATE Latin1_General_CS_AS",
     query,
     (err, res) => {
       if (err) {
