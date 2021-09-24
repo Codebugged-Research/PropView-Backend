@@ -22,8 +22,8 @@ router.get(
 );
 
 //Get Attendance with parent_id
-router.get(
-  "/attendance/manager/:parent_id",
+router.post(
+  "/attendance/manager/",
   Attendance.getAttendanceByParentId
 );
 

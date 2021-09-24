@@ -126,7 +126,10 @@ exports.getAllAttendance = (req, res) => {
 
 exports.getAttendanceByParentId = (req, res) => {
   AttendanceModel.findAttendanceByParentId(
-    req.params.parent_id,
+    req.body.id1,
+    req.body.id2,
+    req.body.id3,
+    req.body.id4,
     (err, attendance) => {
       if (err) {
         return res.status(400).json({

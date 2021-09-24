@@ -167,7 +167,7 @@ Attendance.findAttendanceByDate = (date, result) => {
 };
 
 //* Get Attendance by parent_id
-Attendance.findAttendanceByParentId = (parent_id, result) => {
+Attendance.findAttendanceByParentId = (id1, id2, id3, id4, result) => {
   var nestingOptions = [
     {
       tableName: "app_attendance",
@@ -178,10 +178,10 @@ Attendance.findAttendanceByParentId = (parent_id, result) => {
   ];
   dbConn.query(
     {
-      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.parent_id=? ORDER BY attendance_id DESC",
+      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id WHERE app_attendance.parent_id=? OR app_attendance.parent_id like ? OR app_attendance.parent_id like ? OR app_attendance.parent_id like ? ORDER BY attendance_id DESC",
       nestTables: true,
     },
-    parent_id,
+    [id1, id2, id3, id4],
     (err, res) => {
       if (err) {
         result(null, err);
