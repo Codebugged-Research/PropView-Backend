@@ -36,6 +36,7 @@ const regularInspectionRoutes = require("./routes/regular_inspection");
 const regularInspectionRowRoutes = require("./routes/regular_inspection_row");
 const billTypesRoutes = require("./routes/bill_types");
 const billPropertyRoutes = require("./routes/bill_property");
+const propertyAssignmentRoutes = require("./routes/property_assignment");
 
 //Middlewares
 app.use(express.json());
@@ -72,6 +73,7 @@ app.use("/api", regularInspectionRoutes);
 app.use("/api", regularInspectionRowRoutes);
 app.use("/api", billTypesRoutes);
 app.use("/api", billPropertyRoutes);
+app.use("/api", propertyAssignmentRoutes);
 
 //Cron Job
 require("./cron/attendance");
