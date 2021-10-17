@@ -47,6 +47,19 @@ PropertyAssignment.isPropertyAssigned = (id_1, id_2, id_3, id_4, result) => {
   );
 };
 
+PropertyAssignment.getRowByUserId = (id, result) => {
+  dbConn.query(
+    "SELECT * FROM tbl_suser_to_property WHERE user_status=?",
+    [id_1, id_2, id_3, id_4],
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      result(null, res);
+    }
+  );
+};
+
 PropertyAssignment.isPropertyAssigned0 = (id_1, id_2, id_3, id_4, result) => {
   dbConn.query(
     "SELECT * FROM tbl_user_to_property WHERE property_id LIKE ? OR property_id LIKE ? OR property_id LIKE ? OR property_id=?",

@@ -48,6 +48,29 @@ exports.getPropertyAssignmentByUserId = (req, res) => {
     });
   }
 };
+exports.getRowByUserId = (req, res) => {
+  try {
+    PropertyAssignment.getRowByUserId(
+      req.params.id,
+      (err, propertyAssignment) => {
+        if (err) {
+          return res.status(500).json({
+            success: "false",
+          });
+        }
+        return res.json({
+          success: "true",
+          count: propertyAssignment.length,
+          propertyAssignment,
+        });
+      }
+    );
+  } catch (err) {
+    return res.status(400).json({
+      success: false,
+    });
+  }
+}
 
 exports.isAssigned = (req, res) => {
   try {

@@ -8,11 +8,14 @@ router.post(
   "/property/assignment/create/",
   PropertyAssignment.createPropertyAssignment
 );
-
+router.get(
+  "/property/assignment/row/:id",
+  PropertyAssignment.getRowByUserId,
+);
 router.get(
   "/property/assignment/user/:userId",
   PropertyAssignment.getPropertyAssignmentByUserId
-);
+); getRowByUserId
 
 router.post("/property/assignment/user/assigned/", PropertyAssignment.isAssigned);
 router.post("/property/assignment/user/assigned0/", PropertyAssignment.isAssigned0);
