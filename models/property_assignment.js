@@ -50,7 +50,7 @@ PropertyAssignment.isPropertyAssigned = (id_1, id_2, id_3, id_4, result) => {
 PropertyAssignment.getRowByUserId = (id, result) => {
   dbConn.query(
     "SELECT * FROM tbl_suser_to_property WHERE user_id=?",
-    [id_1, id_2, id_3, id_4],
+    [id],
     (err, res) => {
       if (err) {
         result(null, err);
