@@ -78,6 +78,35 @@ exports.isAssigned = (req, res) => {
   }
 }
 
+exports.isAssigned0 = (req, res) => {
+  try {
+    PropertyAssignment.isPropertyAssigned0(
+      req.body.id_1,
+      req.body.id_2,
+      req.body.id_3,
+      req.body.id_4,
+      (err, propertyAssignment) => {
+        if (err) {
+          return res.status(500).json({
+            success: "false",
+          });
+        }
+        return res.json({
+          success: "true",
+          count: propertyAssignment.length,
+          data: {
+            propertyAssignment,
+          },
+        });
+      }
+    );
+  } catch (err) {
+    return res.status(400).json({
+      success: false,
+    });
+  }
+}
+
 exports.updatePropertyAssignment = (req, res) => {
   const property_assignment = new PropertyAssignment(req.body);
   try {

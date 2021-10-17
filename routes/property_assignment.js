@@ -15,6 +15,7 @@ router.get(
 );
 
 router.post("/property/assignment/user/assigned/", PropertyAssignment.isAssigned);
+router.post("/property/assignment/user/assigned0/", PropertyAssignment.isAssigned0);
 
 router.put(
   "/property/assignment/update/:id",
