@@ -15,7 +15,7 @@ router.get(
 router.get(
   "/property/assignment/user/:userId",
   PropertyAssignment.getPropertyAssignmentByUserId
-); getRowByUserId
+);
 
 router.post("/property/assignment/user/assigned/", PropertyAssignment.isAssigned);
 router.post("/property/assignment/user/assigned0/", PropertyAssignment.isAssigned0);
