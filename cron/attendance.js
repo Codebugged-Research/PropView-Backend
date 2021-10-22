@@ -9,6 +9,7 @@ cron.schedule("0 0/15 * * * *", () => {
       attendances.map((attendance) => {
         const currentTime = Date.now();
         const currentDate = new Date(currentTime);
+        currentDate.setTime(currentDate.getTime() + (5 * 60 * 1000));
         const punchInDate = new Date(attendance.punch_in);
         if (
           attendance.punch_out === "--/--/-- -- : --" &&
@@ -16,7 +17,7 @@ cron.schedule("0 0/15 * * * *", () => {
         ) {
           attendance.meter_out = attendance.meter_in;
           attendance.punch_out = currentDate;
-          attendance.work_hour = parseInt((currentDate.getTime() - punchInDate.getTime())/3600000, 10);
+          attendance.work_hour = parseInt((currentDate.getTime() - punchInDate.getTime()) / 3600000, 10);
           attendance.diff_km = attendance.meter_out - attendance.meter_in;
           AttendanceModel.findByIdAndUpdate(
             attendance.attendance_id,
