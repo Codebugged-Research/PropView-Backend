@@ -73,7 +73,10 @@ exports.updatePropertyOwner = (req, res) => {
 
 exports.searchPropertyOwner = (req, res) => {
   PropertyOwnerModel.searchPropertyOwner(
-    req.body.query,
+    req.body.query1,
+    req.body.query2,
+    req.body.query3,
+    req.body.query4,
     (err, propertyOwner) => {
       if (err) {
         return res.status(400).json({

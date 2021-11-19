@@ -80,10 +80,10 @@ PropertyOwner.savePropertyOwner = (propertyOwnerReqData, result) => {
 };
 
 
-PropertyOwner.searchPropertyOwner = (query, result) => {
+PropertyOwner.searchPropertyOwner = (query1,query2,query3,query4, result) => {
   dbConn.query(
-    "SELECT * FROM property_owner WHERE status=1 AND owner_name like ?",
-    query,
+    "SELECT * FROM property_owner WHERE status=1 AND owner_name like ? OR owner_name like ? OR owner_name like ? OR owner_name = ? ",
+    [query1,query2,query3,query4],
     (err, res) => {
       if (err) {
         result(null, err);
