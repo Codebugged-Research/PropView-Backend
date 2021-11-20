@@ -9,7 +9,7 @@ cron.schedule("0 0/15 * * * *", () => {
       attendances.map((attendance) => {
         const currentTime = Date.now();
         const currentDate = new Date(currentTime);
-        currentDate.setTime(currentDate.getTime() + (5 * 60 * 1000));
+        currentDate.setTime(currentDate.getTime() - (5 * 60 * 1000));
         const punchInDate = new Date(attendance.punch_in);
         if (
           attendance.punch_out === "--/--/-- -- : --" &&
