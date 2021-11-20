@@ -90,6 +90,32 @@ exports.getInspectionByPropertyId = (req, res) => {
   }
 };
 
+exports.getInspectionByPropertyIdAndType = (req, res) => {
+  try {
+    InspectionModel.findInspectionByPropertyIdAndType(
+      req.params.property_id,
+      req.params.type,
+      (err, inspection) => {
+        if (err) {
+          return res.status(400).json({
+            success: false,
+            message: "Error while getting inspection",
+          });
+        } else {
+          return res.status(200).json({
+            success: true,
+            data: { inspection },
+          });
+        }
+      }
+    );
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+    });
+  }
+}
+
 
 exports.getInspectionByEmployeeId = (req, res) => {
   try{

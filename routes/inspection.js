@@ -11,6 +11,10 @@ router.get(
   Inspection.getInspectionByPropertyId
 );
 router.get(
+  "/inspection/get/type/property/:property_id/:type",
+  Inspection.getInspectionByPropertyId
+);
+router.get(
   "/inspection/get/employee/:employee_id",
   Inspection.getInspectionByEmployeeId
 );

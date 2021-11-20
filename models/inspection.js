@@ -60,6 +60,19 @@ Inspection.findInspectionByPropertyId = (property_id, result) => {
   );
 };
 
+Inspection.findInspectionByPropertyIdAndType = (property_id, inspect_type, result) => {
+  dbConn.query(
+    "SELECT * FROM app_inspection WHERE property_id=? AND inspect_type=?",
+    [property_id, inspect_type],
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      result(null, res);
+    }
+  );
+}
+
 Inspection.findInspectionByEmployeeId = (employee_id, result) => {
   dbConn.query(
     "SELECT * FROM app_inspection WHERE employee_id=?",
