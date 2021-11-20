@@ -12,7 +12,7 @@ router.get(
 );
 router.get(
   "/inspection/get/type/property/:property_id/:type",
-  Inspection.getInspectionByPropertyId
+  Inspection.getInspectionByPropertyIdAndType
 );
 router.get(
   "/inspection/get/employee/:employee_id",
