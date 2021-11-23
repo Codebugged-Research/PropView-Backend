@@ -8,9 +8,6 @@ var SubRoomsToProperty = function (subRoomsToProperty) {
   this.room_size1 = subRoomsToProperty.room_size1;
   this.room_size2 = subRoomsToProperty.room_size2;
   this.facility = subRoomsToProperty.facility;
-  this.image1 = subRoomsToProperty.image1;
-  this.image2 = subRoomsToProperty.image2;
-  this.image3 = subRoomsToProperty.image3;
 };
 
 SubRoomsToProperty.saveSubRoomsToProperty = (subRoomsReqData, result) => {
@@ -54,18 +51,14 @@ SubRoomsToProperty.findByIdAndUpdate = (
   result
 ) => {
   dbConn.query(
-    "UPDATE tbl_rooms_to_property_sub SET property_sub_room_id=?, property_id=?, room_id=?, sub_room_id=?, room_size1=?, room_size2=?, facility=?, image1=?, image2=?, image3=? WHERE property_sub_room_id=?",
+    "UPDATE tbl_rooms_to_property_sub SET property_id=?, room_id=?, sub_room_id=?, room_size1=?, room_size2=?, facility=? WHERE tbl_rooms_to_property_sub.property_sub_room_id=?",
     [
-      subRoomData.property_sub_room_id,
       subRoomData.property_id,
       subRoomData.room_id,
       subRoomData.sub_room_id,
       subRoomData.room_size1,
       subRoomData.room_size2,
       subRoomData.facility,
-      subRoomData.image1,
-      subRoomData.image2,
-      subRoomData.image3,
       property_sub_room_id,
     ],
     (err, res) => {

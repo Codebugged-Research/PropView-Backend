@@ -11,9 +11,6 @@ var RoomsToProperty = function (roomsToProperty) {
   this.balcony = roomsToProperty.balcony;
   this.wardrobe = roomsToProperty.wardrobe;
   this.facility = roomsToProperty.facility;
-  this.image1 = roomsToProperty.image1;
-  this.image2 = roomsToProperty.image2;
-  this.image3 = roomsToProperty.image3;
 };
 
 RoomsToProperty.saveRoomsToProperty = (roomsToPropertyReqData, result) => {
