@@ -71,7 +71,7 @@ exports.getAllSubRoomByPropertyId = (req, res) => {
 exports.updateSubRoom = (req, res) => {
   try {
     const subRoomToProperty = new SubRoomsToPropertyModels(req.body);
-    SubRoomsToPropertyModels.updateSubRooms(
+    SubRoomsToPropertyModels.findByIdAndUpdate(
       req.params.property_sub_room_id,
       subRoomToProperty,
       (err, subRoom) => {
