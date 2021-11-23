@@ -82,7 +82,7 @@ exports.updateSubRoom = (req, res) => {
           });
         } else {
           res.json({
-            success: true,
+            success: subRoom,
           });
         }
       }

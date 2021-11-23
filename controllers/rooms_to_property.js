@@ -79,7 +79,7 @@ exports.updateRoomsToProperty = (req, res) => {
           });
         } else {
           res.json({
-            success: true,
+            success: roomsToProperty,
           });
         }
       }
