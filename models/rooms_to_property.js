@@ -57,7 +57,7 @@ RoomsToProperty.findByIdAndUpdate = (
   result
 ) => {
   dbConn.query(
-    "UPDATE tbl_rooms_to_property SET property_id=?, room_id=?, room_size1=?, room_size2=?, bath=?, flooring=?, balcony=?, wardrobe=?, facility=?, image1=?, image2=?, image3=? WHERE  property_room_id=? ",
+    "UPDATE tbl_rooms_to_property SET property_id=?, room_id=?, room_size1=?, room_size2=?, bath=?, flooring=?, balcony=?, wardrobe=?, facility=? WHERE tbl_rooms_to_property.property_room_id=? ",
     [
       roomsToPropertyReqData.property_id,
       roomsToPropertyReqData.room_id,
@@ -68,9 +68,6 @@ RoomsToProperty.findByIdAndUpdate = (
       roomsToPropertyReqData.balcony,
       roomsToPropertyReqData.wardrobe,
       roomsToPropertyReqData.facility,
-      roomsToPropertyReqData.image1,
-      roomsToPropertyReqData.image2,
-      roomsToPropertyReqData.image3,
       property_room_id,
     ],
     (err, res) => {
