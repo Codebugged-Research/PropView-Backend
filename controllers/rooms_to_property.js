@@ -87,7 +87,7 @@ exports.updateRoomsToProperty = (req, res) => {
   } catch (err) {
     return res.status(500).json({
       success: false,
-      message: "Error while updating rooms to property",
+      message: "Error while updating rooms to property" +err,
     });
   }
 };

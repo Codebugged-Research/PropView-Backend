@@ -90,7 +90,7 @@ exports.updateSubRoom = (req, res) => {
   } catch (err) {
     return res.status(500).json({
       success: false,
-      message: "An error occurred while updating the subroom.",
+      message: "An error occurred while updating the subroom." + err,
     });
   }
 };
