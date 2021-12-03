@@ -1,19 +1,7 @@
 const AttendanceModel = require("../models/attendance");
 const path = require("path");
-
-const nodemailer = require('nodemailer');
-const smtpTransport = require('nodemailer-smtp-transport');
-
-const transporter = nodemailer.createTransport(
-  smtpTransport({
-    service: 'yandex',
-    host: 'smtp.yandex.com',
-    auth: {
-      user: 'propview.app@yandex.com',
-      pass: 'hjwzvdzgzqnjymtu',
-    },
-  })
-);
+const xl = require('excel4node');
+var fs = require('fs');
 
 exports.createAttendance = (req, res) => {
   const attendanceReqData = new AttendanceModel(req.body);
@@ -185,44 +173,60 @@ exports.updateAttendance = (req, res) => {
 };
 
 exports.exportAttendance = (req, res) => {
-  AttendanceModel.exportCSV((err, attendance) => {
-    // const mailOptions = {
-    //   from: 'propview.app@yandex.com',
-    //   to: 'majhisambit2@gmail.com',
-    //   subject: 'Attendance Report',
-    //   text: 'Find the attached document.',
-    //   attachments: [
-    //     {
-    //       path: './attendance.csv'
-    //     },
-    //   ]
-    // };
-    // transporter.sendMail(mailOptions, (err, info) => {
-    //   if (err) return res.status(400).json({
-    //     "success": err,
-    //   });
-    //   else {
-    //     res.json({ "success": true });
-    //   }
-    // });
+  AttendanceModel.exportCSV(req.params.start, req.params.end,(err, attendance) => {
     if (err) {
-      if (err) return res.status(400).json({
-        "err": err,
+      res.status(500).send({ err });
+    } else if (attendance.length > 0) {
+      const wb = new xl.Workbook();
+      const now = Date.now();
+      const ws = wb.addWorksheet(now);
+      const data = attendance;
+      const headingColumnNames = [
+        "attendance_id",
+        "user_id",
+        "parent_id",
+        "punch_in",
+        "punch_out",
+        "meter_in",
+        "meter_out",
+        "work_hour",
+        "date",
+        "name",
+        "email",
+        "diff_km",
+        "geo_in",
+        "geo_out"
+      ]
+      //Write Column Title in Excel file
+      let headingColumnIndex = 1;
+      headingColumnNames.forEach(heading => {
+        ws.cell(1, headingColumnIndex++)
+          .string(heading)
       });
-    } else {
-      var fileName = path.join(__dirname,'/attendance.csv');
-      res.setHeader('Content-Disposition', 'attachment; filename=' + "attendance.csv");
+      //Write Data in Excel file
+      let rowIndex = 2;
+      data.forEach(record => {
+        let columnIndex = 1;
+        Object.keys(record).forEach(columnName => {
+          ws.cell(rowIndex, columnIndex++)
+            .string(record[columnName].toString())
+        });
+        rowIndex++;
+      });
+      wb.write('attendance.xlsx');
+      res.setHeader('Content-Disposition', 'attachment; filename=' + req.params.filename + ".xlsx");
       res.setHeader('Content-Transfer-Encoding', 'binary');
-      res.setHeader('Content-Type', 'application/octet-stream')
-      res.sendFile(fileName, function (err) {
+      res.setHeader('Content-Type', 'application/octet-stream');
+      res.sendFile(path.join(__dirname, '../', 'attendance.xlsx'), function (err) {
         if (err) {
-          res.status(400).json({
-            "err": err,
-          });
+          res.redirect('/500');
         } else {
-          console.log('Sent:', fileName);
+          console.log('Sent:', " attendance.xlsx");
         }
       });
+    }
+    else {
+      res.redirect('/404');
     }
   });
 };

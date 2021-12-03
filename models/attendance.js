@@ -272,29 +272,17 @@ Attendance.findAttendancesForCheck = (result) => {
   );
 };
 
-Attendance.exportCSV = (result) => {
-  const currentTime = Date.now();
-  const currentDate = new Date(currentTime);
-  var date =
-    "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getFullYear();
+Attendance.exportCSV = (start, end, result) => {
   dbConn.query(
-    {
-      sql: "SELECT * FROM app_attendance WHERE date LIKE '%?'",
-      date,
-      nestTables: false,
-    },
+    "SELECT * FROM app_attendance WHERE (punch_in BETWEEN ? AND ?)",
+    [start, end],
     (err, res) => {
       if (err) {
-        result(null, err);
+        result(err, null);
       }
-      const jsonData = JSON.parse(JSON.stringify(res));
-      fastcsv
-        .write(jsonData, { headers: true })
-        .on("finish", function () {
-          console.log("Write to attendance.csv successfully!");
-          result(null, jsonData);
-        })
-        .pipe(ws);
+      else{
+        result(null, res);
+      }
     }
   );
 };

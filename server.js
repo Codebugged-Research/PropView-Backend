@@ -47,6 +47,9 @@ app.get("/version", (req, res) => {
   res.json("1.0.30+31");
 });
 
+app.use('/404', express.static('public/404'));
+app.use('/500', express.static('public/500'));
+
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", stateRoutes);
@@ -74,6 +77,7 @@ app.use("/api", regularInspectionRowRoutes);
 app.use("/api", billTypesRoutes);
 app.use("/api", billPropertyRoutes);
 app.use("/api", propertyAssignmentRoutes);
+
 
 //Cron Job
 require("./cron/attendance");
