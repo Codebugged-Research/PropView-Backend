@@ -7,7 +7,7 @@ router.post("/subroom/create", SubRoomsProperty.createSubRoomToProperty);
 
 
 router.get("/subroom/get/", SubRoomsProperty.getAllSubRooms);
-router.get("/subroom/get/:id", SubRoomsProperty.getSubRoomById);
+router.get("/subroom/get/self/:id", SubRoomsProperty.getSubRoomById);
 
 router.get(
   "/subroom/get/property/:property_id",
