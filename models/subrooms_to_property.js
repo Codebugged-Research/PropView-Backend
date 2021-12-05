@@ -10,6 +10,19 @@ var SubRoomsToProperty = function (subRoomsToProperty) {
   this.facility = subRoomsToProperty.facility;
 };
 
+SubRoomsToProperty.findById = (property_sub_room_id, result) => {
+  dbConn.query(
+    "SELECT * FROM tbl_rooms_to_property_sub WHERE property_sub_room_id=?",
+    property_sub_room_id,
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      result(null, res);
+    }
+  );
+}
+
 SubRoomsToProperty.saveSubRoomsToProperty = (subRoomsReqData, result) => {
   dbConn.query(
     "INSERT INTO tbl_rooms_to_property_sub SET?",

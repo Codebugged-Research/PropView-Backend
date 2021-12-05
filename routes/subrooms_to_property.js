@@ -5,7 +5,9 @@ const SubRoomsProperty = require("../controllers/subrooms_to_property");
 
 router.post("/subroom/create", SubRoomsProperty.createSubRoomToProperty);
 
+
 router.get("/subroom/get/", SubRoomsProperty.getAllSubRooms);
+router.get("/subroom/get/:id", SubRoomsProperty.getSubRoomById);
 
 router.get(
   "/subroom/get/property/:property_id",

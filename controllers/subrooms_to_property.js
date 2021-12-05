@@ -45,6 +45,26 @@ exports.getAllSubRooms = (req, res) => {
   }
 };
 
+exports.getSubRoomById = (req, res) => {
+  try {
+    SubRoomsToPropertyModels.findById(req.params.id, (err, subRoom) => {
+      if (err) {
+        return res.status(400).json({
+          success: false,
+          message: "An error occurred while getting subroom.",
+        });
+      } else {
+        res.json(subRoom);
+      }
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred while getting the subroom.",
+    });
+  }
+}
+
 exports.getAllSubRoomByPropertyId = (req, res) => {
   try {
     SubRoomsToPropertyModels.findSubRoomByPropertyId(

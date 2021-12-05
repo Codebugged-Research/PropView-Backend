@@ -26,6 +26,19 @@ RoomsToProperty.saveRoomsToProperty = (roomsToPropertyReqData, result) => {
   );
 };
 
+RoomsToProperty.findById = (property_room_id, result) => {
+  dbConn.query(
+    "SELECT * FROM tbl_rooms_to_property WHERE property_room_id=?",
+    property_room_id,
+    (err, res) => {
+      if (err) {
+        result(null, err);
+      }
+      result(null, res);
+    }
+  );
+}
+
 RoomsToProperty.findAllRooms = (result) => {
   dbConn.query("SELECT * FROM tbl_rooms_to_property", (err, res) => {
     if (err) {

@@ -43,6 +43,25 @@ exports.getRoomsToProperty = (req, res) => {
   }
 };
 
+exports.getRoomsById = (req, res) => {
+  try {
+    RoomsToPropertyModel.findById(req.params.id, (err, roomsToProperty) => {
+      if (err) {
+        return res.status(400).json({
+          success: false,
+          message: "No property room is found!",
+        });
+      }
+      return res.json(roomsToProperty);
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: "Error while getting rooms to property",
+    });
+  }
+}
+
 exports.getRoomsToPropertyByPropertyId = (req, res) => {
   try {
     RoomsToPropertyModel.findAllRoomsByPropertyId(
