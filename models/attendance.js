@@ -249,27 +249,16 @@ Attendance.findByIdAndUpdate = (attendance_id, attendanceReqData, result) => {
 };
 
 Attendance.findAttendancesForCheck = (result) => {
-  var nestingOptions = [
-    {
-      tableName: "app_attendance",
-      pkey: "attendance_id",
-      fkeys: [{ table: "tbl_users", col: "user_id" }],
-    },
-    { tableName: "tbl_users", pkey: "user_id" },
-  ];
   dbConn.query(
-    {
-      sql: "SELECT * FROM app_attendance JOIN tbl_users ON app_attendance.user_id = tbl_users.user_id ORDER BY punch_in DESC",
-      nestTables: true,
-    },
+    "SELECT * FROM app_attendance ORDER BY attendance_id DESC LIMIT 500",
     (err, res) => {
       if (err) {
         result(null, err);
       }
-      var nestedRows = func.convertToNested(res, nestingOptions);
-      result(null, nestedRows);
+      result(null, res);
     }
   );
+
 };
 
 Attendance.exportCSV = (start, end, result) => {

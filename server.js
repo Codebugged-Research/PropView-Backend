@@ -82,10 +82,10 @@ app.use("/api", propertyAssignmentRoutes);
 app.set('view engine', 'ejs');
 
 app.get('/pdf/:id', async (req, res) => {
-    res.render('export', {id:req.params.id});
+  res.render('export', { id: req.params.id });
 });
 app.get('/pdf/regular/:id', async (req, res) => {
-    res.render('export2', {id:req.params.id});
+  res.render('export2', { id: req.params.id });
 });
 
 //Cron Job
