@@ -104,6 +104,7 @@ PropertyOwner.searchProperty = (query, result) => {
         { table: "tbl_city", col: "ccid" },
         { table: "tbl_locality", col: "locid" },
         { table: "tbl_society", col: "socid" },
+        { table: "property_owner", col: "owner_id" },
       ],
     },
     { tableName: "tbl_country", pkey: "cid" },
@@ -111,6 +112,7 @@ PropertyOwner.searchProperty = (query, result) => {
     { tableName: "tbl_city", pkey: "ccid" },
     { tableName: "tbl_locality", pkey: "locid" },
     { tableName: "tbl_society", pkey: "socid" },
+    { table: "property_owner", col: "owner_id" },
   ];
   dbConn.query(
     {
