@@ -76,7 +76,7 @@
     </p>
     <table style="border: 0px solid black;">
         <tr style=" border: 0px solid black;">
-            <td style=" border: 0px solid black;"><img src="https://propview.ap-south-1.linodeobjects.com/logo.jpg"
+            <td style=" border: 0px solid black;"><img src="https://propview.ap-south-1.linodeobjects.com/logov2.jpeg"
                     alt="" width="80" height="80"></td>
             <td style="text-align: right; border: 0px solid black;">
                 <p style="
@@ -220,13 +220,13 @@
                 document.getElementById("billTable").style = "";
                 document.getElementById("billTable").innerHTML = `<tr>
             <th class="key ">
-                Invoice No.
+                Type
             </th>
             <th class="key ">
                 Authority
             </th>
             <th class="key ">
-                Type
+                Invoice No.
             </th>
             <th class="key ">
                 Amount
@@ -239,16 +239,17 @@
                     // print tenant details
                     console.log(`Bill ${i + 1}`, billModel[i]);
                     var d = new Date(billModel[i].last_update);
+                    d = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
                     var billType = billlist.find(x => x.bill_type_id === billModel[i].bill_type_id);
                     document.getElementById("billTable").innerHTML += `<tr>
             <td class="value width20">
-                ${billModel[i].bill_id}
+                ${billType.bill_name}
             </td>
             <td class="value width20">
                 ${billModel[i].authority_name}
             </td>
             <td class="value width20">
-                ${billType.bill_name}
+                ${billModel[i].bill_id}
             </td>
             <td class="value width20">
                 Rs ${billModel[i].amount}
@@ -269,12 +270,12 @@
                     issuetable = issueTableModel.data[0];
                     //print issue table
                     console.log(`Issuetable ${i + 1}`, issuetable);
-                    htmltablestring = `<h3 style="color: red;">${issuetable.roomsubroom_name}</h3>`;
+                    htmltablestring = `<br><h3 style="color: red;">${issuetable.roomsubroom_name}</h3>`;
                     var issueIdlist = issuetable.issue_row_id.split(",");
                     if (issueIdlist.length > 0) {
                         htmltablestring += `<table> <tr>
-                        <th class="key width10">Srl No</th>
-                        <th class="key width20">Item</th>
+                        <th class="key width10">Sr No</th>
+                        <th class="key width20">Particular</th>
                         <th class="key width10">Status</th>
                         <th class="key">Remarks</th>
                         <th class="key width15">Photos</th>
