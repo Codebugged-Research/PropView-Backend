@@ -34,7 +34,7 @@ PropertyRoom.findPropertyRoomById = (room_id, result) => {
 };
 
 PropertyRoom.findPropertyRoom = (result) => {
-  dbConn.query("SELECT * FROM tbl_property_rooms", (err, res) => {
+  dbConn.query("SELECT * FROM tbl_property_rooms ORDER BY room_name", (err, res) => {
     if (err) {
       result(null, err);
     }
