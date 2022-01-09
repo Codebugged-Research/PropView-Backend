@@ -169,7 +169,7 @@
             const employee_id = inspection.employee_id;
             const property_id = inspection.property_id;
             var d = new Date(inspection.created_at);
-            document.getElementById("visitdate").innerHTML = d.toLocaleString();
+            document.getElementById("visitdate").innerHTML = d.toLocaleDateString('en-uk', { year:"numeric", month:"short", day:"numeric"});
             document.getElementById("reportTitle").innerHTML = "Regular Inspection Report";
             const response2 = await fetch('https://api.propdial.co.in/api/user/' + employee_id);
             const employee = await response2.json();
