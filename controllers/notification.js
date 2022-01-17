@@ -1,13 +1,22 @@
 var admin = require("firebase-admin");
 
 exports.oneUser = (req, res) => {
-  var payload = {
-    notification: {
-      title: req.body.title,
-      body: req.body.message,
-    },
-    data: req.body.data
-  };
+  if (req.body.data === undefined) {
+    var payload = {
+      notification: {
+        title: req.body.title,
+        body: req.body.message,
+      },
+    };
+  } else {
+    var payload = {
+      notification: {
+        title: req.body.title,
+        body: req.body.message,
+      },
+      data: req.body.data
+    };
+  }
   var options = {
     priority: "high",
     timeToLive: 60 * 60 * 24,
@@ -18,6 +27,7 @@ exports.oneUser = (req, res) => {
     .then(function (response) {
       return res.json({
         message: "Successfully Send",
+        response: response,
       });
     })
     .catch(function (error) {
@@ -29,12 +39,22 @@ exports.oneUser = (req, res) => {
 };
 
 exports.allUser = (req, res) => {
-  var payload = {
-    notification: {
-      title: "Update !",
-      body: `"${req.body.message}" has been added.`,
-    },
-  };
+  if (req.body.data === undefined) {
+    var payload = {
+      notification: {
+        title: req.body.title,
+        body: req.body.message,
+      },
+    };
+  } else {
+    var payload = {
+      notification: {
+        title: req.body.title,
+        body: req.body.message,
+      },
+      data: req.body.data
+    };
+  }
 
   var topic = "propview";
 
