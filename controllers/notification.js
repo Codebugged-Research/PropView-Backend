@@ -23,6 +23,7 @@ exports.oneUser = (req, res) => {
     .catch(function (error) {
       return res.json({
         message: "Not Send",
+        error: error,
       });
     });
 };
@@ -48,6 +49,7 @@ exports.allUser = (req, res) => {
     .catch(function (error) {
       return res.json({
         message: "Not Send",
+        error: error,
       });
     });
 };
