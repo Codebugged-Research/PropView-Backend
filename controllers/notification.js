@@ -21,9 +21,9 @@ exports.oneUser = (req, res) => {
       });
     })
     .catch(function (error) {
-      return res.json({
+      return res.status(400).json({
         message: "Not Send",
-        error: error,
+        err: error,
       });
     });
 };
@@ -47,7 +47,7 @@ exports.allUser = (req, res) => {
       });
     })
     .catch(function (error) {
-      return res.json({
+      return res.status(400).json({
         message: "Not Send",
         error: error,
       });
