@@ -263,13 +263,13 @@ Attendance.findAttendancesForCheck = (result) => {
 
 Attendance.exportCSV = (start, end, result) => {
   dbConn.query(
-    "SELECT * FROM app_attendance WHERE (punch_in BETWEEN ? AND ?)",
+    "SELECT * FROM app_attendance WHERE (punch_in >= ? AND punch_in <= ? + interval 1 day) ORDER BY attendance_id DESC",
     [start, end],
     (err, res) => {
       if (err) {
         result(err, null);
       }
-      else{
+      else {
         result(null, res);
       }
     }
