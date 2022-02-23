@@ -159,7 +159,7 @@
             window.print();
             document.getElementById('info').style = 'border: 0px solid black;';
         }
-        window.onload = async function () {
+        window.onpaint = async function () {
             var inspection_id = document.getElementById("inspection_id").childNodes[0].nodeValue;
             const response = await fetch('https://api.propdial.co.in/api/inspection/regular/get/' + inspection_id);
             var inspectionModel = await response.json();

@@ -5,6 +5,7 @@ var RegularInspection = function (regularInspection) {
   this.row_list = regularInspection.row_list;
   this.property_id = regularInspection.property_id;
   this.employee_id = regularInspection.employee_id;
+  this.summary = regularInspection.summary;
   this.created_at = regularInspection.created_at;
   this.updated_at = regularInspection.updated_at;
 };

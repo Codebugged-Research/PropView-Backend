@@ -6,6 +6,7 @@ var Inspection = function (inspection) {
   this.inspect_type = inspection.inspect_type;
   this.property_id = inspection.property_id;
   this.employee_id = inspection.employee_id;
+  this.summary = inspection.summary;
   this.issue_id_list = inspection.issue_id_list; //List of id
   this.createdAt = inspection.createdAt;
   this.updatedAt = inspection.updatedAt;
