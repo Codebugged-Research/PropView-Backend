@@ -47,7 +47,7 @@ app.use(cookieParser());
 app.use(cors());
 
 app.get("/version", (req, res) => {
-  res.json("1.0.38+39");
+  res.json("1.0.40+41");
 });
 
 app.use('/404', express.static('public/404'));
