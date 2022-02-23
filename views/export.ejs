@@ -157,11 +157,6 @@
 
     </div>
     <script>
-        function printpdf() {
-            document.getElementById('info').style.display = 'none';
-            window.print();
-            document.getElementById('info').style = 'border: 0px solid black;';
-        }
         window.onpaint = async function () {
             var inspection_id = document.getElementById("inspection_id").childNodes[0].nodeValue;
             const response = await fetch('https://api.propdial.co.in/api/inspection/get/' + inspection_id);

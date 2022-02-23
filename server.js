@@ -38,6 +38,8 @@ const billTypesRoutes = require("./routes/bill_types");
 const billPropertyRoutes = require("./routes/bill_property");
 const propertyAssignmentRoutes = require("./routes/property_assignment");
 
+var exportfunc = require("./exportattendance/simple");
+
 //Middlewares
 app.use(express.json());
 app.use(cookieParser());
@@ -82,7 +84,8 @@ app.use("/api", propertyAssignmentRoutes);
 app.set('view engine', 'ejs');
 
 app.get('/pdf/:id', async (req, res) => {
-  res.render('export', { id: req.params.id });
+  var ss = await exportfunc.func(req.params.id );
+  res.send(ss);
 });
 app.get('/pdf/regular/:id', async (req, res) => {
   res.render('export2', { id: req.params.id });
