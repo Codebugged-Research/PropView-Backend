@@ -39,6 +39,7 @@ const billPropertyRoutes = require("./routes/bill_property");
 const propertyAssignmentRoutes = require("./routes/property_assignment");
 
 var exportfunc = require("./exportattendance/simple");
+var exportfunc2 = require("./exportattendance/regular");
 
 //Middlewares
 app.use(express.json());
@@ -80,17 +81,14 @@ app.use("/api", billTypesRoutes);
 app.use("/api", billPropertyRoutes);
 app.use("/api", propertyAssignmentRoutes);
 
-//reprot to pdf
-app.set('view engine', 'ejs');
-
 app.get('/pdf/:id', async (req, res) => {
   var ss = await exportfunc.func(req.params.id );
   res.send(ss);
 });
 app.get('/pdf/regular/:id', async (req, res) => {
-  res.render('export2', { id: req.params.id });
+  var ss = await exportfunc2.func(req.params.id );
+  res.send(ss);
 });
-
 //Cron Job
 require("./cron/attendance");
 
