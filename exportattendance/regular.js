@@ -98,7 +98,7 @@ exports.func = async function (inspection_id) {
     const response = await fetch('https://api.propdial.co.in/api/inspection/regular/get/' + inspection_id);
     var inspectionModel = await response.json();
     var inspection = inspectionModel[0];
-    
+
     const employee_id = inspection.employee_id;
     const property_id = inspection.property_id;
     var d = new Date(inspection.created_at);
@@ -147,10 +147,11 @@ exports.func = async function (inspection_id) {
             htmltablestring = `<br><h3 style="color: red;">${issuetable.roomsubroom_name}</h3>`;
             htmltablestring += `<table> <tr>
                             <th class="key width10">Sr No</th>
-                            <th class="key width20">General</th>
-                            <th class="key width20">Seepage</th>
-                            <th class="key width20">Termite</th>
-                            <th class="key width30">Others</th>
+                            <th class="key width15">General</th>
+                            <th class="key width15">Seepage</th>
+                            <th class="key width15">Termite</th>
+                            <th class="key width15">Others</th>
+                            <th class="key width20">Photos</th>
                         </tr>`;
             htmltablestring += `<tr>
                             <td class="value">
@@ -168,6 +169,15 @@ exports.func = async function (inspection_id) {
                             <td class="value">
                                 ${issuetable.other_issue}
                             </td>
+                            <td class="value">`;
+            if (issuetable.photo != "") {
+                var photolist = issuetable.photo.split(",");
+                for (k = 0; k < photolist.length; k++) {
+                    htmltablestring += `<a href="https://propview.ap-south-1.linodeobjects.com/Inspection/${photolist[k]}"><img src="https://propview.ap-south-1.linodeobjects.com/Inspection/${photolist[k]}" width="90" height="120"></a> <br><br>`;
+                }
+            }
+            htmltablestring += `
+                </td>
                         </tr></table>`;
             roomwise_Data += htmltablestring;
         }

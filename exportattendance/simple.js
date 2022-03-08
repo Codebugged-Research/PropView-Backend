@@ -96,8 +96,8 @@ exports.func = async function (inspection_id) {
     // print inspection
     const employee_id = inspection.employee_id;
     const property_id = inspection.property_id;
-    var d = new Date(inspection.createdAt);
-    d = d.toLocaleDateString('en-uk', { year: "numeric", month: "short", day: "numeric" });
+    var d1 = new Date(inspection.createdAt);
+    d2 = d1.toLocaleDateString('en-uk', { year: "numeric", month: "short", day: "numeric" });
 
     const response2 = await fetch('https://api.propdial.co.in/api/user/' + employee_id);
     const employee = await response2.json();
@@ -155,8 +155,8 @@ exports.func = async function (inspection_id) {
             </th>
         </tr>`;
         for (i = 0; i < billModel.length; i++) {
-            var d = new Date(billModel[i].last_update);
-            d = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
+            var d3 = new Date(billModel[i].last_update === '0000-00-00 00:00:00' ? billModel[i].date_added : billModel[i].last_update);
+            d4 = d3.getDate() + "/" + (d3.getMonth() + 1) + "/" + d3.getFullYear();
             var billType = billlist.find(x => x.bill_type_id === billModel[i].bill_type_id);
             bill_Data += `<tr>
             <td class="value width20">
@@ -172,7 +172,7 @@ exports.func = async function (inspection_id) {
                 Rs ${billModel[i].amount}
             </td>
             <td class="value width20">
-                ${d.toLocaleString()}
+                ${d4}
             </td>
         </tr>`
         }
@@ -246,7 +246,7 @@ exports.func = async function (inspection_id) {
         <tr>
             <td class="key ">
                 Site Visit Date:
-            </td> <td class="value width75">${d}</td>
+            </td> <td class="value width75">${d2}</td>
     </tr>
 </table>
 <br>
