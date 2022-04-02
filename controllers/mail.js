@@ -1,5 +1,8 @@
-var mailgun = require('mailgun-js')
-       ({apiKey: '02b35d623f2ed0506acbd3876f26a5d3', domain: 'propdial.in'});
+const formData = require('form-data');
+const Mailgun = require('mailgun.js');
+const mailgun = new Mailgun(formData);
+const mg = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY || 'key-yourkeyhere' });
+
 const fromEmail = 'Propdial <admin@propdial.in>';
 const toEmails = 'majhisambit2@gmail.com';
 
@@ -307,16 +310,20 @@ exports.sendMail = (req, res) => {
         "to": toEmails,
         "subject": "email_subject",
         "text": "email_body"
-      };
-       
-      mailgun.messages().send(data, (error, body) => {
-        if(error) {
-            console.log(error);
-            res.status(500).send(error);
-        }
-        else {
-            console.log(body);
-            res.status(200).send(body);
-        }
-      });
+    };
+    mg.messages.create('propdial.in', {
+        from: "admin@propdial.com",
+        to: ["majhisambit2@gmail.com"],
+        subject: "Hello",
+        text: "Testing some Mailgun awesomness!",
+        html: "<h1>Testing some Mailgun awesomness!</h1>"
+    })
+        .then(msg => {
+            console.log(msg);
+            res.status(200).send(msg);
+        }) // logs response data
+        .catch(err => {
+            console.log(err);
+            res.status(500).send(err);
+        })
 }
