@@ -1,28 +1,11 @@
-const fs = require('fs');
-const mailgun = require('../lib/index');
-
-const mg = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY || '', timeout: 60000 });
-
-const domain = 'sandbox-123.mailgun.com';
-const fromEmail = 'Excited User <mailgun@sandbox-123.mailgun.com>';
-const toEmails = ['you@example.com'];
-
-
-mg.messages.create(domain, {
-  from: fromEmail,
-  to: toEmails,
-  subject: 'Hello',
-  html: ss,
-  text: 'Testing some Mailgun awesomness!',
-  inline: [mailgunLogo],
-  attachment: [rackspaceLogo]
-})
-  .then((msg) => console.log(msg))
-  .catch((err) => console.log(err));
+var mailgun = require('mailgun-js')
+       ({apiKey: '02b35d623f2ed0506acbd3876f26a5d3', domain: 'propdial.in'});
+const fromEmail = 'Propdial <admin@propdial.in>';
+const toEmails = 'majhisambit2@gmail.com';
 
 
 
-  ss = `
+const ss = `
   <!DOCTYPE html>
 <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
 
@@ -317,3 +300,23 @@ mg.messages.create(domain, {
 </body>
 
 </html>`
+
+exports.sendMail = (req, res) => {
+    const data = {
+        "from": fromEmail,
+        "to": toEmails,
+        "subject": "email_subject",
+        "text": "email_body"
+      };
+       
+      mailgun.messages().send(data, (error, body) => {
+        if(error) {
+            console.log(error);
+            res.status(500).send(error);
+        }
+        else {
+            console.log(body);
+            res.status(200).send(body);
+        }
+      });
+}

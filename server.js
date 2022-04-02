@@ -37,6 +37,7 @@ const regularInspectionRowRoutes = require("./routes/regular_inspection_row");
 const billTypesRoutes = require("./routes/bill_types");
 const billPropertyRoutes = require("./routes/bill_property");
 const propertyAssignmentRoutes = require("./routes/property_assignment");
+const mailRoutes = require("./routes/mail");
 
 var exportfunc = require("./exportattendance/simple");
 var exportfunc2 = require("./exportattendance/regular");
@@ -80,6 +81,7 @@ app.use("/api", regularInspectionRowRoutes);
 app.use("/api", billTypesRoutes);
 app.use("/api", billPropertyRoutes);
 app.use("/api", propertyAssignmentRoutes);
+app.use("/api", mailRoutes);
 
 app.get('/pdf/:id', async (req, res) => {
   var ss = await exportfunc.func(req.params.id );
