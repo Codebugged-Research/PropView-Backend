@@ -162,7 +162,7 @@ function genData(lat, lang, name, type) {
                                                                   <div style="font-family:sans-serif">
                                                                       <div class="txtTinyMce-wrapper"
                                                                           style="font-size:12px;mso-line-height-alt:14.399999999999999px;color:#40507a;line-height:1.2;font-family:Helvetica Neue,Helvetica,Arial,sans-serif">
-                                                                          <p style="margin:0;font-size:12px">User: ${name} just ${type} for work</p>
+                                                                          <p style="margin:0;font-size:12px">User: ${name} just ${type} for/from work</p>
                                                                       </div>
                                                                   </div>
                                                               </td>
