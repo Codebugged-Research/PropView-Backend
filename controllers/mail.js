@@ -313,7 +313,8 @@ function genData(lat, lang, name, type) {
 exports.sendMail = async (req, res) => {
     const accessToken = await oauth2Client.getAccessToken();
     const transporter = nodemailer.createTransport({
-        service: "gmail",
+        port: 465,
+        host: "smtp.gmail.com",
         auth: {
             type: "OAuth2",
             user: "propview.app@gmail.com",
