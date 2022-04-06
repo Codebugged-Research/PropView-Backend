@@ -1,14 +1,13 @@
-const fromEmail = 'admin@propdial.com';
-const toEmails = 'majhisambit2@gmail.com';
+const fromEmail = 'propview.app@gmail.com';
 
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-           user: 'propview.app@gmail.com',
-           pass: 'propview123@#'
-       }
-   });
+        user: 'propview.app@gmail.com',
+        pass: 'propview123@#'
+    }
+});
 
 
 function genData(lat, lang, name, type) {
@@ -191,7 +190,7 @@ function genData(lat, lang, name, type) {
                                                           <tr>
                                                               <td>
                                                                   <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://www.google.co.in/maps/@20.3114178,85.823836,17z" style="height:34px;width:115px;v-text-anchor:middle;" arcsize="12%" stroke="false" fillcolor="#3AAEE0"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:12px"><![endif]-->
-                                                                  <a href="https://www.google.co.in/maps/@${lat},${lang}z"
+                                                                  <a href="https://maps.google.com/?q=${lat},${lang}"
                                                                       target="_blank"
                                                                       style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#3AAEE0;border-radius:4px;width:auto;border-top:1px solid #3AAEE0;border-right:1px solid #3AAEE0;border-bottom:1px solid #3AAEE0;border-left:1px solid #3AAEE0;padding-top:5px;padding-bottom:5px;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;"><span
                                                                           style="padding-left:20px;padding-right:20px;font-size:12px;display:inline-block;letter-spacing:normal;"><span
@@ -311,9 +310,8 @@ function genData(lat, lang, name, type) {
 exports.sendMail = (req, res) => {
     var data = {
         from: fromEmail,
-        to: toEmails,
-        "subject": "email_subject",
-        "text": "email_body",
+        to: req.body.to,
+        "subject": `${req.body.type} Update for ${req.body.name}`,
         "html": genData(req.body.lat, req.body.long, req.body.name, req.body.type)
     };
     transporter.sendMail(data, (error, body) => {
