@@ -1,12 +1,15 @@
 const fromEmail = 'propview.app@gmail.com';
 
 var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'propview.app@gmail.com',
-        pass: 'propview123@#'
-    }
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
+const oauth2Client = new OAuth2(
+    "964705230961-skt5l7run9v1oki9labacs2g31prcfvq.apps.googleusercontent.com",
+    "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",
+    "https://developers.google.com/oauthplayground"
+);
+oauth2Client.setCredentials({
+    refresh_token: "1//04RT4HNhxnWPtCgYIARAAGAQSNwF-L9IrfoCtQ0VGu-isEt-J0jQXrJBsmihgbq32mIOpnuMMTLwtm4aL-QtMfSouRwpLo9wU_Jo"
 });
 
 
@@ -307,7 +310,22 @@ function genData(lat, lang, name, type) {
   </html>`;
 }
 
-exports.sendMail = (req, res) => {
+exports.sendMail = async (req, res) => {
+    const accessToken = await oauth2Client.getAccessToken();
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            type: "OAuth2",
+            user: "propview.app@gmail.com",
+            clientId: "964705230961-skt5l7run9v1oki9labacs2g31prcfvq.apps.googleusercontent.com",
+            clientSecret: "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",
+            refreshToken: "1//04RT4HNhxnWPtCgYIARAAGAQSNwF-L9IrfoCtQ0VGu-isEt-J0jQXrJBsmihgbq32mIOpnuMMTLwtm4aL-QtMfSouRwpLo9wU_Jo",
+            accessToken: accessToken
+        },
+        tls: {
+            rejectUnauthorized: false
+        }
+    });
     var data = {
         from: fromEmail,
         to: req.body.to,
