@@ -1,10 +1,14 @@
-var mailgun = require('mailgun-js')
-    ({ apiKey: '02b35d623f2ed0506acbd3876f26a5d3', domain: 'propdial.in' });
 const fromEmail = 'admin@propdial.com';
 const toEmails = 'majhisambit2@gmail.com';
 
-
-
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+           user: 'propview.app@gmail.com',
+           pass: 'propview123@#'
+       }
+   });
 
 
 function genData(lat, lang, name, type) {
@@ -305,15 +309,14 @@ function genData(lat, lang, name, type) {
 }
 
 exports.sendMail = (req, res) => {
-    const data = {
-        "from": fromEmail,
-        "to": toEmails,
+    var data = {
+        from: fromEmail,
+        to: toEmails,
         "subject": "email_subject",
         "text": "email_body",
         "html": genData(req.body.lat, req.body.long, req.body.name, req.body.type)
     };
-
-    mailgun.messages().send(data, (error, body) => {
+    transporter.sendMail(data, (error, body) => {
         if (error) {
             console.log(error);
             res.status(500).send(error);
