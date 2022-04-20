@@ -1,19 +1,19 @@
-const fromEmail = 'propview.app@gmail.com';
+const fromEmail = 'app.propview@gmail.com';
 
 var nodemailer = require('nodemailer');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const oauth2Client = new OAuth2(
-    "964705230961-skt5l7run9v1oki9labacs2g31prcfvq.apps.googleusercontent.com",
-    "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",
+    "891725313158-jtht4j1dipa92f9thi2ncdvu4nnq5bgn.apps.googleusercontent.com",
+    "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",
     "https://developers.google.com/oauthplayground"
 );
 oauth2Client.setCredentials({
-    refresh_token: "1//04RT4HNhxnWPtCgYIARAAGAQSNwF-L9IrfoCtQ0VGu-isEt-J0jQXrJBsmihgbq32mIOpnuMMTLwtm4aL-QtMfSouRwpLo9wU_Jo"
+    refresh_token: "1//04c18q9lbrLy3CgYIARAAGAQSNwF-L9IroY2yWse4WFHmGrPTkJXPCFpk5het5xDW7ubZIpLvyGxx-1NjcyDL9TQ18WQEPy-IrKY"
 });
 
 
-function genData(lat, lang, name, type) {
+function genData(lat, lang, name, type, dateTime) {
     return `
     <!DOCTYPE html>
   <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
@@ -150,8 +150,20 @@ function genData(lat, lang, name, type) {
                                                                       <div class="txtTinyMce-wrapper"
                                                                           style="font-size:14px;mso-line-height-alt:16.8px;color:#506bec;line-height:1.2;font-family:Helvetica Neue,Helvetica,Arial,sans-serif">
                                                                           <p style="margin:0;font-size:14px"><strong><span
-                                                                                      style="font-size:38px;">Update:
+                                                                                      style="font-size:38px;">Status:
                                                                                       ${type}</span></strong></p>
+                                                                      </div>
+                                                                  </div>
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                              <td>
+                                                                  <div style="font-family:sans-serif">
+                                                                      <div class="txtTinyMce-wrapper"
+                                                                          style="font-size:14px;mso-line-height-alt:16.8px;color:#506bec;line-height:1.2;font-family:Helvetica Neue,Helvetica,Arial,sans-serif">
+                                                                          <p style="margin:0;font-size:14px"><strong><span
+                                                                                      style="font-size:38px;">By:
+                                                                                      ${name}</span></strong></p>
                                                                       </div>
                                                                   </div>
                                                               </td>
@@ -165,7 +177,7 @@ function genData(lat, lang, name, type) {
                                                                   <div style="font-family:sans-serif">
                                                                       <div class="txtTinyMce-wrapper"
                                                                           style="font-size:12px;mso-line-height-alt:14.399999999999999px;color:#40507a;line-height:1.2;font-family:Helvetica Neue,Helvetica,Arial,sans-serif">
-                                                                          <p style="margin:0;font-size:12px">User: ${name} just ${type} for/from work</p>
+                                                                          <p style="margin:0;font-size:12px">${dateTime}</p>
                                                                       </div>
                                                                   </div>
                                                               </td>
@@ -316,21 +328,22 @@ exports.sendMail = async (req, res) => {
         service: "gmail",
         auth: {
             type: "OAuth2",
-            user: "propview.app@gmail.com",
-            clientId: "964705230961-skt5l7run9v1oki9labacs2g31prcfvq.apps.googleusercontent.com",
-            clientSecret: "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",
-            refreshToken: "1//04RT4HNhxnWPtCgYIARAAGAQSNwF-L9IrfoCtQ0VGu-isEt-J0jQXrJBsmihgbq32mIOpnuMMTLwtm4aL-QtMfSouRwpLo9wU_Jo",
+            user: "app.propview@gmail.com",
+            clientId: "891725313158-jtht4j1dipa92f9thi2ncdvu4nnq5bgn.apps.googleusercontent.com",
+            clientSecret: "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",
+            refreshToken: "1//04c18q9lbrLy3CgYIARAAGAQSNwF-L9IroY2yWse4WFHmGrPTkJXPCFpk5het5xDW7ubZIpLvyGxx-1NjcyDL9TQ18WQEPy-IrKY",
             accessToken: accessToken
         },
         tls: {
             rejectUnauthorized: false
         }
-    });
+    });    
+    const now = Date();
     var data = {
         from: fromEmail,
         to: req.body.to,
         "subject": `${req.body.type} Update for ${req.body.name}`,
-        "html": genData(req.body.lat, req.body.long, req.body.name, req.body.type)
+        "html": genData(req.body.lat, req.body.long, req.body.name, req.body.type, now.toString())
     };
     transporter.sendMail(data, (error, body) => {
         if (error) {
