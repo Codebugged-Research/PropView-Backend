@@ -98,7 +98,9 @@ exports.func = async function (inspection_id) {
     const response = await fetch('https://api.propdial.co.in/api/inspection/regular/get/' + inspection_id);
     var inspectionModel = await response.json();
     var inspection = inspectionModel[0];
-
+    var summary  = inspection.summary;
+    var summaryStyle = ""
+    var summaryString = ""
     const employee_id = inspection.employee_id;
     const property_id = inspection.property_id;
     var d = new Date(inspection.created_at);
@@ -116,6 +118,18 @@ exports.func = async function (inspection_id) {
     owner = ownerModel.data.propertyOwner[0];
     var tenant_Data;
     var tenant_Data_Style;
+    if(summary === "") {
+        summaryStyle = "display:None;"        
+    }else{
+        summaryStyle = "display:block;"
+        summaryString = `<tr>
+        <td class="key width10">
+            Summary:
+        </td>
+        <td class="value">
+            ${summary}
+        </td><tr>`
+    }
     if (tenant_id != "") {
         var tenant_id_list = tenant_id.split(",");
         tenant_Data_Style = "";
@@ -236,6 +250,10 @@ exports.func = async function (inspection_id) {
         </tr>
     </table>
     <br> 
+    <br> 
+    <table style=${summaryStyle} id="summary">
+    ${summaryString}
+    </table>
     <br>
     <h2 id="headingroomwise" style="${roomwise_Data_Style === "" ? "text-align: center;" : "text-align: center; display: none;"}">Room Wise Inspection</h2>
     <div id="roomwise" style="${roomwise_Data_Style}">

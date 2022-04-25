@@ -94,6 +94,9 @@ exports.func = async function (inspection_id) {
     var inspectionModel = await response.json();
     var inspection = inspectionModel.data.inspection[0];
     // print inspection
+    var summary  = inspection.summary;
+    var summaryStyle = ""
+    var summaryString = ""
     const employee_id = inspection.employee_id;
     const property_id = inspection.property_id;
     var d1 = new Date(inspection.createdAt);
@@ -111,6 +114,18 @@ exports.func = async function (inspection_id) {
     owner = ownerModel.data.propertyOwner[0];
     var tenant_Data;
     var tenant_Data_Style;
+    if(summary === "") {
+        summaryStyle = "display:None;"        
+    }else{
+        summaryStyle = "display:block;"
+        summaryString = `<tr>
+        <td class="key width10">
+            Summary:
+        </td>
+        <td class="value">
+            ${summary}
+        </td><tr>`
+    }
     if (tenant_id != "") {
         var tenant_id_list = tenant_id.split(",");
         tenant_Data_Style = "";
@@ -290,6 +305,10 @@ exports.func = async function (inspection_id) {
     <h3 style="${bill_Data === "" ? "display: none;" : "color: red;"}">Bill Payment Dues</h3>
     <table style=${bill_Data_Style} id="billTable">
     ${bill_Data}
+    </table>
+    <br>
+    <table style=${summaryStyle} id="summary">
+    ${summaryString}
     </table>
     <br>
     <h2 id="headingroomwise" style="${roomwise_Data_Style === "" ? "text-align: center;" : "text-align: center; display: none;"}">Room Wise Inspection</h2>
