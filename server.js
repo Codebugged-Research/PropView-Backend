@@ -38,6 +38,7 @@ const billTypesRoutes = require("./routes/bill_types");
 const billPropertyRoutes = require("./routes/bill_property");
 const propertyAssignmentRoutes = require("./routes/property_assignment");
 const mailRoutes = require("./routes/mail");
+const gpsRoutes = require("./routes/gps");
 
 var exportfunc = require("./exportattendance/simple");
 var exportfunc2 = require("./exportattendance/regular");
@@ -82,6 +83,7 @@ app.use("/api", billTypesRoutes);
 app.use("/api", billPropertyRoutes);
 app.use("/api", propertyAssignmentRoutes);
 app.use("/api", mailRoutes);
+app.use("/api", gpsRoutes);
 
 app.get('/pdf/:id', async (req, res) => {
   var ss = await exportfunc.func(req.params.id );
