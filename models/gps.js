@@ -32,10 +32,10 @@ GeoData.findAll = (result) => {
     });
 };
 
-GeoData.findGeoByUseryId = (userid, result) => {
+GeoData.findGeoByUseryId = (userid, date, result) => {
     dbConn.query(
-        "SELECT * FROM app_geo_data WHERE user_id=?",
-        userid,
+        "SELECT * FROM app_geo_data WHERE user_id=? AND created_at=?",
+        [userid, date],
         (err, res) => {
             if (err) {
                 result(err, null);

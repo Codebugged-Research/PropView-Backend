@@ -16,7 +16,7 @@ exports.createGPS = (req, res) => {
 
 exports.getGPSByUserId = (req, res) => {
     try {
-        GeoModel.findGeoByUseryId(req.params.user_id, (err, gps) => {
+        GeoModel.findGeoByUseryId(req.params.user_id, req.params.date, (err, gps) => {
             if (err) {
                 return res.status(400).json(err);
             } else {
