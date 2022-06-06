@@ -50,7 +50,7 @@ app.use(cors());
 
 app.get("/version", (req, res) => {
   res.json({
-    "version": "1.0.49+50"
+    "version": "1.0.50+51"
   });
 });
 
